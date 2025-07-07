@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AnimatedHero from "@/components/AnimatedHero";
 import { 
   FaRobot, 
   FaEye, 
@@ -300,101 +301,19 @@ const ServicesPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
       <Header />
       
-      {/* Hero Section */}
-      <section className="relative pt-24 pb-20 overflow-hidden">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600" />
-        <div className="absolute inset-0 bg-black/20" />
-        
-        <motion.div 
-          animate={floatingAnimation}
-          className="absolute top-20 left-20 w-72 h-72 bg-white/10 rounded-full blur-3xl" 
-        />
-        <motion.div 
-          animate={floatingAnimation}
-          transition={{ delay: 1 }}
-          className="absolute bottom-20 right-20 w-96 h-96 bg-white/10 rounded-full blur-3xl" 
-        />
-        <motion.div 
-          animate={pulseAnimation}
-          className="absolute top-1/2 left-1/3 w-48 h-48 bg-white/5 rounded-full blur-2xl" 
-        />
-        
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.div
-              initial={{ scale: 0.8, rotate: -5 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ delay: 0.2, duration: 0.8, type: "spring", stiffness: 100 }}
-              className="inline-block p-4 bg-white/20 backdrop-blur-sm rounded-2xl mb-8"
-            >
-              <span className="text-white/90 text-lg font-medium">QBrik Solutions</span>
-            </motion.div>
-            
-            <motion.h1 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="text-6xl md:text-7xl font-bold text-white mb-8 leading-tight"
-            >
-              Transform Your Business
-              <motion.span 
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-                className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-300"
-              >
-                With Our Services
-              </motion.span>
-            </motion.h1>
-            
-            <motion.p 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-12 leading-relaxed"
-            >
-              From AI-powered automation to cutting-edge robotics, we deliver innovative solutions 
-              that drive growth, efficiency, and competitive advantage.
-            </motion.p>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg hover:shadow-xl transition-all duration-200 group"
-              >
-                <span className="flex items-center gap-2">
-                  Explore Services
-                  <motion.div
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                    className="group-hover:translate-x-1 transition-transform"
-                  >
-                    <FaArrowRight />
-                  </motion.div>
-                </span>
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-200"
-              >
-                Get Free Consultation
-              </motion.button>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
+      <AnimatedHero 
+        headline="Transform Your Business"
+        subheadline="With Our Services"
+        description="From AI-powered automation to cutting-edge robotics, we deliver innovative solutions that drive growth, efficiency, and competitive advantage."
+        primaryAction={{
+          text: "Explore Services",
+          href: "#services"
+        }}
+        secondaryAction={{
+          text: "Get Free Consultation",
+          href: "#contact"
+        }}
+      />
 
       {/* Stats Section */}
       <section className="py-16 bg-white">

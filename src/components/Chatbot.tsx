@@ -150,7 +150,7 @@ const Chatbot = () => {
     // Contact Information
     if (input.includes("contact") || input.includes("phone") || input.includes("email") || input.includes("reach")) {
       return {
-        text: "📞 Here's how to reach us:\n\n📧 Email: hello@qbriksolutions.com\n📱 Phone: +1 (555) 123-4567\n💬 WhatsApp: +1 (555) 123-4567\n📍 Office: Innovation Hub, Tech District\n\nOur team is available Mon-Fri, 8am-6pm for consultations. Would you like to schedule a call?",
+        text: "📞 Here's how to reach us:\n\n📧 Email: support@qbriksolutions.com\n📱 Phone: +92 339 4101341\n💬 WhatsApp: +92 339 4101341\n📍 Office: 3rd Floor Gulberg Emporium, Business Square, Islamabad, Pakistan\n\nOur team is available Mon-Fri, 8am-6pm for consultations. Would you like to schedule a call?",
         quickReplies: ["Schedule Consultation", "Send Email", "WhatsApp Chat", "Visit Office"]
       };
     }
@@ -181,7 +181,7 @@ const Chatbot = () => {
     
     // Default response
     return {
-      text: "Thank you for your message! I'm here to help you with information about our AI, ML, Computer Vision, E-commerce, and Robotics services. You can also contact us directly at hello@qbriksolutions.com for detailed discussions about your project.",
+      text: "Thank you for your message! I'm here to help you with information about our AI, ML, Computer Vision, E-commerce, and Robotics services. You can also contact us directly at support@qbriksolutions.com for detailed discussions about your project.",
       quickReplies: ["AI Services", "Portfolio", "Contact Info", "Pricing"]
     };
   };

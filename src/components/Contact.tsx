@@ -56,19 +56,19 @@ const Contact = () => {
                 <span className="w-8 h-8 bg-blue-600 rounded-full mr-4 flex items-center justify-center text-white font-bold">
                   📧
                 </span>
-                <span className="text-gray-700">hello@qbriksolutions.com</span>
+                <span className="text-gray-700">support@qbriksolutions.com</span>
               </div>
               <div className="flex items-center">
                 <span className="w-8 h-8 bg-blue-600 rounded-full mr-4 flex items-center justify-center text-white font-bold">
                   📱
                 </span>
-                <span className="text-gray-700">+1 (555) 123-4567</span>
+                <span className="text-gray-700">+92 339 4101341</span>
               </div>
               <div className="flex items-center">
                 <span className="w-8 h-8 bg-blue-600 rounded-full mr-4 flex items-center justify-center text-white font-bold">
                   📍
                 </span>
-                <span className="text-gray-700">Innovation Hub, Tech District</span>
+                <span className="text-gray-700">3rd Floor Gulberg Emporium, Business Square, Islamabad, Pakistan</span>
               </div>
             </div>
           </motion.div>

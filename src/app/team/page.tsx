@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AnimatedHero from "@/components/AnimatedHero";
 import { FaStar, FaLinkedin, FaGithub, FaTwitter, FaRobot, FaBrain, FaCode, FaChartLine, FaCogs, FaUserTie, FaCloud } from "react-icons/fa";
 
 const TeamPage = () => {
@@ -99,25 +100,33 @@ const TeamPage = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-blue-600 to-purple-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              Meet Our Team
-            </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Passionate experts dedicated to transforming businesses through innovative technology solutions
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <AnimatedHero
+        headline="Meet Our Team"
+        subheadline="The Minds Behind Innovation"
+        description="Passionate experts dedicated to transforming businesses through innovative technology solutions and cutting-edge AI development."
+        primaryAction={{
+          text: "Meet the Team",
+          onClick: () => {
+            const teamSection = document.getElementById('team-grid');
+            if (teamSection) {
+              teamSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }}
+        secondaryAction={{
+          text: "View Values",
+          onClick: () => {
+            const valuesSection = document.getElementById('values');
+            if (valuesSection) {
+              valuesSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }}
+        illustrationUrl="/images/team-hero.webp"
+      />
 
       {/* Team Grid */}
-      <section className="py-20 relative overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      <section id="team-grid" className="py-20 relative overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
         {/* Decorative background shapes */}
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-gradient-to-br from-blue-400/30 to-purple-400/10 rounded-full blur-3xl z-0" />
         <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tr from-pink-400/20 to-purple-400/10 rounded-full blur-2xl z-0" />
@@ -328,7 +337,7 @@ const TeamPage = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-white">
+      <section id="values" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
