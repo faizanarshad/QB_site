@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AnimatedHero from "@/components/AnimatedHero";
 import { 
   SiTensorflow, 
   SiPytorch, 
@@ -147,25 +148,33 @@ const AISolutionsPage = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-blue-600 to-purple-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              AI Solutions
-            </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Cutting-edge artificial intelligence solutions that transform data into actionable insights
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <AnimatedHero
+        headline="AI Solutions"
+        subheadline="Artificial Intelligence Excellence"
+        description="Cutting-edge artificial intelligence solutions that transform data into actionable insights and drive business innovation."
+        primaryAction={{
+          text: "Explore AI Capabilities",
+          onClick: () => {
+            const aiSection = document.getElementById('ai-capabilities');
+            if (aiSection) {
+              aiSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }}
+        secondaryAction={{
+          text: "View Technologies",
+          onClick: () => {
+            const techSection = document.getElementById('technologies');
+            if (techSection) {
+              techSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }}
+        illustrationUrl="/images/ai-hero-illustration.webp"
+      />
 
       {/* AI Solutions Grid */}
-      <section className="py-20">
+      <section id="ai-capabilities" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -237,7 +246,7 @@ const AISolutionsPage = () => {
       </section>
 
       {/* Technologies Section */}
-      <section className="py-20 bg-white">
+      <section id="technologies" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 50 }}

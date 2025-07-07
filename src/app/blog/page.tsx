@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AnimatedHero from "@/components/AnimatedHero";
 
 const BlogPage = () => {
   const blogPosts = [
@@ -76,25 +77,33 @@ const BlogPage = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-blue-600 to-purple-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              Our Blog
-            </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Insights, trends, and expert perspectives on AI, technology, and innovation
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <AnimatedHero
+        headline="Our Blog"
+        subheadline="Insights & Innovation"
+        description="Insights, trends, and expert perspectives on AI, technology, and innovation. Stay ahead with our latest articles and thought leadership."
+        primaryAction={{
+          text: "Read Articles",
+          onClick: () => {
+            const blogSection = document.getElementById('blog-posts');
+            if (blogSection) {
+              blogSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }}
+        secondaryAction={{
+          text: "Subscribe",
+          onClick: () => {
+            const newsletterSection = document.getElementById('newsletter');
+            if (newsletterSection) {
+              newsletterSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }}
+        illustrationUrl="/images/blog-hero.webp"
+      />
 
       {/* Blog Posts Grid */}
-      <section className="py-20">
+      <section id="blog-posts" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogPosts.map((post, index) => (
@@ -138,7 +147,7 @@ const BlogPage = () => {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-20 bg-white">
+      <section id="newsletter" className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 50 }}

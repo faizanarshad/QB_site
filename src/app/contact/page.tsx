@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AnimatedHero from "@/components/AnimatedHero";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -26,25 +27,25 @@ const ContactPage = () => {
     {
       icon: "📧",
       title: "Email",
-      details: "hello@qbriksolutions.com",
+      details: "support@qbriksolutions.com",
       description: "Send us an email anytime",
     },
     {
       icon: "📱",
       title: "Phone",
-      details: "+1 (555) 123-4567",
+      details: "+92 339 4101341",
       description: "Mon-Fri from 8am to 6pm",
     },
     {
       icon: "📍",
       title: "Office",
-      details: "Innovation Hub, Tech District",
+      details: "3rd Floor Gulberg Emporium, Business Square, Islamabad, Pakistan",
       description: "Visit us at our headquarters",
     },
     {
       icon: "💬",
       title: "WhatsApp",
-      details: "+1 (555) 123-4567",
+      details: "+92 339 4101341",
       description: "Chat with us instantly",
       isWhatsApp: true,
     },
@@ -64,25 +65,28 @@ const ContactPage = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-blue-600 to-purple-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              Get In Touch
-            </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Ready to transform your business with AI and automation? Let's discuss your project.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <AnimatedHero
+        headline="Get In Touch"
+        subheadline="Let's Start a Conversation"
+        description="Ready to transform your business with AI and automation? Let's discuss your project and explore how we can help you achieve your goals."
+        primaryAction={{
+          text: "Send Message",
+          onClick: () => {
+            const formSection = document.getElementById('contact-form');
+            if (formSection) {
+              formSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }}
+        secondaryAction={{
+          text: "View Services",
+          href: "/services"
+        }}
+        illustrationUrl="/images/contact-hero.webp"
+      />
 
       {/* Contact Form & Info */}
-      <section className="py-20">
+      <section id="contact-form" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
@@ -230,7 +234,7 @@ const ContactPage = () => {
                           whileTap={{ scale: 0.95 }}
                           onClick={() => {
                             const message = encodeURIComponent("Hello! I'm interested in QBrik Solutions services. Can you help me?");
-                            const whatsappUrl = `https://wa.me/15551234567?text=${message}`;
+                            const whatsappUrl = `https://wa.me/923394101341?text=${message}`;
                             window.open(whatsappUrl, '_blank');
                           }}
                           className="mt-3 inline-flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-200"

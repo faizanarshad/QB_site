@@ -1,0 +1,277 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model for authentication and user management
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  role      UserRole @default(CLIENT)
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  projects     Project[]
+  testimonials Testimonial[]
+  blogPosts    BlogPost[]
+  comments     Comment[]
+
+  @@map("users")
+}
+
+// Service model for QBrik's services
+model Service {
+  id          String   @id @default(cuid())
+  title       String
+  subtitle    String
+  description String
+  icon        String
+  color       String
+  bgColor     String
+  image       String?
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Service details
+  features   ServiceFeature[]
+  benefits   ServiceBenefit[]
+  stats      ServiceStat[]
+  projects   Project[]
+
+  @@map("services")
+}
+
+// Service features
+model ServiceFeature {
+  id        String   @id @default(cuid())
+  name      String
+  serviceId String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@map("service_features")
+}
+
+// Service benefits
+model ServiceBenefit {
+  id        String   @id @default(cuid())
+  name      String
+  serviceId String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@map("service_benefits")
+}
+
+// Service statistics
+model ServiceStat {
+  id        String   @id @default(cuid())
+  key       String
+  value     String
+  serviceId String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@map("service_stats")
+}
+
+// Project model for portfolio
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  content     String?
+  image       String?
+  client      String?
+  duration    String?
+  technologies String[]
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  serviceId String
+  service   Service @relation(fields: [serviceId], references: [id])
+  userId    String?
+  user      User?   @relation(fields: [userId], references: [id])
+
+  @@map("projects")
+}
+
+// Testimonial model
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  company   String
+  industry  String?
+  content   String
+  rating    Int      @default(5)
+  initials  String
+  isActive  Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  @@map("testimonials")
+}
+
+// Blog post model
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String?
+  content     String
+  image       String?
+  isPublished Boolean  @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  authorId String
+  author   User     @relation(fields: [authorId], references: [id])
+  comments Comment[]
+
+  @@map("blog_posts")
+}
+
+// Comment model for blog posts
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  isApproved Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  postId String
+  post   BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  @@map("comments")
+}
+
+// Contact form submissions
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  subject   String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("contact_submissions")
+}
+
+// Job positions
+model JobPosition {
+  id          String   @id @default(cuid())
+  title       String
+  department  String
+  location    String
+  type        String
+  experience  String
+  description String
+  requirements String[]
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  applications CareerApplication[]
+
+  @@map("job_positions")
+}
+
+// Career applications
+model CareerApplication {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  position  String
+  resume    String?  // File path or URL
+  coverLetter String?
+  experience String?
+  isReviewed Boolean @default(false)
+  status    ApplicationStatus @default(PENDING)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  jobPositionId String?
+  jobPosition   JobPosition? @relation(fields: [jobPositionId], references: [id])
+
+  @@map("career_applications")
+}
+
+// Newsletter subscriptions
+model NewsletterSubscription {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("newsletter_subscriptions")
+}
+
+// Website statistics
+model WebsiteStat {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+
+  @@map("website_stats")
+}
+
+// Enums
+enum UserRole {
+  ADMIN
+  MANAGER
+  DEVELOPER
+  CLIENT
+}
+
+enum ApplicationStatus {
+  PENDING
+  REVIEWING
+  INTERVIEWING
+  HIRED
+  REJECTED
+}

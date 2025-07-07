@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AnimatedHero from "@/components/AnimatedHero";
 
 const PortfolioPage = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -116,22 +117,25 @@ const PortfolioPage = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-blue-600 to-purple-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              Our Portfolio
-            </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Showcasing our innovative projects and successful client transformations
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <AnimatedHero
+        headline="Our Portfolio"
+        subheadline="Showcasing Innovation"
+        description="Showcasing our innovative projects and successful client transformations that demonstrate our expertise in AI, technology, and business solutions."
+        primaryAction={{
+          text: "View Projects",
+          onClick: () => {
+            const projectsSection = document.getElementById('projects-grid');
+            if (projectsSection) {
+              projectsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }}
+        secondaryAction={{
+          text: "Contact Us",
+          href: "/contact"
+        }}
+        illustrationUrl="/images/portfolio-hero.webp"
+      />
 
       {/* Filter Section */}
       <section className="py-12 bg-white">
@@ -157,7 +161,7 @@ const PortfolioPage = () => {
       </section>
 
       {/* Projects Grid */}
-      <section className="py-20">
+      <section id="projects-grid" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project, index) => (

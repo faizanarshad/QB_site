@@ -1,16 +1,66 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AnimatedHero from "@/components/AnimatedHero";
+
+interface JobPosition {
+  id: string;
+  title: string;
+  department: string;
+  location: string;
+  type: string;
+  experience: string;
+  description: string;
+  requirements: string[];
+  isActive: boolean;
+  order: number;
+  createdAt: string;
+  updatedAt: string;
+}
 
 const CareerPage = () => {
+  const router = useRouter();
   const [activeFilter, setActiveFilter] = useState("all");
+  const [jobOpenings, setJobOpenings] = useState<JobPosition[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const jobOpenings = [
+  // Fetch job openings from API
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await fetch('/api/jobs');
+        if (response.ok) {
+          const jobs = await response.json();
+          setJobOpenings(jobs);
+        } else {
+          // Fallback to hardcoded data if API fails
+          setJobOpenings(fallbackJobOpenings);
+        }
+      } catch (error) {
+        console.error('Error fetching jobs:', error);
+        // Fallback to hardcoded data if API fails
+        setJobOpenings(fallbackJobOpenings);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchJobs();
+  }, []);
+
+  // Open application form for a specific job
+  const openApplicationForm = (job: JobPosition) => {
+    router.push(`/career/apply?jobId=${job.id}`);
+  };
+
+  // Fallback job data if API fails
+  const fallbackJobOpenings: JobPosition[] = [
     {
-      id: 1,
+      id: "1",
       title: "Senior Machine Learning Engineer",
       department: "AI & ML",
       location: "Remote / Hybrid",
@@ -23,9 +73,13 @@ const CareerPage = () => {
         "Knowledge of deep learning architectures",
         "Experience with model deployment",
       ],
+      isActive: true,
+      order: 1,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     },
     {
-      id: 2,
+      id: "2",
       title: "Computer Vision Engineer",
       department: "Computer Vision",
       location: "On-site",
@@ -38,9 +92,13 @@ const CareerPage = () => {
         "Knowledge of deep learning frameworks",
         "Background in computer vision algorithms",
       ],
+      isActive: true,
+      order: 2,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     },
     {
-      id: 3,
+      id: "3",
       title: "Full-Stack Developer",
       department: "E-commerce",
       location: "Remote",
@@ -53,9 +111,13 @@ const CareerPage = () => {
         "Knowledge of cloud platforms (AWS/Azure)",
         "Understanding of e-commerce systems",
       ],
+      isActive: true,
+      order: 3,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     },
     {
-      id: 4,
+      id: "4",
       title: "Robotics Engineer",
       department: "Robotics",
       location: "On-site",
@@ -68,9 +130,13 @@ const CareerPage = () => {
         "Programming skills (Python/C++)",
         "Understanding of IoT and sensors",
       ],
+      isActive: true,
+      order: 4,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     },
     {
-      id: 5,
+      id: "5",
       title: "Data Scientist",
       department: "AI & ML",
       location: "Remote / Hybrid",
@@ -83,9 +149,13 @@ const CareerPage = () => {
         "Knowledge of ML algorithms",
         "Proficiency in Python/R",
       ],
+      isActive: true,
+      order: 5,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     },
     {
-      id: 6,
+      id: "6",
       title: "DevOps Engineer",
       department: "Engineering",
       location: "Remote",
@@ -98,6 +168,10 @@ const CareerPage = () => {
         "CI/CD pipeline expertise",
         "Infrastructure as Code skills",
       ],
+      isActive: true,
+      order: 6,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     },
   ];
 
@@ -152,25 +226,33 @@ const CareerPage = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-blue-600 to-purple-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              Join Our Team
-            </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Build the future with us. Join a team of passionate innovators working on cutting-edge technology.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <AnimatedHero
+        headline="Join Our Team"
+        subheadline="Build The Future With Us"
+        description="Join a dynamic team of innovators and problem-solvers. We're looking for talented individuals who are passionate about technology and making a difference."
+        primaryAction={{
+          text: "View Open Positions",
+          onClick: () => {
+            const jobsSection = document.getElementById('job-openings');
+            if (jobsSection) {
+              jobsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }}
+        secondaryAction={{
+          text: "Learn About Culture",
+          onClick: () => {
+            const cultureSection = document.getElementById('company-culture');
+            if (cultureSection) {
+              cultureSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }}
+        illustrationUrl="/images/career-hero.webp"
+      />
 
       {/* Benefits Section */}
-      <section className="py-20 bg-white">
+      <section id="benefits" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -209,7 +291,7 @@ const CareerPage = () => {
       </section>
 
       {/* Job Openings Section */}
-      <section className="py-20">
+      <section id="job-openings" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -247,7 +329,17 @@ const CareerPage = () => {
 
           {/* Job Listings */}
           <div className="space-y-6">
-            {filteredJobs.map((job, index) => (
+            {isLoading ? (
+              <div className="text-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+                <p className="mt-4 text-gray-600">Loading job openings...</p>
+              </div>
+            ) : filteredJobs.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-gray-600">No job openings found for this department.</p>
+              </div>
+            ) : (
+              filteredJobs.map((job, index) => (
               <motion.div
                 key={job.id}
                 initial={{ opacity: 0, y: 50 }}
@@ -284,6 +376,7 @@ const CareerPage = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={() => openApplicationForm(job)}
                     className="mt-4 lg:mt-0 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200"
                   >
                     Apply Now
@@ -304,7 +397,8 @@ const CareerPage = () => {
                   </ul>
                 </div>
               </motion.div>
-            ))}
+            ))
+            )}
           </div>
         </div>
       </section>
@@ -334,6 +428,9 @@ const CareerPage = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Job Application Form */}
+      {/* This section is removed as per the edit hint to remove JobApplicationForm */}
 
       <Footer />
     </div>

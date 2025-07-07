@@ -3,35 +3,21 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { 
-  SiReact, 
-  SiNextdotjs, 
-  SiTypescript, 
-  SiTailwindcss, 
-  SiPython, 
-  SiTensorflow, 
-  SiPytorch, 
-  SiOpencv, 
-  SiNodedotjs, 
-  SiPostgresql, 
-  SiMongodb, 
-  SiAmazon 
-} from "react-icons/si";
 
 const Features = () => {
   const technologies = [
-    { name: "React", icon: <SiReact className="text-4xl text-blue-500" />, category: "Frontend" },
-    { name: "Next.js", icon: <SiNextdotjs className="text-4xl text-black" />, category: "Frontend" },
-    { name: "TypeScript", icon: <SiTypescript className="text-4xl text-blue-600" />, category: "Language" },
-    { name: "Tailwind CSS", icon: <SiTailwindcss className="text-4xl text-cyan-500" />, category: "Styling" },
-    { name: "Python", icon: <SiPython className="text-4xl text-yellow-500" />, category: "Backend" },
-    { name: "TensorFlow", icon: <SiTensorflow className="text-4xl text-orange-500" />, category: "AI/ML" },
-    { name: "PyTorch", icon: <SiPytorch className="text-4xl text-red-500" />, category: "AI/ML" },
-    { name: "OpenCV", icon: <SiOpencv className="text-4xl text-green-600" />, category: "Computer Vision" },
-    { name: "Node.js", icon: <SiNodedotjs className="text-4xl text-green-600" />, category: "Backend" },
-    { name: "PostgreSQL", icon: <SiPostgresql className="text-4xl text-blue-600" />, category: "Database" },
-    { name: "MongoDB", icon: <SiMongodb className="text-4xl text-green-500" />, category: "Database" },
-    { name: "AWS", icon: <SiAmazon className="text-4xl text-orange-500" />, category: "Cloud" },
+    { name: "React", icon: "⚛️", category: "Frontend" },
+    { name: "Next.js", icon: "▲", category: "Frontend" },
+    { name: "TypeScript", icon: "📘", category: "Language" },
+    { name: "Tailwind CSS", icon: "🎨", category: "Styling" },
+    { name: "Python", icon: "🐍", category: "Backend" },
+    { name: "TensorFlow", icon: "🧠", category: "AI/ML" },
+    { name: "PyTorch", icon: "🔥", category: "AI/ML" },
+    { name: "OpenCV", icon: "👁️", category: "Computer Vision" },
+    { name: "Node.js", icon: "🟢", category: "Backend" },
+    { name: "PostgreSQL", icon: "🐘", category: "Database" },
+    { name: "MongoDB", icon: "🍃", category: "Database" },
+    { name: "AWS", icon: "☁️", category: "Cloud" },
   ];
 
   return (
@@ -71,7 +57,7 @@ const Features = () => {
                 whileHover={{ scale: 1.05 }}
                 className="bg-gray-50 p-6 rounded-xl text-center hover:bg-blue-50 transition-colors duration-200 border border-gray-200"
               >
-                <div className="flex justify-center mb-3">{tech.icon}</div>
+                <div className="text-4xl mb-3">{tech.icon}</div>
                 <div className="text-sm font-bold text-gray-900 mb-1">{tech.name}</div>
                 <div className="text-xs text-gray-500">{tech.category}</div>
               </motion.div>
@@ -123,15 +109,9 @@ const Features = () => {
             className="relative"
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-              <Image
-                src="/images/tenweb_media_rau5oqmzb.webp"
-                alt="AI Technology"
-                width={500}
-                height={400}
-                className="w-full h-auto"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/80 to-transparent flex items-end">
-                <div className="p-8 text-white">
+              <div className="w-full h-80 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                <div className="text-center text-white">
+                  <div className="text-6xl mb-4">🤖</div>
                   <h4 className="text-2xl font-bold mb-4">AI-Powered</h4>
                   <p className="text-blue-100">
                     Intelligent solutions that learn and adapt to your business needs.
@@ -152,15 +132,9 @@ const Features = () => {
         >
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="relative rounded-2xl overflow-hidden shadow-xl">
-              <Image
-                src="/images/tenweb_media_rrs7lrcfw.webp"
-                alt="Machine Learning"
-                width={400}
-                height={300}
-                className="w-full h-64 object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-                <div className="p-6 text-white">
+              <div className="w-full h-64 bg-gradient-to-br from-green-500 to-blue-600 flex items-center justify-center">
+                <div className="text-center text-white">
+                  <div className="text-4xl mb-2">🧠</div>
                   <h4 className="text-xl font-bold mb-2">Machine Learning</h4>
                   <p className="text-sm">Advanced algorithms and predictive models</p>
                 </div>
@@ -168,15 +142,9 @@ const Features = () => {
             </div>
             
             <div className="relative rounded-2xl overflow-hidden shadow-xl">
-              <Image
-                src="/images/tenweb_media_srxhumdgj (1).webp"
-                alt="Computer Vision"
-                width={400}
-                height={300}
-                className="w-full h-64 object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-                <div className="p-6 text-white">
+              <div className="w-full h-64 bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
+                <div className="text-center text-white">
+                  <div className="text-4xl mb-2">👁️</div>
                   <h4 className="text-xl font-bold mb-2">Computer Vision</h4>
                   <p className="text-sm">Image and video processing solutions</p>
                 </div>
@@ -184,15 +152,9 @@ const Features = () => {
             </div>
             
             <div className="relative rounded-2xl overflow-hidden shadow-xl">
-              <Image
-                src="/images/visual1.webp"
-                alt="Data Analytics"
-                width={400}
-                height={300}
-                className="w-full h-64 object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-                <div className="p-6 text-white">
+              <div className="w-full h-64 bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
+                <div className="text-center text-white">
+                  <div className="text-4xl mb-2">📊</div>
                   <h4 className="text-xl font-bold mb-2">Data Analytics</h4>
                   <p className="text-sm">Insights-driven decision making</p>
                 </div>
