@@ -21,7 +21,7 @@ const DemoHeroPage = () => {
           text: "See Our Work",
           onClick: () => alert("Portfolio coming soon!")
         }}
-        illustrationUrl="/images/ai-hero-illustration.webp"
+        illustrationUrl="/images/hero/home.webp"
         showBrand={true}
       />
       <Footer />

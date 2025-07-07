@@ -114,15 +114,11 @@ const TeamPage = () => {
           }
         }}
         secondaryAction={{
-          text: "View Values",
-          onClick: () => {
-            const valuesSection = document.getElementById('values');
-            if (valuesSection) {
-              valuesSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
+          text: "Join Our Team",
+          href: "/career"
         }}
-        illustrationUrl="/images/team-hero.webp"
+        illustrationUrl="/images/hero/team.webp"
+
       />
 
       {/* Team Grid */}

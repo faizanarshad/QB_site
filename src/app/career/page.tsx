@@ -240,15 +240,16 @@ const CareerPage = () => {
           }
         }}
         secondaryAction={{
-          text: "Learn About Culture",
+          text: "View All Jobs",
           onClick: () => {
-            const cultureSection = document.getElementById('company-culture');
-            if (cultureSection) {
-              cultureSection.scrollIntoView({ behavior: 'smooth' });
+            const jobsSection = document.getElementById('job-listings');
+            if (jobsSection) {
+              jobsSection.scrollIntoView({ behavior: 'smooth' });
             }
           }
         }}
-        illustrationUrl="/images/career-hero.webp"
+        illustrationUrl="/images/hero/portfolio.webp"
+
       />
 
       {/* Benefits Section */}

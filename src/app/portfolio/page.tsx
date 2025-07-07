@@ -131,10 +131,11 @@ const PortfolioPage = () => {
           }
         }}
         secondaryAction={{
-          text: "Contact Us",
+          text: "Get In Touch",
           href: "/contact"
         }}
-        illustrationUrl="/images/portfolio-hero.webp"
+        illustrationUrl="/images/hero/portfolio.webp"
+
       />
 
       {/* Filter Section */}

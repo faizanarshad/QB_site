@@ -99,7 +99,8 @@ const BlogPage = () => {
             }
           }
         }}
-        illustrationUrl="/images/blog-hero.webp"
+        illustrationUrl="/images/hero/solutions.jpg"
+
       />
 
       {/* Blog Posts Grid */}

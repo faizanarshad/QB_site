@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
 
 const Features = () => {
   const technologies = [
@@ -23,55 +21,33 @@ const Features = () => {
   return (
     <section id="features" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Our Technology Stack
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Cutting-edge technologies that power our innovative solutions.
           </p>
-        </motion.div>
+        </div>
 
         {/* Technology Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
+        <div className="mb-16">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
             {technologies.map((tech, index) => (
-              <motion.div
+              <div
                 key={tech.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05 }}
-                className="bg-gray-50 p-6 rounded-xl text-center hover:bg-blue-50 transition-colors duration-200 border border-gray-200"
+                className="bg-gray-50 p-6 rounded-xl text-center hover:bg-blue-50 transition-colors duration-200 border border-gray-200 hover:scale-105 transform transition-transform"
               >
                 <div className="text-4xl mb-3">{tech.icon}</div>
                 <div className="text-sm font-bold text-gray-900 mb-1">{tech.name}</div>
                 <div className="text-xs text-gray-500">{tech.category}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
+          <div>
             <h3 className="text-3xl font-bold text-gray-900 mb-6">
               Advanced AI & ML Capabilities
             </h3>
@@ -86,28 +62,18 @@ const Features = () => {
                 { text: "Natural Language Processing", icon: "💬" },
                 { text: "Predictive Analytics & Forecasting", icon: "📊" },
               ].map((feature, index) => (
-                <motion.div
+                <div
                   key={feature.text}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
                   className="flex items-center"
                 >
                   <span className="text-2xl mr-4">{feature.icon}</span>
                   <span className="text-gray-700">{feature.text}</span>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
+          <div className="relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <div className="w-full h-80 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                 <div className="text-center text-white">
@@ -119,17 +85,11 @@ const Features = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Additional Technology Showcase */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="mt-20"
-        >
+        <div className="mt-20">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="relative rounded-2xl overflow-hidden shadow-xl">
               <div className="w-full h-64 bg-gradient-to-br from-green-500 to-blue-600 flex items-center justify-center">
@@ -161,7 +121,7 @@ const Features = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -184,13 +184,14 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({
             transition={{ delay: 0.7, duration: 1 }}
             className="flex-1 flex items-center justify-center"
           >
-            <div className="relative w-80 h-80 md:w-[28rem] md:h-[28rem] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20 bg-white/10">
+            <div className="hero-image-container relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20 bg-gradient-to-br from-white/10 to-white/5">
               <Image
                 src={illustrationUrl}
                 alt="Hero Illustration"
                 fill
-                className="object-contain"
+                className="object-cover hover:scale-105 transition-transform duration-300"
                 priority
+                sizes="(max-width: 640px) 288px, (max-width: 768px) 320px, (max-width: 1024px) 448px, (max-width: 1280px) 512px, 576px"
                 onError={(e) => {
                   // Hide the illustration container if image fails to load
                   const target = e.target as HTMLImageElement;
@@ -198,6 +199,8 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({
                   target.parentElement!.style.display = 'none';
                 }}
               />
+              {/* Optional overlay for better text contrast */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
             </div>
           </motion.div>
         )}

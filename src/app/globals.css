@@ -2,6 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom styles for hero images */
+.hero-image-container {
+  aspect-ratio: 4/3;
+  min-height: 280px;
+}
+
+.hero-image-container img {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Responsive hero image sizing */
+@media (max-width: 640px) {
+  .hero-image-container {
+    width: 288px;
+    height: 216px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .hero-image-container {
+    width: 320px;
+    height: 240px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-image-container {
+    width: 448px;
+    height: 336px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .hero-image-container {
+    width: 512px;
+    height: 384px;
+  }
+}
+
+@media (min-width: 1281px) {
+  .hero-image-container {
+    width: 576px;
+    height: 432px;
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

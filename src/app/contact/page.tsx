@@ -82,7 +82,7 @@ const ContactPage = () => {
           text: "View Services",
           href: "/services"
         }}
-        illustrationUrl="/images/contact-hero.webp"
+        illustrationUrl="/images/hero/services.webp"
       />
 
       {/* Contact Form & Info */}

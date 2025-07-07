@@ -24,6 +24,7 @@ export default function Home() {
           text: "Get In Touch",
           href: "#contact"
         }}
+        illustrationUrl="/images/hero/home.webp"
       />
       <About />
       <Features />

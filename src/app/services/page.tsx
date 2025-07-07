@@ -313,6 +313,7 @@ const ServicesPage = () => {
           text: "Get Free Consultation",
           href: "#contact"
         }}
+        illustrationUrl="/images/hero/services.webp"
       />
 
       {/* Stats Section */}

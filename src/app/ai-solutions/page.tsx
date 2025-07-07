@@ -162,15 +162,11 @@ const AISolutionsPage = () => {
           }
         }}
         secondaryAction={{
-          text: "View Technologies",
-          onClick: () => {
-            const techSection = document.getElementById('technologies');
-            if (techSection) {
-              techSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
+          text: "View Portfolio",
+          href: "/portfolio"
         }}
-        illustrationUrl="/images/ai-hero-illustration.webp"
+        illustrationUrl="/images/hero/solutions.jpg"
+
       />
 
       {/* AI Solutions Grid */}
