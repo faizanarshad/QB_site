@@ -7,8 +7,16 @@ import Image from "next/image";
 const Hero = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background - Professional Dark Theme */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900" />
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/hero/theme.webp"
+          alt="QBrik Solutions Hero Background"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
       
       {/* Subtle Background Pattern */}
       <div className="absolute inset-0 opacity-30">

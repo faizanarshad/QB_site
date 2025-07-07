@@ -2,26 +2,27 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const About = () => {
   const features = [
     {
-      icon: "🤖",
+      image: "/images/tenweb_media_snl7vgvze.webp",
       title: "AI-Powered",
       description: "Advanced artificial intelligence and machine learning solutions",
     },
     {
-      icon: "👁️",
+      image: "/images/tenweb_media_sojrv9bnj.webp",
       title: "Computer Vision",
       description: "Cutting-edge image and video processing technology",
     },
     {
-      icon: "🛒",
+      image: "/images/tenweb_media_su6opzdv2.webp",
       title: "E-commerce",
       description: "Complete digital commerce and marketplace solutions",
     },
     {
-      icon: "⚙️",
+      image: "/images/tenweb_media_rbeag8rbj.webp",
       title: "Automation",
       description: "Industrial robotics and process automation systems",
     },
@@ -57,7 +58,14 @@ const About = () => {
               whileHover={{ y: -10 }}
               className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl text-center hover:shadow-xl transition-all duration-300"
             >
-              <div className="text-4xl mb-4">{feature.icon}</div>
+              <div className="relative w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden">
+                <Image
+                  src={feature.image}
+                  alt={feature.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
                 {feature.title}
               </h3>
@@ -65,6 +73,48 @@ const About = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Company Image Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="mt-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+        >
+          <div className="relative">
+            <Image
+              src="/images/tenweb_media_rtyvghhu7.webp"
+              alt="QBrik Solutions Team"
+              width={600}
+              height={400}
+              className="rounded-2xl shadow-2xl"
+            />
+          </div>
+          <div>
+            <h3 className="text-3xl font-bold text-gray-900 mb-6">
+              Innovation Meets Excellence
+            </h3>
+            <p className="text-lg text-gray-600 mb-6">
+              Our team of experts combines deep technical knowledge with creative problem-solving 
+              to deliver solutions that exceed expectations and drive real business value.
+            </p>
+            <div className="space-y-4">
+              <div className="flex items-center">
+                <div className="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                <span className="text-gray-700">Cutting-edge AI & ML technologies</span>
+              </div>
+              <div className="flex items-center">
+                <div className="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                <span className="text-gray-700">Industry-leading expertise</span>
+              </div>
+              <div className="flex items-center">
+                <div className="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                <span className="text-gray-700">Proven track record of success</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 50 }}

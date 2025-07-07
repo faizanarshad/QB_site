@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const ImageExample = () => {
   return (
-    <div className="py-20 bg-white">
+    <div className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -16,165 +16,193 @@ const ImageExample = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            How to Add Images
+            Our Technology Showcase
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Here are examples of how to add images to your QBrik Solutions website
+            Explore our cutting-edge AI, ML, and technology solutions through real project images
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Example 1: Hero/Background Image */}
+          {/* AI Technology */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
-            className="bg-gray-100 rounded-2xl p-6"
+            className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Hero Image</h3>
-            <div className="relative h-48 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-              <p className="text-gray-500">Place hero image here</p>
-              {/* Example usage:
+            <h3 className="text-xl font-bold text-gray-900 mb-4">AI Technology</h3>
+            <div className="relative h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
               <Image
-                src="/images/hero/hero-bg.jpg"
-                alt="QBrik Solutions Hero"
+                src="/images/tenweb_media_sv9anedwf.webp"
+                alt="AI Technology"
                 fill
-                className="object-cover rounded-lg"
-                priority
+                className="object-cover"
               />
-              */}
             </div>
             <p className="text-sm text-gray-600">
-              Use for background images, hero sections, and large banners
+              Advanced artificial intelligence and machine learning solutions
             </p>
           </motion.div>
 
-          {/* Example 2: Service Icons */}
+          {/* Computer Vision */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="bg-gray-100 rounded-2xl p-6"
+            className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Service Icons</h3>
-            <div className="relative w-24 h-24 mx-auto bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-              <p className="text-gray-500 text-xs">Icon</p>
-              {/* Example usage:
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Computer Vision</h3>
+            <div className="relative h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
               <Image
-                src="/images/icons/ai-icon.svg"
-                alt="AI Icon"
+                src="/images/tenweb_media_sy9rbqqrt.webp"
+                alt="Computer Vision"
                 fill
-                className="object-contain"
+                className="object-cover"
               />
-              */}
             </div>
             <p className="text-sm text-gray-600">
-              Use for service icons, feature icons, and small graphics
+              Cutting-edge image and video processing technology
             </p>
           </motion.div>
 
-          {/* Example 3: Team Photos */}
+          {/* E-commerce Solutions */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
-            className="bg-gray-100 rounded-2xl p-6"
+            className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Team Photos</h3>
-            <div className="relative w-32 h-32 mx-auto bg-gray-200 rounded-full mb-4 flex items-center justify-center">
-              <p className="text-gray-500 text-xs">Photo</p>
-              {/* Example usage:
+            <h3 className="text-xl font-bold text-gray-900 mb-4">E-commerce Solutions</h3>
+            <div className="relative h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
               <Image
-                src="/images/team/sarah-chen.jpg"
-                alt="Dr. Sarah Chen"
+                src="/images/ecomerace.webp"
+                alt="E-commerce Solutions"
                 fill
-                className="object-cover rounded-full"
+                className="object-cover"
               />
-              */}
             </div>
             <p className="text-sm text-gray-600">
-              Use for team member photos, profile pictures, and avatars
+              Complete digital commerce and marketplace solutions
             </p>
           </motion.div>
 
-          {/* Example 4: Portfolio Images */}
+          {/* Automation Systems */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="bg-gray-100 rounded-2xl p-6"
+            className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Portfolio Images</h3>
-            <div className="relative h-40 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-              <p className="text-gray-500 text-xs">Project Image</p>
-              {/* Example usage:
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Automation Systems</h3>
+            <div className="relative h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
               <Image
-                src="/images/portfolio/project-1.jpg"
-                alt="AI Manufacturing Project"
+                src="/images/robotics.webp"
+                alt="Automation Systems"
                 fill
-                className="object-cover rounded-lg"
+                className="object-cover"
               />
-              */}
             </div>
             <p className="text-sm text-gray-600">
-              Use for project screenshots, case study images, and portfolio items
+              Industrial robotics and process automation systems
             </p>
           </motion.div>
 
-          {/* Example 5: Blog Images */}
+          {/* Machine Learning */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
             viewport={{ once: true }}
-            className="bg-gray-100 rounded-2xl p-6"
+            className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Blog Images</h3>
-            <div className="relative h-32 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-              <p className="text-gray-500 text-xs">Blog Image</p>
-              {/* Example usage:
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Machine Learning</h3>
+            <div className="relative h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
               <Image
-                src="/images/blog/ai-manufacturing.jpg"
-                alt="AI in Manufacturing"
+                src="/images/tenweb_media_rv0ugd2xe.webp"
+                alt="Machine Learning"
                 fill
-                className="object-cover rounded-lg"
+                className="object-cover"
               />
-              */}
             </div>
             <p className="text-sm text-gray-600">
-              Use for blog post featured images and article illustrations
+              Advanced algorithms and predictive modeling
             </p>
           </motion.div>
 
-          {/* Example 6: Logo */}
+          {/* Data Analytics */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
             viewport={{ once: true }}
-            className="bg-gray-100 rounded-2xl p-6"
+            className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Company Logo</h3>
-            <div className="relative w-32 h-16 mx-auto bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-              <p className="text-gray-500 text-xs">Logo</p>
-              {/* Example usage:
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Data Analytics</h3>
+            <div className="relative h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
               <Image
-                src="/images/logo.png"
-                alt="QBrik Solutions Logo"
+                src="/images/data_visualization.webp"
+                alt="Data Analytics"
                 fill
-                className="object-contain"
+                className="object-cover"
               />
-              */}
             </div>
             <p className="text-sm text-gray-600">
-              Use for company logo, brand elements, and navigation
+              Insights-driven decision making and analytics
             </p>
           </motion.div>
         </div>
+
+        {/* Featured Project Showcase */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="mt-20"
+        >
+          <div className="bg-white rounded-3xl p-8 shadow-xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h3 className="text-3xl font-bold text-gray-900 mb-6">
+                  Featured Project: AI-Powered Manufacturing
+                </h3>
+                <p className="text-lg text-gray-600 mb-6">
+                  Our latest project showcases the integration of AI and computer vision 
+                  in manufacturing processes, resulting in 40% efficiency improvement 
+                  and 99.9% defect detection accuracy.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center">
+                    <div className="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                    <span className="text-gray-700">Real-time quality control</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                    <span className="text-gray-700">Predictive maintenance</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                    <span className="text-gray-700">Automated defect detection</span>
+                  </div>
+                </div>
+              </div>
+              <div className="relative rounded-2xl overflow-hidden">
+                <Image
+                  src="/images/tenweb_media_rjp2lgjk5.webp"
+                  alt="AI Manufacturing Project"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto"
+                />
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

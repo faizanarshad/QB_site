@@ -2,10 +2,26 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { 
+  SiTensorflow, 
+  SiPytorch, 
+  SiOpencv, 
+  SiKeras, 
+  SiPandas, 
+  SiNumpy, 
+  SiPython,
+  SiJupyter,
+  SiScikitlearn,
+  SiChartdotjs,
+  SiEyeem,
+  SiGooglecloud
+} from "react-icons/si";
 
 const AISolutionsPage = () => {
+  const [iconErrors, setIconErrors] = React.useState<{[key: string]: boolean}>({});
   const aiSolutions = [
     {
       title: "Machine Learning Models",
@@ -52,18 +68,78 @@ const AISolutionsPage = () => {
   ];
 
   const technologies = [
-    { name: "TensorFlow", icon: "🧠", color: "text-orange-600" },
-    { name: "PyTorch", icon: "🔥", color: "text-red-600" },
-    { name: "Scikit-learn", icon: "🔬", color: "text-blue-600" },
-    { name: "OpenCV", icon: "👁️", color: "text-green-600" },
-    { name: "NLTK", icon: "📝", color: "text-purple-600" },
-    { name: "SpaCy", icon: "🔤", color: "text-blue-500" },
-    { name: "Keras", icon: "⚡", color: "text-red-500" },
-    { name: "Pandas", icon: "🐼", color: "text-blue-700" },
-    { name: "NumPy", icon: "🔢", color: "text-green-700" },
-    { name: "Matplotlib", icon: "📊", color: "text-blue-600" },
-    { name: "Seaborn", icon: "📈", color: "text-orange-500" },
-    { name: "Jupyter", icon: "📓", color: "text-gray-700" }
+    { 
+      name: "TensorFlow", 
+      icon: <SiTensorflow className="text-4xl text-orange-600" />, 
+      pngIcon: "/images/icons/tech/tensorflow.png",
+      color: "text-orange-600" 
+    },
+    { 
+      name: "PyTorch", 
+      icon: <SiPytorch className="text-4xl text-red-600" />, 
+      pngIcon: "/images/icons/tech/pytorch.png",
+      color: "text-red-600" 
+    },
+    { 
+      name: "Scikit-learn", 
+      icon: <SiScikitlearn className="text-4xl text-blue-600" />, 
+      pngIcon: "/images/icons/tech/scikit-learn.png",
+      color: "text-blue-600" 
+    },
+    { 
+      name: "OpenCV", 
+      icon: <SiOpencv className="text-4xl text-green-600" />, 
+      pngIcon: "/images/icons/tech/opencv.png",
+      color: "text-green-600" 
+    },
+    { 
+      name: "Python", 
+      icon: <SiPython className="text-4xl text-purple-600" />, 
+      pngIcon: "/images/icons/tech/python.png",
+      color: "text-purple-600" 
+    },
+    { 
+      name: "Keras", 
+      icon: <SiKeras className="text-4xl text-red-500" />, 
+      pngIcon: "/images/icons/tech/keras.png",
+      color: "text-red-500" 
+    },
+    { 
+      name: "Pandas", 
+      icon: <SiPandas className="text-4xl text-blue-700" />, 
+      pngIcon: "/images/icons/tech/pandas.png",
+      color: "text-blue-700" 
+    },
+    { 
+      name: "NumPy", 
+      icon: <SiNumpy className="text-4xl text-green-700" />, 
+      pngIcon: "/images/icons/tech/numpy.png",
+      color: "text-green-700" 
+    },
+    { 
+      name: "Jupyter", 
+      icon: <SiJupyter className="text-4xl text-gray-700" />, 
+      pngIcon: "/images/icons/tech/jupyter.png",
+      color: "text-gray-700" 
+    },
+    { 
+      name: "Matplotlib", 
+      icon: <SiChartdotjs className="text-4xl text-blue-600" />, 
+      pngIcon: "/images/icons/tech/matplotlib.png",
+      color: "text-blue-600" 
+    },
+    { 
+      name: "YOLO", 
+      icon: <SiEyeem className="text-4xl text-green-500" />, 
+      pngIcon: "/images/icons/tech/yolo.png",
+      color: "text-green-500" 
+    },
+    { 
+      name: "Google Cloud", 
+      icon: <SiGooglecloud className="text-4xl text-blue-500" />, 
+      pngIcon: "/images/icons/tech/google-cloud.png",
+      color: "text-blue-500" 
+    }
   ];
 
   return (
@@ -189,7 +265,22 @@ const AISolutionsPage = () => {
                 whileHover={{ scale: 1.05 }}
                 className="bg-gray-50 p-6 rounded-xl text-center hover:bg-blue-50 transition-colors duration-200"
               >
-                <div className="text-4xl mb-2">{tech.icon}</div>
+                <div className="flex justify-center mb-2">
+                  {iconErrors[tech.name] ? (
+                    // Show react-icon if PNG failed to load
+                    tech.icon
+                  ) : (
+                    // Try to load PNG icon
+                    <Image
+                      src={tech.pngIcon}
+                      alt={tech.name}
+                      width={48}
+                      height={48}
+                      className="w-12 h-12 object-contain"
+                      onError={() => setIconErrors(prev => ({ ...prev, [tech.name]: true }))}
+                    />
+                  )}
+                </div>
                 <div className={`text-sm font-bold ${tech.color}`}>{tech.name}</div>
               </motion.div>
             ))}
