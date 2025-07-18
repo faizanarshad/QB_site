@@ -28,6 +28,10 @@ interface ApplicationData {
   resume: File | string | null;
 }
 
+type ApplicationErrors = {
+  [K in keyof ApplicationData]?: string;
+};
+
 const JobApplicationPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -45,7 +49,7 @@ const JobApplicationPage = () => {
     coverLetter: "",
     resume: null,
   });
-  const [errors, setErrors] = useState<Partial<ApplicationData>>({});
+  const [errors, setErrors] = useState<ApplicationErrors>({});
   const [isSuccess, setIsSuccess] = useState(false);
 
   // Fetch job details
@@ -76,7 +80,7 @@ const JobApplicationPage = () => {
   }, [jobId]);
 
   const validateForm = () => {
-    const newErrors: Partial<ApplicationData> = {};
+    const newErrors: ApplicationErrors = {};
     
     if (!formData.name.trim()) newErrors.name = "Name is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
