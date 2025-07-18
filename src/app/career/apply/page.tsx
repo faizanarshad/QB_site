@@ -474,7 +474,7 @@ const JobApplicationPage = () => {
                       <p className="text-gray-600">
                         {formData.resume ? (
                           <span className="text-green-600 font-semibold">
-                            ✓ {formData.resume.name}
+                            ✓ {formData.resume instanceof File ? formData.resume.name : (typeof formData.resume === 'string' ? formData.resume : '')}
                           </span>
                         ) : (
                           "Click to upload your resume (PDF, DOC, DOCX)"
