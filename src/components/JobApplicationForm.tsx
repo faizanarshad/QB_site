@@ -21,6 +21,10 @@ export interface ApplicationData {
   resume: File | null;
 }
 
+type ApplicationErrors = {
+  [K in keyof ApplicationData]?: string;
+};
+
 const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
   jobTitle = "",
   onClose,
@@ -37,12 +41,12 @@ const JobApplicationForm: React.FC<JobApplicationFormProps> = ({
     resume: null,
   });
 
-  const [errors, setErrors] = useState<Partial<ApplicationData>>({});
+  const [errors, setErrors] = useState<ApplicationErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [resumeFileName, setResumeFileName] = useState("");
 
   const validateForm = (): boolean => {
-    const newErrors: Partial<ApplicationData> = {};
+    const newErrors: ApplicationErrors = {};
 
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
