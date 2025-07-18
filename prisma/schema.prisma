@@ -35,7 +35,7 @@ model User {
 // Service model for QBrik's services
 model Service {
   id          String   @id @default(cuid())
-  title       String
+  title       String   @unique
   subtitle    String
   description String
   icon        String
@@ -67,6 +67,7 @@ model ServiceFeature {
   service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 
   @@map("service_features")
+  @@unique([serviceId, name])
 }
 
 // Service benefits
@@ -80,6 +81,7 @@ model ServiceBenefit {
   service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 
   @@map("service_benefits")
+  @@unique([serviceId, name])
 }
 
 // Service statistics
@@ -94,6 +96,7 @@ model ServiceStat {
   service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 
   @@map("service_stats")
+  @@unique([serviceId, key])
 }
 
 // Project model for portfolio
@@ -140,6 +143,7 @@ model Testimonial {
   user   User?   @relation(fields: [userId], references: [id])
 
   @@map("testimonials")
+  @@unique([name, company])
 }
 
 // Blog post model
@@ -199,7 +203,7 @@ model ContactSubmission {
 // Job positions
 model JobPosition {
   id          String   @id @default(cuid())
-  title       String
+  title       String   @unique
   department  String
   location    String
   type        String
