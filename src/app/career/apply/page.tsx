@@ -25,7 +25,7 @@ interface ApplicationData {
   position: string;
   experience: string;
   coverLetter: string;
-  resume: File | null;
+  resume: File | string | null;
 }
 
 const JobApplicationPage = () => {
@@ -106,7 +106,7 @@ const JobApplicationPage = () => {
       submitData.append('position', formData.position);
       submitData.append('experience', formData.experience);
       submitData.append('coverLetter', formData.coverLetter);
-      if (formData.resume) {
+      if (formData.resume instanceof File) {
         submitData.append('resume', formData.resume);
       }
 
