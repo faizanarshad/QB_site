@@ -490,7 +490,7 @@ const JobApplicationPage = () => {
                     className="text-red-500 text-sm mt-2 flex items-center gap-1"
                   >
                     <FaTimes />
-                    {errors.resume}
+                    {typeof errors.resume === "string" ? errors.resume : ""}
                   </motion.p>
                 )}
               </motion.div>
