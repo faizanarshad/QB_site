@@ -14,6 +14,7 @@ const PerformanceDashboard: React.FC = () => {
   const [metrics, setMetrics] = useState<PerformanceMetric[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState('');
+  const [interactionCount, setInteractionCount] = useState(0);
 
   useEffect(() => {
     // Get current page name from URL
@@ -22,6 +23,12 @@ const PerformanceDashboard: React.FC = () => {
     // Listen for performance metrics
     const handlePerformanceMetric = (event: CustomEvent) => {
       const metric = event.detail;
+      
+      // Count interactions
+      if (metric.name.includes('Interaction')) {
+        setInteractionCount(prev => prev + 1);
+      }
+      
       setMetrics(prev => [
         {
           name: metric.name,
@@ -86,8 +93,37 @@ const PerformanceDashboard: React.FC = () => {
 
   const formatValue = (name: string, value: number) => {
     if (name.includes('CLS')) return value.toFixed(3);
-    if (name.includes('Time') || name.includes('Duration')) return `${Math.round(value)}ms`;
+    if (name.includes('Time') || name.includes('Duration') || name.includes('Interaction')) {
+      if (value >= 1000) {
+        return `${(value / 1000).toFixed(1)}s`;
+      }
+      return `${Math.round(value)}ms`;
+    }
     return Math.round(value).toString();
+  };
+
+  const getMetricDescription = (name: string) => {
+    switch (name) {
+      case 'Page Load Time':
+        return 'Time for page to fully load';
+      case 'First Interaction':
+        return 'Time from load to first user interaction';
+      case 'No User Interaction':
+        return 'No interaction detected within 10 seconds';
+      case 'CLS':
+        return 'Cumulative Layout Shift - visual stability';
+      case 'FCP':
+        return 'First Contentful Paint - first content appears';
+      case 'LCP':
+        return 'Largest Contentful Paint - main content loads';
+      case 'TTFB':
+        return 'Time to First Byte - server response time';
+      default:
+        if (name.includes('Interaction:')) {
+          return 'User interaction with page element';
+        }
+        return 'Performance metric';
+    }
   };
 
   if (!isVisible) {
@@ -98,6 +134,11 @@ const PerformanceDashboard: React.FC = () => {
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-lg transition-all duration-200 flex items-center gap-2"
         >
           📊 Performance
+          {interactionCount > 0 && (
+            <span className="bg-red-500 text-white text-xs rounded-full px-2 py-1">
+              {interactionCount}
+            </span>
+          )}
         </button>
       </div>
     );
@@ -117,6 +158,7 @@ const PerformanceDashboard: React.FC = () => {
           </button>
         </div>
         <p className="text-sm opacity-90 mt-1">Page: {currentPage}</p>
+        <p className="text-xs opacity-75 mt-1">Interactions: {interactionCount}</p>
       </div>
 
       {/* Metrics */}
@@ -137,7 +179,10 @@ const PerformanceDashboard: React.FC = () => {
                       <span className="text-lg">{getRatingIcon(metric.rating)}</span>
                       <span className="font-medium text-sm">{metric.name}</span>
                     </div>
-                    <div className="flex items-center justify-between mt-1">
+                    <p className="text-xs text-gray-600 mt-1">
+                      {getMetricDescription(metric.name)}
+                    </p>
+                    <div className="flex items-center justify-between mt-2">
                       <span className={`text-lg font-bold ${getRatingColor(metric.rating)}`}>
                         {formatValue(metric.name, metric.value)}
                       </span>

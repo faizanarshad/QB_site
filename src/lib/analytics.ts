@@ -110,32 +110,86 @@ const trackResourceLoadTimes = () => {
   observer.observe({ entryTypes: ['resource'] });
 };
 
-// Track user interactions
+// Track user interactions with improved logic
 const trackUserInteractions = () => {
   if (typeof window === 'undefined') return;
 
   let firstInteraction = true;
-  let firstInteractionTime = 0;
+  let pageLoadTime = 0;
+  let interactionStartTime = 0;
 
-  const trackInteraction = () => {
+  // Record page load time
+  const recordPageLoad = () => {
+    pageLoadTime = performance.now();
+  };
+
+  // Track first meaningful interaction
+  const trackFirstInteraction = (event: Event) => {
     if (firstInteraction) {
       firstInteraction = false;
-      firstInteractionTime = performance.now();
+      interactionStartTime = performance.now();
+      
+      // Calculate time since page load (more realistic metric)
+      const timeSinceLoad = interactionStartTime - pageLoadTime;
+      
+      // More realistic thresholds for first interaction
+      // Good: < 3 seconds, Needs improvement: < 5 seconds, Poor: > 5 seconds
+      const rating = timeSinceLoad < 3000 ? 'good' : timeSinceLoad < 5000 ? 'needs-improvement' : 'poor';
       
       trackPerformance({
         name: 'First Interaction',
-        value: firstInteractionTime,
-        rating: firstInteractionTime < 1000 ? 'good' : firstInteractionTime < 3000 ? 'needs-improvement' : 'poor',
+        value: timeSinceLoad,
+        rating,
         delta: 0,
         id: 'first-interaction'
+      });
+
+      // Also track interaction type
+      const target = event.target as HTMLElement;
+      const interactionType = target.tagName.toLowerCase();
+      
+      trackPerformance({
+        name: `Interaction: ${interactionType}`,
+        value: timeSinceLoad,
+        rating,
+        delta: 0,
+        id: `interaction-${interactionType}`
       });
     }
   };
 
-  // Track various user interactions
-  ['click', 'scroll', 'keydown', 'touchstart'].forEach(eventType => {
-    window.addEventListener(eventType, trackInteraction, { once: true, passive: true });
+  // Record page load time immediately
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', recordPageLoad);
+  } else {
+    recordPageLoad();
+  }
+
+  // Track various user interactions with better event handling
+  const interactionEvents = [
+    'click', 'touchstart', 'keydown', 'scroll', 'mousedown', 'focus'
+  ];
+
+  interactionEvents.forEach(eventType => {
+    window.addEventListener(eventType, trackFirstInteraction, { 
+      once: true, 
+      passive: true,
+      capture: true 
+    });
   });
+
+  // Fallback: if no interaction after 10 seconds, mark as "no interaction"
+  setTimeout(() => {
+    if (firstInteraction) {
+      trackPerformance({
+        name: 'No User Interaction',
+        value: 10000,
+        rating: 'needs-improvement',
+        delta: 0,
+        id: 'no-interaction'
+      });
+    }
+  }, 10000);
 };
 
 // Custom performance mark and measure utilities
