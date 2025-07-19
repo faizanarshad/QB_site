@@ -7,10 +7,12 @@ import About from "@/components/About";
 import Features from "@/components/Features";
 import ImageExample from "@/components/ImageExample";
 import Footer from "@/components/Footer";
+import PerformanceMonitor from "@/components/PerformanceMonitor";
 
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <PerformanceMonitor pageName="home" />
       <Header />
       <AnimatedHero 
         headline="Innovative AI Solutions"
