@@ -12,15 +12,33 @@ const ANALYTICS_ID = process.env.NEXT_PUBLIC_ANALYTICS_ID || 'qbrik-solutions';
 
 // Custom performance tracking
 export const trackPerformance = (metric: any) => {
-  // Log to console in development
+  // Enhanced console logging in development
   if (process.env.NODE_ENV === 'development') {
-    console.log('📊 Performance Metric:', {
-      name: metric.name,
-      value: metric.value,
-      rating: metric.rating,
-      delta: metric.delta,
-      id: metric.id
+    const emoji = metric.rating === 'good' ? '✅' : metric.rating === 'needs-improvement' ? '⚠️' : '❌';
+    const color = metric.rating === 'good' ? '#22c55e' : metric.rating === 'needs-improvement' ? '#eab308' : '#ef4444';
+    
+    console.log(
+      `%c${emoji} ${metric.name}%c\n` +
+      `Value: ${metric.value.toFixed(2)}\n` +
+      `Rating: ${metric.rating}\n` +
+      `ID: ${metric.id}`,
+      `color: ${color}; font-weight: bold; font-size: 14px;`,
+      'color: inherit; font-size: 12px;'
+    );
+  }
+
+  // Dispatch custom event for performance dashboard
+  if (typeof window !== 'undefined') {
+    const event = new CustomEvent('performance-metric', {
+      detail: {
+        name: metric.name,
+        value: metric.value,
+        rating: metric.rating,
+        delta: metric.delta,
+        id: metric.id
+      }
     });
+    window.dispatchEvent(event);
   }
 
   // Send to analytics service (you can replace with your preferred service)
@@ -37,6 +55,8 @@ export const trackPerformance = (metric: any) => {
 // Initialize Web Vitals monitoring
 export const initWebVitals = () => {
   if (typeof window === 'undefined') return;
+
+  console.log('🚀 Initializing Performance Monitoring...');
 
   // Core Web Vitals (FID is deprecated in v5, using INP instead)
   onCLS(trackPerformance);
@@ -147,5 +167,8 @@ export const performanceUtils = {
 // Initialize analytics when the module is imported
 if (typeof window !== 'undefined') {
   // Initialize after a short delay to ensure the page is ready
-  setTimeout(initWebVitals, 1000);
+  setTimeout(() => {
+    initWebVitals();
+    console.log('📊 Performance monitoring is now active!');
+  }, 1000);
 } 
