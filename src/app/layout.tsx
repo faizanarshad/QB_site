@@ -31,12 +31,6 @@ export default function RootLayout({
         {/* Preload critical resources for better LCP */}
         <link
           rel="preload"
-          href="/images/hero/theme.webp"
-          as="image"
-          type="image/webp"
-        />
-        <link
-          rel="preload"
           href="/fonts/inter-var.woff2"
           as="font"
           type="font/woff2"
