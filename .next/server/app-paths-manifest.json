@@ -1,7 +1,20 @@
 {
-  "/not-found": "app/not-found.js",
-  "/services/page": "app/services/page.js",
-  "/page": "app/page.js",
+  "/_not-found": "app/_not-found.js",
+  "/ai-solutions/page": "app/ai-solutions/page.js",
+  "/api/career/route": "app/api/career/route.js",
+  "/api/career/[id]/route": "app/api/career/[id]/route.js",
+  "/api/services/route": "app/api/services/route.js",
+  "/admin/applications/page": "app/admin/applications/page.js",
+  "/api/jobs/route": "app/api/jobs/route.js",
+  "/api/newsletter/route": "app/api/newsletter/route.js",
+  "/api/contact/route": "app/api/contact/route.js",
+  "/career/page": "app/career/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/blog/page": "app/blog/page.js",
   "/career/apply/page": "app/career/apply/page.js",
-  "/career/page": "app/career/page.js"
+  "/demo-hero/page": "app/demo-hero/page.js",
+  "/page": "app/page.js",
+  "/portfolio/page": "app/portfolio/page.js",
+  "/services/page": "app/services/page.js",
+  "/team/page": "app/team/page.js"
 }
