@@ -6,18 +6,18 @@ import Image from "next/image";
 
 const Features = () => {
   const technologies = [
-    { name: "React", icon: "⚛️", category: "Frontend" },
-    { name: "Next.js", icon: "▲", category: "Frontend" },
-    { name: "TypeScript", icon: "📘", category: "Language" },
-    { name: "Tailwind CSS", icon: "🎨", category: "Styling" },
-    { name: "Python", icon: "🐍", category: "Backend" },
-    { name: "TensorFlow", icon: "🧠", category: "AI/ML" },
-    { name: "PyTorch", icon: "🔥", category: "AI/ML" },
-    { name: "OpenCV", icon: "👁️", category: "Computer Vision" },
-    { name: "Node.js", icon: "🟢", category: "Backend" },
-    { name: "PostgreSQL", icon: "🐘", category: "Database" },
-    { name: "MongoDB", icon: "🍃", category: "Database" },
-    { name: "AWS", icon: "☁️", category: "Cloud" },
+    { name: "React", icon: "/images/tech/react.svg", category: "Frontend" },
+    { name: "Next.js", icon: "/images/tech/nextjs.svg", category: "Frontend" },
+    { name: "TypeScript", icon: "/images/tech/typescript.svg", category: "Language" },
+    { name: "Tailwind CSS", icon: "/images/tech/tailwindcss.svg", category: "Styling" },
+    { name: "Python", icon: "/images/tech/python.svg", category: "Backend" },
+    { name: "TensorFlow", icon: "/images/tech/tensorflow.svg", category: "AI/ML" },
+    { name: "PyTorch", icon: "/images/tech/pytorch.svg", category: "AI/ML" },
+    { name: "OpenCV", icon: "/images/tech/opencv.svg", category: "Computer Vision" },
+    { name: "Node.js", icon: "/images/tech/nodejs.svg", category: "Backend" },
+    { name: "PostgreSQL", icon: "/images/tech/postgresql.svg", category: "Database" },
+    { name: "MongoDB", icon: "/images/tech/mongodb.svg", category: "Database" },
+    { name: "AWS", icon: "/images/tech/aws.svg", category: "Cloud" },
   ];
 
   return (
@@ -57,7 +57,15 @@ const Features = () => {
                 whileHover={{ scale: 1.05 }}
                 className="bg-gray-50 p-6 rounded-xl text-center hover:bg-blue-50 transition-colors duration-200 border border-gray-200"
               >
-                <div className="text-4xl mb-3">{tech.icon}</div>
+                <div className="flex justify-center mb-3">
+                  <Image
+                    src={tech.icon}
+                    alt={tech.name + " logo"}
+                    width={48}
+                    height={48}
+                    className="object-contain"
+                  />
+                </div>
                 <div className="text-sm font-bold text-gray-900 mb-1">{tech.name}</div>
                 <div className="text-xs text-gray-500">{tech.category}</div>
               </motion.div>
