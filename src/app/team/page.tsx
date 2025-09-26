@@ -52,10 +52,10 @@ const TeamPage = () => {
     },
     {
       name: "Hamza",
-      role: "Head of E-commerce Solutions",
+      role: "Head of Digital Marketing",
       image: "/images/team/hamza.webp",
-      bio: "E-commerce specialist building scalable and robust digital platforms.",
-      expertise: ["E-commerce", "Digital Strategy", "Platform Development"],
+      bio: "Digital marketing expert driving growth and brand awareness through innovative strategies.",
+      expertise: ["Digital Marketing", "SEO/SEM", "Social Media Strategy"],
       linkedin: "#",
       github: "#",
       twitter: "#",
