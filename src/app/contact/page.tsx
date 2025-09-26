@@ -27,7 +27,7 @@ const ContactPage = () => {
     {
       icon: "📧",
       title: "Email",
-      details: "support@qbriksolutions.com",
+      details: "support@qbrixsolutions.com",
       description: "Send us an email anytime",
     },
     {
@@ -233,7 +233,7 @@ const ContactPage = () => {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={() => {
-                            const message = encodeURIComponent("Hello! I'm interested in QBrik Solutions services. Can you help me?");
+                            const message = encodeURIComponent("Hello! I'm interested in QBrix Solutions services. Can you help me?");
                             const whatsappUrl = `https://wa.me/923394101341?text=${message}`;
                             window.open(whatsappUrl, '_blank');
                           }}
@@ -252,7 +252,7 @@ const ContactPage = () => {
 
               <div className="mt-12 bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Why Choose QBrik Solutions?
+                  Why Choose QBrix Solutions?
                 </h3>
                 <ul className="space-y-3">
                   {[

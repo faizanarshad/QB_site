@@ -1,4 +1,4 @@
-# 🚀 Vercel Deployment Guide for QBrik Solutions
+# 🚀 Vercel Deployment Guide for QBrix Solutions
 
 ## 📋 Prerequisites
 

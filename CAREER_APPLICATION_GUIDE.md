@@ -1,6 +1,6 @@
 # 🎯 Career Application System Guide
 
-This guide explains how to implement and use the comprehensive job application system for QBrik Solutions.
+This guide explains how to implement and use the comprehensive job application system for QBrix Solutions.
 
 ## 🚀 Features Implemented
 
@@ -46,7 +46,7 @@ Create a `.env` file in your project root:
 
 ```env
 # Database Configuration
-DATABASE_URL="postgresql://username:password@localhost:5432/qbrik_solutions"
+DATABASE_URL="postgresql://username:password@localhost:5432/qbrix_solutions"
 
 # Next.js Configuration
 NEXTAUTH_SECRET="your-secret-key-here"

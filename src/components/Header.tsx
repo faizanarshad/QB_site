@@ -46,7 +46,7 @@ const Header = () => {
             className="flex-shrink-0"
           >
             <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:from-blue-500 hover:to-purple-500 transition-all duration-300">
-              QBrik Solutions
+              QBrix Solutions
             </Link>
           </motion.div>
 

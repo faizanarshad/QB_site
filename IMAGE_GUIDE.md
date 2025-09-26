@@ -1,4 +1,4 @@
-# Image Guide for QBrik Solutions Website
+# Image Guide for QBrix Solutions Website
 
 ## 📁 Image Directory Structure
 
@@ -26,7 +26,7 @@ import Image from "next/image";
 <div className="relative h-screen">
   <Image
     src="/images/hero/hero-bg.jpg"
-    alt="QBrik Solutions Hero Background"
+    alt="QBrix Solutions Hero Background"
     fill
     className="object-cover"
     priority
@@ -171,7 +171,7 @@ For blog post featured images:
 ```jsx
 <Image
   src="/images/icons/logo.png"
-  alt="QBrik Solutions Logo"
+  alt="QBrix Solutions Logo"
   width={200}
   height={60}
   className="object-contain"

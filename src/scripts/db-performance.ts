@@ -28,7 +28,7 @@ async function checkDatabasePerformance() {
         count(*) as active_connections,
         state
       FROM pg_stat_activity 
-      WHERE datname = 'qbrik_solutions'
+      WHERE datname = 'qbrix_solutions'
       GROUP BY state
     `
     console.table(connections)
@@ -88,7 +88,7 @@ async function checkDatabasePerformance() {
     console.log('\n💽 Database Size:')
     const dbSize = await prisma.$queryRaw`
       SELECT 
-        pg_size_pretty(pg_database_size('qbrik_solutions')) as database_size,
+        pg_size_pretty(pg_database_size('qbrix_solutions')) as database_size,
         pg_size_pretty(pg_total_relation_size('services')) as services_table_size,
         pg_size_pretty(pg_total_relation_size('testimonials')) as testimonials_table_size
     `

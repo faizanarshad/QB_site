@@ -9,10 +9,10 @@ import "../lib/analytics"; // Import analytics to initialize performance monitor
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "QBrik Solutions - AI, ML, Computer Vision & Robotics Experts",
+  title: "QBrix Solutions - AI, ML, Computer Vision & Robotics Experts",
   description: "Leading software house specializing in AI, Machine Learning, Computer Vision, E-commerce, and Robotics & Automation solutions.",
-  keywords: ["AI", "Machine Learning", "Computer Vision", "E-commerce", "Robotics", "Automation", "Software Development", "QBrik Solutions"],
-  authors: [{ name: "QBrik Solutions" }],
+  keywords: ["AI", "Machine Learning", "Computer Vision", "E-commerce", "Robotics", "Automation", "Software Development", "QBrix Solutions"],
+  authors: [{ name: "QBrix Solutions" }],
 };
 
 export const viewport: Viewport = {

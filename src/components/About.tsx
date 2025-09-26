@@ -39,7 +39,7 @@ const About = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Why Choose QBrik Solutions?
+            Why Choose QBrix Solutions?
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             We combine cutting-edge AI, ML, and automation technologies to deliver 
@@ -85,7 +85,7 @@ const About = () => {
           <div className="relative">
             <Image
               src="/images/tenweb_media_rtyvghhu7.webp"
-              alt="QBrik Solutions Team"
+              alt="QBrix Solutions Team"
               width={600}
               height={400}
               className="rounded-2xl shadow-2xl"
@@ -128,7 +128,7 @@ const About = () => {
               Ready to Transform Your Business?
             </h3>
             <p className="text-xl mb-8 opacity-90">
-              Join leading companies who trust QBrik Solutions for their AI and automation needs.
+              Join leading companies who trust QBrix Solutions for their AI and automation needs.
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}

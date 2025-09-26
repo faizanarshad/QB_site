@@ -8,7 +8,7 @@ declare global {
 }
 
 // Performance monitoring configuration
-const ANALYTICS_ID = process.env.NEXT_PUBLIC_ANALYTICS_ID || 'qbrik-solutions';
+const ANALYTICS_ID = process.env.NEXT_PUBLIC_ANALYTICS_ID || 'qbrix-solutions';
 
 // Custom performance tracking
 export const trackPerformance = (metric: any) => {

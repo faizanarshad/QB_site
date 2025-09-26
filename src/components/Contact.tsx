@@ -32,7 +32,7 @@ const Contact = () => {
             Get In Touch
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ready to transform your business with AI and automation? Let's discuss how QBrik Solutions can help.
+            Ready to transform your business with AI and automation? Let's discuss how QBrix Solutions can help.
           </p>
         </motion.div>
 
@@ -56,7 +56,7 @@ const Contact = () => {
                 <span className="w-8 h-8 bg-blue-600 rounded-full mr-4 flex items-center justify-center text-white font-bold">
                   📧
                 </span>
-                <span className="text-gray-700">support@qbriksolutions.com</span>
+                <span className="text-gray-700">support@qbrixsolutions.com</span>
               </div>
               <div className="flex items-center">
                 <span className="w-8 h-8 bg-blue-600 rounded-full mr-4 flex items-center justify-center text-white font-bold">

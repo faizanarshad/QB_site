@@ -15,7 +15,7 @@ const Footer = () => {
             viewport={{ once: true }}
             className="col-span-1 md:col-span-2"
           >
-            <h3 className="text-2xl font-bold mb-4">QBrik Solutions</h3>
+            <h3 className="text-2xl font-bold mb-4">QBrix Solutions</h3>
             <p className="text-gray-400 mb-6 max-w-md">
               Pioneering the future with cutting-edge AI, Machine Learning, Computer Vision, 
               E-commerce, and Robotics & Automation solutions.
@@ -81,7 +81,7 @@ const Footer = () => {
           viewport={{ once: true }}
           className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400"
         >
-          <p>&copy; 2024 QBrik Solutions. All rights reserved.</p>
+          <p>&copy; 2024 QBrix Solutions. All rights reserved.</p>
         </motion.div>
       </div>
     </footer>

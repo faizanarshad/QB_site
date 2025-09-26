@@ -12,7 +12,7 @@ const DemoHeroPage = () => {
       <AnimatedHero
         headline="Unleash the Power of AI"
         subheadline="Next-Gen Solutions for Modern Businesses"
-        description="Experience the future of technology with QBrik Solutions. Our AI-driven platforms, automation, and digital expertise help you innovate, scale, and lead your industry."
+        description="Experience the future of technology with QBrix Solutions. Our AI-driven platforms, automation, and digital expertise help you innovate, scale, and lead your industry."
         primaryAction={{
           text: "Get Started",
           onClick: () => alert("Let's get started!")

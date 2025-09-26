@@ -90,7 +90,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               transition={{ delay: 0.2, duration: 0.8, type: "spring", stiffness: 100 }}
               className="inline-block p-4 bg-white/20 backdrop-blur-sm rounded-2xl mb-8"
             >
-              <span className="text-white/90 text-lg font-medium">QBrik Solutions</span>
+              <span className="text-white/90 text-lg font-medium">QBrix Solutions</span>
             </motion.div>
           )}
           

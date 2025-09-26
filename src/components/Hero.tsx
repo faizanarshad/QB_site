@@ -48,7 +48,7 @@ const Hero = () => {
             transition={{ delay: 0.3, duration: 0.8 }}
             className="text-5xl md:text-7xl font-bold text-white leading-tight"
           >
-            QBrik
+            QBrix
             <span className="block bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               Solutions
             </span>

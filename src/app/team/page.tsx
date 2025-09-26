@@ -14,7 +14,7 @@ const TeamPage = () => {
       name: "Faizan Arshad",
       role: "Chief Executive Officer",
       image: "/images/team/faizan.webp",
-      bio: "Visionary leader driving innovation and excellence at QBrik Solutions.",
+      bio: "Visionary leader driving innovation and excellence at QBrix Solutions.",
       expertise: ["AI Strategy", "Business Leadership", "Innovation"],
       linkedin: "#",
       github: "#",
@@ -350,7 +350,7 @@ const TeamPage = () => {
               Our Values
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The principles that guide everything we do at QBrik Solutions
+              The principles that guide everything we do at QBrix Solutions
             </p>
           </motion.div>
 
@@ -389,7 +389,7 @@ const TeamPage = () => {
                 Our Culture
               </h2>
               <p className="text-lg text-gray-600 mb-8">
-                At QBrik Solutions, we foster a culture of innovation, collaboration, and continuous learning. 
+                At QBrix Solutions, we foster a culture of innovation, collaboration, and continuous learning. 
                 Our team members are passionate about technology and committed to delivering exceptional results for our clients.
               </p>
               <div className="space-y-4">

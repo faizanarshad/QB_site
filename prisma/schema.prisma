@@ -32,7 +32,7 @@ model User {
   @@map("users")
 }
 
-// Service model for QBrik's services
+// Service model for QBrix's services
 model Service {
   id          String   @id @default(cuid())
   title       String   @unique

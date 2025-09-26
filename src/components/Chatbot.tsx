@@ -22,7 +22,7 @@ const Chatbot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: "Hello! I'm QBrik AI Assistant. I can help you with our AI, ML, Computer Vision, E-commerce, and Robotics services. What would you like to know?",
+      text: "Hello! I'm QBrix AI Assistant. I can help you with our AI, ML, Computer Vision, E-commerce, and Robotics services. What would you like to know?",
       sender: "bot",
       timestamp: new Date(),
       quickReplies: ["Tell me about AI services", "Show me your portfolio", "Contact information", "Pricing details"]
@@ -102,7 +102,7 @@ const Chatbot = () => {
     // Greetings
     if (input.includes("hello") || input.includes("hi") || input.includes("hey")) {
       return {
-        text: "Hello! Welcome to QBrik Solutions. I'm here to help you with our cutting-edge AI, ML, Computer Vision, E-commerce, and Robotics services. What would you like to explore today?",
+        text: "Hello! Welcome to QBrix Solutions. I'm here to help you with our cutting-edge AI, ML, Computer Vision, E-commerce, and Robotics services. What would you like to explore today?",
         quickReplies: ["AI & Machine Learning", "Computer Vision", "E-commerce Solutions", "Robotics & Automation"]
       };
     }
@@ -150,7 +150,7 @@ const Chatbot = () => {
     // Contact Information
     if (input.includes("contact") || input.includes("phone") || input.includes("email") || input.includes("reach")) {
       return {
-        text: "📞 Here's how to reach us:\n\n📧 Email: support@qbriksolutions.com\n📱 Phone: +92 339 4101341\n💬 WhatsApp: +92 339 4101341\n📍 Office: 3rd Floor Gulberg Emporium, Business Square, Islamabad, Pakistan\n\nOur team is available Mon-Fri, 8am-6pm for consultations. Would you like to schedule a call?",
+        text: "📞 Here's how to reach us:\n\n📧 Email: support@qbrixsolutions.com\n📱 Phone: +92 339 4101341\n💬 WhatsApp: +92 339 4101341\n📍 Office: 3rd Floor Gulberg Emporium, Business Square, Islamabad, Pakistan\n\nOur team is available Mon-Fri, 8am-6pm for consultations. Would you like to schedule a call?",
         quickReplies: ["Schedule Consultation", "Send Email", "WhatsApp Chat", "Visit Office"]
       };
     }
@@ -181,7 +181,7 @@ const Chatbot = () => {
     
     // Default response
     return {
-      text: "Thank you for your message! I'm here to help you with information about our AI, ML, Computer Vision, E-commerce, and Robotics services. You can also contact us directly at support@qbriksolutions.com for detailed discussions about your project.",
+      text: "Thank you for your message! I'm here to help you with information about our AI, ML, Computer Vision, E-commerce, and Robotics services. You can also contact us directly at support@qbrixsolutions.com for detailed discussions about your project.",
       quickReplies: ["AI Services", "Portfolio", "Contact Info", "Pricing"]
     };
   };
@@ -196,7 +196,7 @@ const Chatbot = () => {
   const clearChat = () => {
     setMessages([{
       id: "1",
-      text: "Hello! I'm QBrik AI Assistant. I can help you with our AI, ML, Computer Vision, E-commerce, and Robotics services. What would you like to know?",
+      text: "Hello! I'm QBrix AI Assistant. I can help you with our AI, ML, Computer Vision, E-commerce, and Robotics services. What would you like to know?",
       sender: "bot",
       timestamp: new Date(),
       quickReplies: ["Tell me about AI services", "Show me your portfolio", "Contact information", "Pricing details"]
@@ -261,7 +261,7 @@ const Chatbot = () => {
                     <span className="text-lg">🤖</span>
                   </div>
                   <div>
-                    <h3 className="font-semibold">QBrik AI Assistant</h3>
+                    <h3 className="font-semibold">QBrix AI Assistant</h3>
                     <p className="text-sm text-blue-100">Online • Ready to help</p>
                   </div>
                 </div>

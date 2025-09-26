@@ -101,7 +101,7 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({
               transition={{ delay: 0.1, duration: 0.7 }}
               className="inline-block mb-6 px-5 py-2 bg-white/20 rounded-full shadow-lg backdrop-blur-md border border-white/30"
             >
-              <span className="text-lg font-semibold text-white tracking-widest uppercase">QBrik Solutions</span>
+              <span className="text-lg font-semibold text-white tracking-widest uppercase">QBrix Solutions</span>
             </motion.div>
           )}
           <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight drop-shadow-xl">

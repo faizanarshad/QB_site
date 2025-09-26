@@ -264,7 +264,7 @@ const ServicesPage = () => {
     {
       name: "Sarah Johnson",
       role: "CTO, TechCorp",
-      content: "QBrik's AI solutions transformed our operations completely. We've seen a 60% increase in efficiency.",
+      content: "QBrix's AI solutions transformed our operations completely. We've seen a 60% increase in efficiency.",
       rating: 5,
       initials: "SJ",
       company: "TechCorp",
@@ -282,7 +282,7 @@ const ServicesPage = () => {
     {
       name: "Emily Rodriguez",
       role: "Operations Director, RetailPlus",
-      content: "Our e-commerce platform built by QBrik has increased our online sales by 150% in just 6 months.",
+      content: "Our e-commerce platform built by QBrix has increased our online sales by 150% in just 6 months.",
       rating: 5,
       initials: "ER",
       company: "RetailPlus",

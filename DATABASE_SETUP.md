@@ -1,6 +1,6 @@
-# 🗄️ Database Setup Guide for QBrik Solutions
+# 🗄️ Database Setup Guide for QBrix Solutions
 
-This guide will help you set up a database for your QBrik Solutions website using Prisma ORM with PostgreSQL.
+This guide will help you set up a database for your QBrix Solutions website using Prisma ORM with PostgreSQL.
 
 ## 📋 Prerequisites
 
@@ -22,7 +22,7 @@ Create a `.env` file in your project root:
 
 ```env
 # Database Configuration
-DATABASE_URL="postgresql://username:password@localhost:5432/qbrik_solutions"
+DATABASE_URL="postgresql://username:password@localhost:5432/qbrix_solutions"
 
 # Next.js Configuration
 NEXTAUTH_SECRET="your-secret-key-here"
@@ -33,7 +33,7 @@ NEXTAUTH_URL="http://localhost:3000"
 
 #### Option A: Local PostgreSQL
 1. Install PostgreSQL on your machine
-2. Create a database: `createdb qbrik_solutions`
+2. Create a database: `createdb qbrix_solutions`
 3. Update DATABASE_URL with your credentials
 
 #### Option B: Supabase (Free Tier)
@@ -78,7 +78,7 @@ The database includes the following models:
 
 ### Core Models
 - **User** - User authentication and management
-- **Service** - QBrik's services with features, benefits, and stats
+- **Service** - QBrix's services with features, benefits, and stats
 - **Project** - Portfolio projects linked to services
 - **Testimonial** - Client testimonials
 
