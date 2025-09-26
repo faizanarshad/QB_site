@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Footer = () => {
   return (
@@ -15,7 +16,16 @@ const Footer = () => {
             viewport={{ once: true }}
             className="col-span-1 md:col-span-2"
           >
-            <h3 className="text-2xl font-bold mb-4">QBrix Solutions</h3>
+            <div className="flex items-center space-x-3 mb-4">
+              <Image
+                src="/images/Qbrixlogo.png"
+                alt="QBrix Solutions Logo"
+                width={40}
+                height={40}
+                className="object-contain"
+              />
+              <h3 className="text-2xl font-bold">QBrix Solutions</h3>
+            </div>
             <p className="text-gray-400 mb-6 max-w-md">
               Pioneering the future with cutting-edge AI, Machine Learning, Computer Vision, 
               E-commerce, and Robotics & Automation solutions.

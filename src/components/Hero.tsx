@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Hero = () => {
   return (
@@ -39,6 +40,22 @@ const Hero = () => {
           >
             <span className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse" />
             Innovation at Scale
+          </motion.div>
+
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="mb-8"
+          >
+            <Image
+              src="/images/Qbrixlogo.png"
+              alt="QBrix Solutions Logo"
+              width={120}
+              height={120}
+              className="object-contain mx-auto"
+            />
           </motion.div>
 
           {/* Main Heading */}
