@@ -429,22 +429,6 @@ const TeamPage = () => {
                   height={400}
                   className="w-full h-80 object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/90 to-purple-600/90 flex items-center justify-center">
-                  <div className="text-center text-white p-8">
-                    <div className="text-6xl mb-6">🎯</div>
-                    <h4 className="text-2xl font-bold mb-4">Join Our Team</h4>
-                    <p className="text-blue-100 mb-6">
-                      We're always looking for talented individuals who share our passion for innovation and technology.
-                    </p>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-200"
-                    >
-                      View Open Positions
-                    </motion.button>
-                  </div>
-                </div>
               </div>
             </motion.div>
           </div>
