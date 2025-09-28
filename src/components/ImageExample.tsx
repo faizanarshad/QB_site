@@ -33,14 +33,14 @@ const ImageExample = () => {
             className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
             <h3 className="text-xl font-bold text-gray-900 mb-4">AI Technology</h3>
-            <div className="relative h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
-              <Image
-                src="/images/AI Tech.jpg"
-                alt="AI Technology Solutions"
-                fill
-                className="object-cover object-center"
-              />
-            </div>
+              <div className="relative h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
+                <Image
+                  src="/images/AI Tech.jpg"
+                  alt="AI Technology Solutions"
+                  fill
+                  className="object-cover"
+                />
+              </div>
             <p className="text-sm text-gray-600">
               Advanced artificial intelligence and machine learning solutions
             </p>
