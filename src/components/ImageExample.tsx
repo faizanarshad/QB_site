@@ -59,7 +59,7 @@ const ImageExample = () => {
                 src="/images/computer vision.jpg"
                 alt="Computer Vision Technology"
                 fill
-                className="object-cover object-top"
+                className="object-cover object-center"
               />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-4">Computer Vision</h3>
