@@ -123,8 +123,8 @@ const ImageExample = () => {
             <h3 className="text-xl font-bold text-gray-900 mb-4">Machine Learning</h3>
             <div className="relative h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
               <Image
-                src="/images/tenweb_media_rv0ugd2xe.webp"
-                alt="Machine Learning"
+                src="/images/machine learning.webp"
+                alt="Machine Learning Technology"
                 fill
                 className="object-cover"
               />
