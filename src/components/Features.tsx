@@ -117,15 +117,13 @@ const Features = () => {
             className="relative"
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-              <div className="w-full h-80 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <div className="text-6xl mb-4">🤖</div>
-                  <h4 className="text-2xl font-bold mb-4">AI-Powered</h4>
-                  <p className="text-blue-100">
-                    Intelligent solutions that learn and adapt to your business needs.
-                  </p>
-                </div>
-              </div>
+              <Image
+                src="/images/AI Tech.jpg"
+                alt="AI Technology Solutions"
+                width={600}
+                height={400}
+                className="w-full h-80 object-cover"
+              />
             </div>
           </motion.div>
         </div>
