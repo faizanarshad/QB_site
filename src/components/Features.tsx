@@ -92,46 +92,6 @@ const Features = () => {
           </div>
         </motion.div>
 
-        {/* Additional Technology Showcase */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="mt-20"
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="relative rounded-2xl overflow-hidden shadow-xl">
-              <div className="w-full h-64 bg-gradient-to-br from-green-500 to-blue-600 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <div className="text-4xl mb-2">🧠</div>
-                  <h4 className="text-xl font-bold mb-2">Machine Learning</h4>
-                  <p className="text-sm">Advanced algorithms and predictive models</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="relative rounded-2xl overflow-hidden shadow-xl">
-              <div className="w-full h-64 bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <div className="text-4xl mb-2">👁️</div>
-                  <h4 className="text-xl font-bold mb-2">Computer Vision</h4>
-                  <p className="text-sm">Image and video processing solutions</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="relative rounded-2xl overflow-hidden shadow-xl">
-              <div className="w-full h-64 bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <div className="text-4xl mb-2">📊</div>
-                  <h4 className="text-xl font-bold mb-2">Data Analytics</h4>
-                  <p className="text-sm">Insights-driven decision making</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
