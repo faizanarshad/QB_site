@@ -73,6 +73,24 @@ const Features = () => {
           </div>
         </motion.div>
 
+        {/* AI Technology Showcase */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+            <Image
+              src="/images/AI Tech.jpg"
+              alt="AI Technology Solutions"
+              width={800}
+              height={400}
+              className="w-full h-80 object-cover"
+            />
+          </div>
+        </motion.div>
 
         {/* Additional Technology Showcase */}
         <motion.div
