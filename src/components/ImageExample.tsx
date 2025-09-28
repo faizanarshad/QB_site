@@ -54,7 +54,6 @@ const ImageExample = () => {
             viewport={{ once: true }}
             className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Computer Vision</h3>
             <div className="relative h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
               <Image
                 src="/images/computer vision.jpg"
@@ -63,6 +62,7 @@ const ImageExample = () => {
                 className="object-cover"
               />
             </div>
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Computer Vision</h3>
             <p className="text-sm text-gray-600">
               Cutting-edge image and video processing technology
             </p>
