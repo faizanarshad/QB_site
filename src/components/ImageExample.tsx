@@ -193,8 +193,8 @@ const ImageExample = () => {
               </div>
               <div className="relative rounded-2xl overflow-hidden">
                 <Image
-                  src="/images/tenweb_media_rjp2lgjk5.webp"
-                  alt="AI Manufacturing Project"
+                  src="/images/ai power.jpg"
+                  alt="AI-Powered Manufacturing Project"
                   width={600}
                   height={400}
                   className="w-full h-auto"
