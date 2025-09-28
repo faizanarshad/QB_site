@@ -73,60 +73,6 @@ const Features = () => {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-3xl font-bold text-gray-900 mb-6">
-              Advanced AI & ML Capabilities
-            </h3>
-            <p className="text-lg text-gray-600 mb-8">
-              Our solutions leverage the latest AI and machine learning technologies 
-              to deliver intelligent automation and data-driven insights.
-            </p>
-            <div className="space-y-4">
-              {[
-                { text: "Deep Learning & Neural Networks", icon: "🕸️" },
-                { text: "Computer Vision & Image Processing", icon: "👁️" },
-                { text: "Natural Language Processing", icon: "💬" },
-                { text: "Predictive Analytics & Forecasting", icon: "📊" },
-              ].map((feature, index) => (
-                <motion.div
-                  key={feature.text}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="flex items-center"
-                >
-                  <span className="text-2xl mr-4">{feature.icon}</span>
-                  <span className="text-gray-700">{feature.text}</span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-              <Image
-                src="/images/AI Tech.jpg"
-                alt="AI Technology Solutions"
-                width={600}
-                height={400}
-                className="w-full h-80 object-cover"
-              />
-            </div>
-          </motion.div>
-        </div>
 
         {/* Additional Technology Showcase */}
         <motion.div
