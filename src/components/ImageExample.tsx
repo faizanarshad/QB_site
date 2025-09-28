@@ -57,8 +57,8 @@ const ImageExample = () => {
             <h3 className="text-xl font-bold text-gray-900 mb-4">Computer Vision</h3>
             <div className="relative h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
               <Image
-                src="/images/tenweb_media_sy9rbqqrt.webp"
-                alt="Computer Vision"
+                src="/images/computer vision.jpg"
+                alt="Computer Vision Technology"
                 fill
                 className="object-cover"
               />
