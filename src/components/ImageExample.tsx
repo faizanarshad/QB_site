@@ -35,7 +35,7 @@ const ImageExample = () => {
             <h3 className="text-xl font-bold text-gray-900 mb-4">AI Technology</h3>
               <div className="relative h-48 bg-gray-200 rounded-lg mb-4 overflow-hidden">
                 <Image
-                  src="/images/AI Tech.jpg"
+                  src="/images/ai techo.png"
                   alt="AI Technology Solutions"
                   fill
                   className="object-cover"
