@@ -18,11 +18,11 @@ export default function Home() {
         description="We deliver cutting-edge AI and machine learning solutions that drive growth, efficiency, and competitive advantage for forward-thinking businesses."
         primaryAction={{
           text: "Explore Our Services",
-          href: "#services"
+          href: "/services"
         }}
         secondaryAction={{
           text: "Get In Touch",
-          href: "#contact"
+          href: "/contact"
         }}
       />
       <About />
