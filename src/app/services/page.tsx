@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedHero from "@/components/AnimatedHero";
@@ -739,36 +740,44 @@ const ServicesPage = () => {
               Join hundreds of successful businesses that have already transformed their operations 
               with our cutting-edge technology solutions.
             </motion.p>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
               viewport={{ once: true }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <motion.button
+              <motion.div
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg hover:shadow-xl transition-all duration-200 group"
               >
-                <span className="flex items-center gap-2">
-                  Start Your Project
-                  <motion.div
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                    className="group-hover:translate-x-1 transition-transform"
-                  >
-                    <FaArrowRight />
-                  </motion.div>
-                </span>
-              </motion.button>
-              <motion.button
+                <Link
+                  href="/contact"
+                  className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg hover:shadow-xl transition-all duration-200 group inline-flex"
+                >
+                  <span className="flex items-center gap-2">
+                    Start Your Project
+                    <motion.div
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                      className="group-hover:translate-x-1 transition-transform"
+                    >
+                      <FaArrowRight />
+                    </motion.div>
+                  </span>
+                </Link>
+              </motion.div>
+              <motion.div
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-200"
               >
-                Schedule Consultation
-              </motion.button>
+                <Link
+                  href="/contact"
+                  className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-200 inline-flex"
+                >
+                  Schedule Consultation
+                </Link>
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>
