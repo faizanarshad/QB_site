@@ -73,8 +73,8 @@ const Header = () => {
                   href={item.href}
                   className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
                     isScrolled
-                      ? "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
-                      : "text-white/90 hover:text-white hover:bg-white/10"
+                      ? "text-gray-700 hover:text-purple-700 hover:bg-purple-50"
+                      : "text-gray-700 hover:text-purple-700 hover:bg-purple-50"
                   }`}
                 >
                   {item.name}
@@ -97,8 +97,8 @@ const Header = () => {
             whileTap={{ scale: 0.95 }}
             className={`hidden md:block px-6 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl ${
               isScrolled
-                ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700"
-                : "bg-white/20 backdrop-blur-sm text-white border border-white/30 hover:bg-white/30"
+                ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700"
+                : "bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700"
             }`}
           >
             Start Project
@@ -110,8 +110,8 @@ const Header = () => {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={`md:hidden p-3 rounded-lg transition-all duration-300 ${
               isScrolled
-                ? "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
-                : "text-white/90 hover:text-white hover:bg-white/10"
+                ? "text-gray-700 hover:text-purple-700 hover:bg-purple-50"
+                : "text-gray-700 hover:text-purple-700 hover:bg-purple-50"
             }`}
           >
             <svg
