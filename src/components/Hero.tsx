@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Hero = () => {
   return (
@@ -42,18 +43,22 @@ const Hero = () => {
           </motion.div>
 
 
-          {/* Main Heading */}
-          <motion.h1
+          {/* Logo */}
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold text-white leading-tight"
+            className="flex justify-center mb-6"
           >
-            QBrix
-            <span className="block bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Solutions
-            </span>
-          </motion.h1>
+            <Image
+              src="/images/qbrix-logo.png"
+              alt="QBrix Solutions"
+              width={300}
+              height={120}
+              className="h-24 md:h-32 w-auto object-contain"
+              priority
+            />
+          </motion.div>
 
           {/* Subtitle */}
           <motion.p
