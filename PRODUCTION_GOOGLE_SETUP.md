@@ -91,3 +91,25 @@ Google returns this when the redirect URI our app sends does **not exactly match
 
 5. **Confirm**
    - Authorized redirect URIs in Google must **exactly** match the redirect we send. One character wrong causes `redirect_uri_mismatch`.
+
+---
+
+## Error: Callback (`/login?error=Callback`)
+
+You’re sent back to the login page with `error=Callback` after Google redirects. This means the **callback handler** failed (after token exchange), not the redirect URI.
+
+### What to do
+
+1. **Check Vercel logs**  
+   In Vercel → Project → Logs (or **Deployments** → … → **View Function Logs**), look for **`OAUTH_CALLBACK_HANDLER_ERROR`** on the `/api/auth/callback/google` request. That log includes the real error (e.g. DB, adapter, cookie).
+
+2. **Enable debug**  
+   In Vercel → **Settings** → **Environment Variables**, add `NEXTAUTH_DEBUG` = `1` for **Production**, then **Redeploy**. Retry sign-in and check the logs again; you’ll get more detailed NextAuth logs.
+
+3. **Common causes**
+   - **Cookies**: State/PKCE cookies not sent on callback (e.g. domain mismatch, SameSite). Use **https://www.qbrixsolutions.com** for both login and callback; avoid `*.vercel.app`.
+   - **Database**: Adapter `createUser` / `linkAccount` failing (Neon connectivity, unique constraint, schema mismatch). Check Neon logs and `qbrix_DATABASE_URL`.
+   - **Duplicate email**: Same email used with another provider and `allowDangerousEmailAccountLinking` is false → use the existing provider or enable that option.
+
+4. **Login page**  
+   The app shows a short message when `error=Callback` and suggests enabling `NEXTAUTH_DEBUG` and checking Vercel logs.

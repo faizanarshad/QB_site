@@ -31,23 +31,23 @@ export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt", maxAge: 30 * 24 * 60 * 60 },
   callbacks: {
     async signIn({ user, account, profile }) {
-      if (account?.provider && profile && user?.id) {
-        const p = profile as { name?: string; email?: string; picture?: string; image?: string };
-        const name = p.name ?? p.email?.split("@")[0];
-        const image = p.picture ?? p.image ?? user.image ?? null;
-        if (name || image) {
-          try {
+      try {
+        if (account?.provider && profile && typeof (user as { id?: string }).id === "string") {
+          const p = profile as { name?: string; email?: string; picture?: string; image?: string };
+          const name = p.name ?? p.email?.split("@")[0];
+          const image = p.picture ?? p.image ?? (user as { image?: string }).image ?? null;
+          if (name || image) {
             await prisma.user.update({
-              where: { id: user.id },
+              where: { id: (user as { id: string }).id },
               data: {
                 ...(name && { name }),
                 ...(image && { image }),
               },
             });
-          } catch {
-            // ignore update errors
           }
         }
+      } catch {
+        // ignore update errors; never block sign-in
       }
       return true;
     },
@@ -76,5 +76,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/login",
   },
+  debug: process.env.NODE_ENV === "development" || !!process.env.NEXTAUTH_DEBUG,
+  useSecureCookies: process.env.NEXTAUTH_URL?.startsWith("https") ?? true,
   secret: process.env.NEXTAUTH_SECRET,
 };

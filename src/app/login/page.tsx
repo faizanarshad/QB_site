@@ -5,6 +5,18 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
 
+const ERROR_MESSAGES: Record<string, string> = {
+  Callback:
+    "Sign-in failed after Google redirected back. Check Vercel logs for OAUTH_CALLBACK_HANDLER_ERROR, or try again.",
+  OAuthCallback:
+    "Google sign-in failed (token exchange). Ensure redirect URI and cookies are correct.",
+  OAuthAccountNotLinked:
+    "This email is already linked to another sign-in method. Use that method instead.",
+  AccessDenied: "You do not have permission to sign in.",
+  Configuration: "Server auth configuration error. Check NEXTAUTH_* and provider env vars.",
+  Default: "Sign-in failed. Try again or use a different account.",
+};
+
 function LoginForm() {
   const searchParams = useSearchParams();
   const from = searchParams.get("callbackUrl") ?? "/";
@@ -12,6 +24,7 @@ function LoginForm() {
     typeof window !== "undefined" && from.startsWith("/")
       ? `${window.location.origin}${from}`
       : from;
+  const error = searchParams.get("error") ?? "";
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 px-4">
@@ -23,6 +36,22 @@ function LoginForm() {
           Use your Google or Microsoft account. Your details will be saved in our
           system.
         </p>
+        {error && (
+          <div
+            className="mb-6 p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200 text-sm"
+            role="alert"
+          >
+            <p className="font-medium">
+              {ERROR_MESSAGES[error] ?? ERROR_MESSAGES.Default}
+            </p>
+            {error === "Callback" && (
+              <p className="mt-2 text-amber-700 dark:text-amber-300">
+                Set <code className="text-xs">NEXTAUTH_DEBUG=1</code> in Vercel
+                and redeploy, then check function logs for the real error.
+              </p>
+            )}
+          </div>
+        )}
 
         <div className="space-y-4">
           <button
