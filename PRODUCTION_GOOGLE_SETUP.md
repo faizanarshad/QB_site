@@ -2,7 +2,7 @@
 
 ## 1. Fix redirect URI in Google Cloud Console
 
-NextAuth sends `{NEXTAUTH_URL}/api/auth/callback/google` to Google. That **exact** URL must be in **Authorized redirect URIs**.
+NextAuth sends `{base}/api/auth/callback/google` to Google (where `base` is derived from the **request host** on Vercel, not necessarily `NEXTAUTH_URL`). That **exact** URL must be in **Authorized redirect URIs**.
 
 1. Go to [Google Cloud Console](https://console.cloud.google.com/) → **APIs & Services** → **Credentials**.
 2. Open your OAuth 2.0 client (e.g. **Web client** for project `modular-embassy-485610-c6`).
@@ -52,23 +52,24 @@ Google returns this when the redirect URI our app sends does **not exactly match
 ### Step 0: Find the exact redirect_uri we send (do this first)
 
 1. Deploy the app (it includes a debug route).
-2. Open **https://www.qbrixsolutions.com/api/auth/debug-redirect-uri** (or your Vercel URL if you use that).
-3. You’ll see JSON with `redirect_uri_used` and `NEXTAUTH_URL`, `VERCEL_URL`.
-4. **Add the `redirect_uri_used` value exactly** to Google Console → Credentials → your OAuth client → **Authorized redirect URIs**.
-5. Save in Google, then try sign-in again.
+2. **Open the debug URL from the same domain you use for login** (e.g. **https://www.qbrixsolutions.com/api/auth/debug-redirect-uri**). Do not use a different domain or the Vercel deployment URL unless you also sign in from that URL.
+3. Copy **`add_this_exact_value_to_google`** (or `redirect_uri_nextauth_uses`) from the JSON.
+4. In Google Console → Credentials → your OAuth client → **Authorized redirect URIs**, add that value **exactly**.
+5. **Remove** any redirect URI that doesn't match (e.g. site root only). Click **Save**.
+6. Try sign-in again from the same domain you used in step 2.
 
-**Common cause:** On Vercel, if `NEXTAUTH_URL` is not set, NextAuth uses `VERCEL_URL` (e.g. `https://your-project.vercel.app`). Your app is then using the **Vercel** URL as callback, but you only added the **custom domain** in Google. Fix: either set `NEXTAUTH_URL` to `https://www.qbrixsolutions.com` in Vercel and redeploy, or add **both** redirect URIs in Google:
+**On Vercel, NextAuth uses the request Host** (not `NEXTAUTH_URL`), because `process.env.VERCEL` is set. The debug route replicates that and shows what we actually send.
+
+**Belt-and-suspenders:** Add **all** of these to Authorized redirect URIs so it works regardless of which host is used:
 - `https://www.qbrixsolutions.com/api/auth/callback/google`
-- `https://<your-vercel-project>.vercel.app/api/auth/callback/google`  
-(Use the exact `redirect_uri_used` from the debug endpoint for the Vercel one.)
-
-**We do not use `trustHost`.** The redirect URI **always** comes from `NEXTAUTH_URL`. Set it to `https://www.qbrixsolutions.com` in Vercel (Production) and redeploy. Then use `/api/auth/debug-redirect-uri` and add `add_this_exact_value_to_google` to Google.
+- `https://qbrixsolutions.com/api/auth/callback/google` (if you use non-www)
+- The exact `add_this_exact_value_to_google` from the debug endpoint (in case it shows a `*.vercel.app` URL)
 
 ### Fix checklist
 
 1. **Redirect URI in Google**
-   - Must **exactly** match what we send. Use `/api/auth/debug-redirect-uri` to see it.
-   - Typical value: `https://www.qbrixsolutions.com/api/auth/callback/google` (no trailing slash, `https`).
+   - Must **exactly** match what we send. Use `/api/auth/debug-redirect-uri` (from the same domain as login) to see it.
+   - On Vercel we use the **request host**; the debug route shows `redirect_uri_nextauth_uses` / `add_this_exact_value_to_google`.
 
 2. **`NEXTAUTH_URL` in Vercel**
    - **Set it explicitly** to `https://www.qbrixsolutions.com` (no trailing slash). Do not rely on Vercel defaults when using a custom domain.
