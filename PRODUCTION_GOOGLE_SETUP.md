@@ -38,14 +38,14 @@ NextAuth sends `{base}/api/auth/callback/google` to Google (where `base` is the 
 
 3. Save. **Redeploy** the project (Deployments → … → Redeploy) so the new env vars are used.
 
-## 3. Run migrations (Account, Session, VerificationToken)
+## 3. Schema sync (Account, Session, VerificationToken)
 
-The build runs `prisma migrate deploy`, which creates the NextAuth tables (`Account`, `Session`, `VerificationToken`) if they’re missing. Ensure **`qbrix_DATABASE_URL`** is set in Vercel (including at **build** time) so migrations can run.
+The build runs `prisma db push`, which creates the NextAuth tables (`Account`, `Session`, `VerificationToken`) if they’re missing. Ensure **`qbrix_DATABASE_URL`** is set in Vercel (including at **build** time) so the schema can sync.
 
 **One-time fix** if you already hit “table Account does not exist”:
 
 1. Locally, set `qbrix_DATABASE_URL` to your **production** Neon URL (or use Vercel’s value).
-2. Run: `npx prisma migrate deploy`
+2. Run: `npx prisma db push`
 3. Redeploy the app on Vercel.
 
 ## 4. Deploy and test
@@ -119,7 +119,7 @@ You’re sent back to the login page with `error=Callback` after Google redirect
 3. **Common causes**
    - **Cookies**: State/PKCE cookies not sent on callback (e.g. domain mismatch, SameSite). Use **https://www.qbrixsolutions.com** for both login and callback; avoid `*.vercel.app`.
    - **Database**: Adapter `createUser` / `linkAccount` failing (Neon connectivity, unique constraint, schema mismatch). Check Neon logs and `qbrix_DATABASE_URL`.
-   - **“Table Account does not exist”**: Run `npx prisma migrate deploy` against the production DB (with `qbrix_DATABASE_URL`), then redeploy. The build runs `prisma migrate deploy` so future deploys create missing tables.
+   - **“Table Account does not exist”**: Run `npx prisma db push` against the production DB (with `qbrix_DATABASE_URL`), then redeploy. The build runs `prisma db push` so future deploys create missing tables.
    - **Duplicate email**: Same email used with another provider and `allowDangerousEmailAccountLinking` is false → use the existing provider or enable that option.
 
 4. **Login page**  
