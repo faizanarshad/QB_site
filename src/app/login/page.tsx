@@ -7,7 +7,11 @@ import { Suspense } from "react";
 
 function LoginForm() {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") ?? "/";
+  const from = searchParams.get("callbackUrl") ?? "/";
+  const callbackUrl =
+    typeof window !== "undefined" && from.startsWith("/")
+      ? `${window.location.origin}${from}`
+      : from;
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 px-4">
