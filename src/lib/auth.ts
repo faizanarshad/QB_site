@@ -29,7 +29,6 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers,
   session: { strategy: "jwt", maxAge: 30 * 24 * 60 * 60 },
-  trustHost: true,
   callbacks: {
     async signIn({ user, account, profile }) {
       if (account?.provider && profile && user?.id) {

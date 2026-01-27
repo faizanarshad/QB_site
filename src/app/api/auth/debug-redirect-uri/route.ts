@@ -2,27 +2,30 @@ import { NextResponse } from "next/server";
 
 /**
  * Debug route: returns the redirect_uri NextAuth sends to Google.
- * Hit /api/auth/debug-redirect-uri on production to verify.
- * Add this EXACT value to Google Console → Authorized redirect URIs.
+ * We do NOT use trustHost, so redirect_uri always comes from NEXTAUTH_URL.
+ * Hit /api/auth/debug-redirect-uri on production. Add add_this_exact_value to Google Console.
  * Remove this file after fixing redirect_uri_mismatch.
  */
 export async function GET() {
-  const base = process.env.NEXTAUTH_URL;
+  const base = process.env.NEXTAUTH_URL?.replace(/\/$/, "") ?? "";
   const vercel = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
+    ? `https://${process.env.VERCEL_URL}`.replace(/\/$/, "")
     : null;
-  const redirectUri = base
-    ? `${base.replace(/\/$/, "")}/api/auth/callback/google`
+  const redirectFromNextAuth = base
+    ? `${base}/api/auth/callback/google`
     : null;
-  const redirectUriVercel = vercel
-    ? `${vercel.replace(/\/$/, "")}/api/auth/callback/google`
+  const redirectFromVercel = vercel
+    ? `${vercel}/api/auth/callback/google`
     : null;
+  const addThisExactValue =
+    redirectFromNextAuth ?? redirectFromVercel ?? "(cannot compute: set NEXTAUTH_URL in Vercel)";
 
   return NextResponse.json({
-    NEXTAUTH_URL: base ?? "(not set)",
+    NEXTAUTH_URL: base || "(not set)",
     VERCEL_URL: process.env.VERCEL_URL ?? "(not set)",
-    redirect_uri_used: redirectUri ?? redirectUriVercel ?? "(cannot compute)",
-    redirect_uri_vercel: redirectUriVercel,
-    fix: "Add the 'redirect_uri_used' value EXACTLY to Google Console → Credentials → your OAuth client → Authorized redirect URIs. Set NEXTAUTH_URL in Vercel to your production domain (e.g. https://www.qbrixsolutions.com) if redirect_uri_used shows a Vercel URL.",
+    redirect_uri_used: addThisExactValue,
+    redirect_uri_if_vercel_fallback: redirectFromVercel,
+    add_this_exact_value_to_google: addThisExactValue,
+    fix: "Add 'add_this_exact_value_to_google' EXACTLY to Google Console → Credentials → OAuth client → Authorized redirect URIs. If it shows a Vercel URL, set NEXTAUTH_URL in Vercel to https://www.qbrixsolutions.com and redeploy.",
   });
 }

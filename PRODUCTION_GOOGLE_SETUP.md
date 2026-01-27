@@ -62,6 +62,8 @@ Google returns this when the redirect URI our app sends does **not exactly match
 - `https://<your-vercel-project>.vercel.app/api/auth/callback/google`  
 (Use the exact `redirect_uri_used` from the debug endpoint for the Vercel one.)
 
+**We do not use `trustHost`.** The redirect URI **always** comes from `NEXTAUTH_URL`. Set it to `https://www.qbrixsolutions.com` in Vercel (Production) and redeploy. Then use `/api/auth/debug-redirect-uri` and add `add_this_exact_value_to_google` to Google.
+
 ### Fix checklist
 
 1. **Redirect URI in Google**
