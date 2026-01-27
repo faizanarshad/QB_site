@@ -18,7 +18,7 @@ Set up a production PostgreSQL database:
 In your Vercel dashboard, add these environment variables:
 
 ```env
-DATABASE_URL="postgresql://username:password@host:port/database"
+qbrix_DATABASE_URL="postgresql://username:password@host:port/database"
 NEXTAUTH_SECRET="your-production-secret-key"
 NEXTAUTH_URL="https://your-domain.vercel.app"
 NODE_ENV="production"
@@ -42,7 +42,7 @@ NODE_ENV="production"
 ### Step 3: Set Environment Variables
 Add these in Vercel dashboard:
 ```
-DATABASE_URL=your_production_database_url
+qbrix_DATABASE_URL=your_production_database_url
 NEXTAUTH_SECRET=your_secret_key
 NEXTAUTH_URL=https://your-domain.vercel.app
 NODE_ENV=production
@@ -56,20 +56,20 @@ Click "Deploy" and wait for the build to complete.
 ### Issue 1: Build Fails
 **Error**: `prisma generate` fails
 **Solution**: 
-- Ensure `DATABASE_URL` is set in Vercel
+- Ensure `qbrix_DATABASE_URL` is set in Vercel
 - Check that Prisma is in dependencies (not devDependencies)
 
 ### Issue 2: Database Connection Fails
 **Error**: `P1001: Can't reach database server`
 **Solution**:
-- Verify `DATABASE_URL` is correct
+- Verify `qbrix_DATABASE_URL` is correct
 - Check database is accessible from Vercel's servers
 - Use connection pooling for production
 
 ### Issue 3: Environment Variables Missing
-**Error**: `DATABASE_URL is not set`
+**Error**: `qbrix_DATABASE_URL` is not set
 **Solution**:
-- Add all required environment variables in Vercel dashboard
+- Add all required environment variables in Vercel dashboard (use `qbrix_DATABASE_URL` for the database)
 - Redeploy after adding variables
 
 ### Issue 4: File Upload Issues
@@ -105,7 +105,7 @@ Click "Deploy" and wait for the build to complete.
 ### 1. **Database Connection Pooling**
 For production, use connection pooling:
 ```env
-DATABASE_URL="postgresql://user:pass@host:port/db?connection_limit=5&pool_timeout=0"
+qbrix_DATABASE_URL="postgresql://user:pass@host:port/db?connection_limit=5&pool_timeout=0"
 ```
 
 ### 2. **File Storage**

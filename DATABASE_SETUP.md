@@ -21,8 +21,8 @@ npm install
 Create a `.env` file in your project root:
 
 ```env
-# Database Configuration
-DATABASE_URL="postgresql://username:password@localhost:5432/qbrix_solutions"
+# Database Configuration (app uses qbrix_DATABASE_URL)
+qbrix_DATABASE_URL="postgresql://username:password@localhost:5432/qbrix_solutions"
 
 # Next.js Configuration
 NEXTAUTH_SECRET="your-secret-key-here"
@@ -34,7 +34,7 @@ NEXTAUTH_URL="http://localhost:3000"
 #### Option A: Local PostgreSQL
 1. Install PostgreSQL on your machine
 2. Create a database: `createdb qbrix_solutions`
-3. Update DATABASE_URL with your credentials
+3. Update qbrix_DATABASE_URL with your credentials
 
 #### Option B: Supabase (Free Tier)
 1. Go to [supabase.com](https://supabase.com)
@@ -216,7 +216,7 @@ npm start
 ### Common Issues
 
 1. **Connection Errors**
-   - Check DATABASE_URL format
+   - Check qbrix_DATABASE_URL format
    - Verify database is running
    - Check firewall settings
 

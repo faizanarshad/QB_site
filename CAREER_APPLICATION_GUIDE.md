@@ -45,8 +45,8 @@ This guide explains how to implement and use the comprehensive job application s
 Create a `.env` file in your project root:
 
 ```env
-# Database Configuration
-DATABASE_URL="postgresql://username:password@localhost:5432/qbrix_solutions"
+# Database Configuration (app uses qbrix_DATABASE_URL)
+qbrix_DATABASE_URL="postgresql://username:password@localhost:5432/qbrix_solutions"
 
 # Next.js Configuration
 NEXTAUTH_SECRET="your-secret-key-here"
@@ -231,7 +231,7 @@ Customize the application process:
 ### Common Issues
 
 1. **Database Connection Error**
-   - Check DATABASE_URL in .env
+   - Check qbrix_DATABASE_URL in .env
    - Ensure database is running
    - Verify credentials
 

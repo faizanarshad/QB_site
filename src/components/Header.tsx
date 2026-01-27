@@ -27,6 +27,7 @@ const Header = () => {
     { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
     { name: "Career", href: "/career" },
+    { name: "Sign in", href: "/login" },
   ];
 
   return (
@@ -90,19 +91,24 @@ const Header = () => {
           </nav>
 
           {/* CTA Button */}
-          <motion.button
+          <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className={`hidden md:block px-6 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl ${
-              isScrolled
-                ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700"
-                : "bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700"
-            }`}
+            className="hidden md:block"
           >
-            Start Project
-          </motion.button>
+            <Link
+              href="/contact"
+              className={`block px-6 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl ${
+                isScrolled
+                  ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700"
+                  : "bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700"
+              }`}
+            >
+              Start Project
+            </Link>
+          </motion.div>
 
           {/* Mobile Menu Button */}
           <motion.button
@@ -165,14 +171,19 @@ const Header = () => {
                     </Link>
                   </motion.div>
                 ))}
-                <motion.button
+                <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: navItems.length * 0.1 }}
-                  className="w-full mt-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg"
                 >
-                  Start Project
-                </motion.button>
+                  <Link
+                    href="/contact"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block w-full mt-4 text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg"
+                  >
+                    Start Project
+                  </Link>
+                </motion.div>
               </div>
             </motion.div>
           )}

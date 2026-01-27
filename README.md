@@ -69,7 +69,8 @@ src/
    ```
 
 4. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+   Open **http://localhost:3000** in your browser (Next.js does not open it automatically).
+   - If you see "Port 3000 is in use", stop other `npm run dev` processes (Ctrl+C in those terminals) and run `npm run dev` again.
 
 ## 📱 Sections
 

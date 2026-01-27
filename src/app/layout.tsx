@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Chatbot from "../components/Chatbot";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import Providers from "../components/Providers";
 import "../lib/analytics"; // Import analytics to initialize performance monitoring
 
 const inter = Inter({ subsets: ["latin"] });
@@ -41,9 +42,11 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
       </head>
       <body className={`${inter.className} antialiased`}>
-        {children}
-        <Chatbot />
-        <SpeedInsights />
+        <Providers>
+          {children}
+          <Chatbot />
+          <SpeedInsights />
+        </Providers>
       </body>
     </html>
   );
