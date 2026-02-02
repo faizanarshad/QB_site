@@ -169,32 +169,32 @@ const ImageExample = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h3 className="text-3xl font-bold text-gray-900 mb-6">
-                  Featured Project: AI-Powered Manufacturing
+                  Featured Project: Autonomous Vision Safety
                 </h3>
                 <p className="text-lg text-gray-600 mb-6">
-                  Our latest project showcases the integration of AI and computer vision 
-                  in manufacturing processes, resulting in 40% efficiency improvement 
-                  and 99.9% defect detection accuracy.
+                  Our latest project demonstrates real-time perception for autonomous
+                  vehicles, fusing computer vision and sensor intelligence to identify
+                  lanes, vehicles, cyclists, and pedestrians with high precision.
                 </p>
                 <div className="space-y-3">
                   <div className="flex items-center">
                     <div className="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
-                    <span className="text-gray-700">Real-time quality control</span>
+                    <span className="text-gray-700">360-degree object detection</span>
                   </div>
                   <div className="flex items-center">
                     <div className="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
-                    <span className="text-gray-700">Predictive maintenance</span>
+                    <span className="text-gray-700">Lane and roadway understanding</span>
                   </div>
                   <div className="flex items-center">
                     <div className="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
-                    <span className="text-gray-700">Automated defect detection</span>
+                    <span className="text-gray-700">Pedestrian and cyclist safety</span>
                   </div>
                 </div>
               </div>
               <div className="relative rounded-2xl overflow-hidden">
                 <Image
-                  src="/images/autonomus.webp"
-                  alt="AI-Powered Manufacturing Project"
+                  src="/images/autonomous.webp"
+                  alt="Autonomous Vision Safety Project"
                   width={600}
                   height={400}
                   className="w-full h-auto"
