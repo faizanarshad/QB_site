@@ -193,7 +193,7 @@ const ImageExample = () => {
               </div>
               <div className="relative rounded-2xl overflow-hidden">
                 <Image
-                  src="/images/ai power.jpg"
+                  src="/images/autonomus.webp"
                   alt="AI-Powered Manufacturing Project"
                   width={600}
                   height={400}
