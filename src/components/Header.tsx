@@ -4,10 +4,21 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useSession, signOut } from "next-auth/react";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { data: session } = useSession();
+  const user = session?.user;
+  const displayName =
+    user?.name ?? user?.email?.split("@")[0] ?? "Account";
+  const avatarUrl = user?.image ?? "";
+
+  const getInitials = (name: string) => {
+    const parts = name.trim().split(" ").filter(Boolean);
+    return parts.slice(0, 2).map((part) => part[0].toUpperCase()).join("");
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,7 +38,6 @@ const Header = () => {
     { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
     { name: "Career", href: "/career" },
-    { name: "Sign in", href: "/login" },
   ];
 
   return (
@@ -89,6 +99,44 @@ const Header = () => {
               </motion.div>
             ))}
           </nav>
+
+          {/* User */}
+          <div className="hidden md:flex items-center gap-3">
+            {user ? (
+              <>
+                <div className="flex items-center gap-2 px-3 py-2 rounded-full bg-purple-50 text-gray-700">
+                  {avatarUrl ? (
+                    <Image
+                      src={avatarUrl}
+                      alt={displayName}
+                      width={32}
+                      height={32}
+                      className="h-8 w-8 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="h-8 w-8 rounded-full bg-purple-600 text-white text-xs font-semibold flex items-center justify-center">
+                      {getInitials(displayName)}
+                    </div>
+                  )}
+                  <span className="text-sm font-semibold">{displayName}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                  className="text-sm text-gray-600 hover:text-purple-700 transition-colors"
+                >
+                  Sign out
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                className="px-4 py-2 rounded-lg font-medium text-gray-700 hover:text-purple-700 hover:bg-purple-50 transition-all duration-300"
+              >
+                Sign in
+              </Link>
+            )}
+          </div>
 
           {/* CTA Button */}
           <motion.div
@@ -155,6 +203,45 @@ const Header = () => {
               className="md:hidden bg-white/95 backdrop-blur-xl rounded-xl mt-3 shadow-2xl border border-gray-200/20"
             >
               <div className="px-2 pt-2 pb-3 space-y-1">
+                <div className="px-4 py-3">
+                  {user ? (
+                    <div className="flex items-center gap-3">
+                      {avatarUrl ? (
+                        <Image
+                          src={avatarUrl}
+                          alt={displayName}
+                          width={36}
+                          height={36}
+                          className="h-9 w-9 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="h-9 w-9 rounded-full bg-purple-600 text-white text-xs font-semibold flex items-center justify-center">
+                          {getInitials(displayName)}
+                        </div>
+                      )}
+                      <div className="flex-1">
+                        <div className="text-sm font-semibold text-gray-800">
+                          {displayName}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => signOut({ callbackUrl: "/" })}
+                          className="text-xs text-gray-600 hover:text-purple-700"
+                        >
+                          Sign out
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <Link
+                      href="/login"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block w-full text-center px-4 py-2 rounded-lg font-medium text-gray-700 hover:text-purple-700 hover:bg-purple-50 transition-all duration-200"
+                    >
+                      Sign in
+                    </Link>
+                  )}
+                </div>
                 {navItems.map((item, index) => (
                   <motion.div
                     key={item.name}
