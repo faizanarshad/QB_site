@@ -182,9 +182,11 @@ const TeamPage = () => {
                       alt={member.name}
                       fill
                       className={
-                        ["Faizan Arshad", "Zeeshan Arshad", "Muhammad Usman", "Mohammad Farhan"].includes(member.name)
-                          ? "object-cover object-top"
-                          : "object-cover"
+                        member.name === "Muhammad Usman"
+                          ? "object-cover object-center"
+                          : ["Faizan Arshad", "Zeeshan Arshad", "Mohammad Farhan"].includes(member.name)
+                            ? "object-cover object-top"
+                            : "object-cover"
                       }
                     />
                   </div>
@@ -269,9 +271,11 @@ const TeamPage = () => {
                       alt={member.name}
                       fill
                       className={
-                        ["Faizan Arshad", "Zeeshan Arshad", "Muhammad Usman", "Mohammad Farhan"].includes(member.name)
-                          ? "object-cover object-top"
-                          : "object-cover"
+                        member.name === "Muhammad Usman"
+                          ? "object-cover object-center"
+                          : ["Faizan Arshad", "Zeeshan Arshad", "Mohammad Farhan"].includes(member.name)
+                            ? "object-cover object-top"
+                            : "object-cover"
                       }
                     />
                   </div>
