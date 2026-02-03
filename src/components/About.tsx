@@ -63,6 +63,9 @@ const About = () => {
                   src={feature.image}
                   alt={feature.title}
                   fill
+                  sizes="80px"
+                  loading="lazy"
+                  quality={70}
                   className="object-cover"
                 />
               </div>
@@ -88,6 +91,9 @@ const About = () => {
               alt="QBrix Solutions Team"
               width={600}
               height={400}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              loading="lazy"
+              quality={70}
               className="rounded-2xl shadow-2xl"
             />
           </div>

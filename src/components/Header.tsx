@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,6 +9,8 @@ import { useSession, signOut } from "next-auth/react";
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const scrollRafId = useRef<number | null>(null);
+  const lastIsScrolled = useRef(false);
   const { data: session } = useSession();
   const user = session?.user;
   const displayName =
@@ -22,11 +24,28 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (scrollRafId.current !== null) {
+        return;
+      }
+
+      scrollRafId.current = window.requestAnimationFrame(() => {
+        scrollRafId.current = null;
+        const nextIsScrolled = window.scrollY > 50;
+        if (nextIsScrolled !== lastIsScrolled.current) {
+          lastIsScrolled.current = nextIsScrolled;
+          setIsScrolled(nextIsScrolled);
+        }
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollRafId.current !== null) {
+        window.cancelAnimationFrame(scrollRafId.current);
+      }
+    };
   }, []);
 
   const navItems = [

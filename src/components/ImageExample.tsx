@@ -38,6 +38,9 @@ const ImageExample = () => {
                   src="/images/ai techo.png"
                   alt="AI Technology Solutions"
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  loading="lazy"
+                  quality={70}
                   className="object-cover"
                 />
               </div>
@@ -60,6 +63,9 @@ const ImageExample = () => {
                 src="/images/computer vision.jpg"
                 alt="Computer Vision Technology"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                loading="lazy"
+                quality={70}
                 className="object-cover object-center"
               />
             </div>
@@ -82,6 +88,9 @@ const ImageExample = () => {
                 src="/images/ecomerace.webp"
                 alt="E-commerce Solutions"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                loading="lazy"
+                quality={70}
                 className="object-cover"
               />
             </div>
@@ -104,6 +113,9 @@ const ImageExample = () => {
                 src="/images/robotics.webp"
                 alt="Automation Systems"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                loading="lazy"
+                quality={70}
                 className="object-cover"
               />
             </div>
@@ -126,6 +138,9 @@ const ImageExample = () => {
                 src="/images/machine learning.webp"
                 alt="Machine Learning Technology"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                loading="lazy"
+                quality={70}
                 className="object-cover"
               />
             </div>
@@ -148,6 +163,9 @@ const ImageExample = () => {
                 src="/images/data_visualization.webp"
                 alt="Data Analytics"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                loading="lazy"
+                quality={70}
                 className="object-cover"
               />
             </div>
@@ -197,6 +215,9 @@ const ImageExample = () => {
                   alt="Autonomous Vision Safety Project"
                   width={600}
                   height={400}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  loading="lazy"
+                  quality={70}
                   className="w-full h-auto"
                 />
               </div>

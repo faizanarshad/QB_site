@@ -122,7 +122,7 @@ const TeamPage = () => {
             }
           }
         }}
-        illustrationUrl="/images/team-hero.webp"
+        illustrationUrl="/images/join_our_team.jpg"
       />
 
       {/* Team Grid */}
@@ -181,6 +181,8 @@ const TeamPage = () => {
                       src={member.image}
                       alt={member.name}
                       fill
+                      loading="lazy"
+                      sizes="128px"
                       className={
                         member.name === "Muhammad Usman"
                           ? "object-cover object-center"
@@ -270,6 +272,8 @@ const TeamPage = () => {
                       src={member.image}
                       alt={member.name}
                       fill
+                      loading="lazy"
+                      sizes="128px"
                       className={
                         member.name === "Muhammad Usman"
                           ? "object-cover object-center"
@@ -431,6 +435,8 @@ const TeamPage = () => {
                   alt="Join Our Team at QBrix Solutions"
                   width={600}
                   height={400}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  loading="lazy"
                   className="w-full h-80 object-cover"
                 />
               </div>

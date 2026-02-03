@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 
@@ -56,6 +56,7 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({
   illustrationUrl,
   showBrand = true
 }) => {
+  const shouldReduceMotion = useReducedMotion();
   // Split headline for animation
   const headlineWords = headline.split(" ");
 
@@ -79,8 +80,16 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({
           key={i}
           className={`absolute ${blob.className} pointer-events-none z-0`}
           initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: [0.8, 1.1, 0.95, 1], opacity: [0.7, 1, 0.8, 1] }}
-          transition={{ duration: 8 + i * 2, repeat: Infinity, repeatType: "mirror" }}
+          animate={
+            shouldReduceMotion
+              ? { scale: 1, opacity: 0.7 }
+              : { scale: [0.8, 1.1, 0.95, 1], opacity: [0.7, 1, 0.8, 1] }
+          }
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { duration: 12 + i * 2, repeat: Infinity, repeatType: "mirror" }
+          }
         >
           <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
             <path fill={blob.color} d="M44.8,-67.2C57.2,-59.2,65.7,-44.2,70.2,-28.7C74.7,-13.2,75.2,2.8,70.2,16.7C65.2,30.6,54.7,42.4,41.7,51.7C28.7,61,14.3,67.8,-1.2,69.3C-16.7,70.8,-33.4,67,-45.2,57.1C-57,47.2,-63.8,31.2,-67.2,14.2C-70.6,-2.8,-70.6,-20.8,-62.7,-32.7C-54.8,-44.6,-39.1,-50.4,-24.1,-57.2C-9.1,-64,5.2,-71.7,20.7,-73.2C36.2,-74.7,52.4,-70.2,44.8,-67.2Z" transform="translate(100 100)" />
@@ -151,8 +160,8 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({
                 <span className="flex items-center gap-2">
                   {primaryAction.text}
                   <motion.div
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
+                    animate={shouldReduceMotion ? { x: 0 } : { x: [0, 5, 0] }}
+                    transition={shouldReduceMotion ? { duration: 0 } : { duration: 1.8, repeat: Infinity }}
                     className="group-hover:translate-x-1 transition-transform"
                   >
                     <FaArrowRight />
@@ -189,6 +198,7 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({
                 src={illustrationUrl}
                 alt="Hero Illustration"
                 fill
+                sizes="(max-width: 768px) 70vw, 28rem"
                 className="object-contain"
                 priority
                 onError={(e) => {
