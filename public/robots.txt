@@ -1,0 +1,8 @@
+User-agent: *
+Disallow:
+Allow: /favicon.png
+Allow: /favicon-16x16.png
+Allow: /favicon-32x32.png
+Allow: /favicon-48x48.png
+Allow: /apple-touch-icon.png
+Allow: /manifest.json

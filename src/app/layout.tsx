@@ -14,6 +14,28 @@ export const metadata: Metadata = {
   description: "Leading software house specializing in AI, Machine Learning, Computer Vision, E-commerce, and Robotics & Automation solutions.",
   keywords: ["AI", "Machine Learning", "Computer Vision", "E-commerce", "Robotics", "Automation", "Software Development", "QBrix Solutions"],
   authors: [{ name: "QBrix Solutions" }],
+  icons: {
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    shortcut: ["/favicon.png"],
+  },
+  manifest: "/manifest.json",
+  openGraph: {
+    title: "QBrix Solutions - AI, ML, Computer Vision & Robotics Experts",
+    description: "Leading software house specializing in AI, Machine Learning, Computer Vision, E-commerce, and Robotics & Automation solutions.",
+    images: [{ url: "/images/qbrix-logo.png" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "QBrix Solutions - AI, ML, Computer Vision & Robotics Experts",
+    description: "Leading software house specializing in AI, Machine Learning, Computer Vision, E-commerce, and Robotics & Automation solutions.",
+    images: ["/images/qbrix-logo.png"],
+  },
 };
 
 export const viewport: Viewport = {
