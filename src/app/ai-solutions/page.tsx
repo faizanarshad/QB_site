@@ -202,7 +202,6 @@ const AISolutionsPage = () => {
                 whileHover={{ y: -10 }}
                 className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300"
               >
-                <div className="text-5xl mb-6">{solution.icon}</div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
                   {solution.title}
                 </h3>
