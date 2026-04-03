@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 
@@ -74,31 +74,33 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({
 
   return (
     <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
-      {/* Animated SVG blobs */}
-      {blobs.map((blob, i) => (
-        <motion.div
-          key={i}
-          className={`absolute ${blob.className} pointer-events-none z-0`}
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={
-            shouldReduceMotion
-              ? { scale: 1, opacity: 0.7 }
-              : { scale: [0.8, 1.1, 0.95, 1], opacity: [0.7, 1, 0.8, 1] }
-          }
-          transition={
-            shouldReduceMotion
-              ? { duration: 0 }
-              : { duration: 12 + i * 2, repeat: Infinity, repeatType: "mirror" }
-          }
-        >
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-            <path fill={blob.color} d="M44.8,-67.2C57.2,-59.2,65.7,-44.2,70.2,-28.7C74.7,-13.2,75.2,2.8,70.2,16.7C65.2,30.6,54.7,42.4,41.7,51.7C28.7,61,14.3,67.8,-1.2,69.3C-16.7,70.8,-33.4,67,-45.2,57.1C-57,47.2,-63.8,31.2,-67.2,14.2C-70.6,-2.8,-70.6,-20.8,-62.7,-32.7C-54.8,-44.6,-39.1,-50.4,-24.1,-57.2C-9.1,-64,5.2,-71.7,20.7,-73.2C36.2,-74.7,52.4,-70.2,44.8,-67.2Z" transform="translate(100 100)" />
-          </svg>
-        </motion.div>
-      ))}
+      {/* Animated SVG blobs (hidden on small screens) */}
+      <div className="hidden md:block">
+        {blobs.map((blob, i) => (
+          <motion.div
+            key={i}
+            className={`absolute ${blob.className} pointer-events-none z-0`}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={
+              shouldReduceMotion
+                ? { scale: 1, opacity: 0.7 }
+                : { scale: [0.8, 1.1, 0.95, 1], opacity: [0.7, 1, 0.8, 1] }
+            }
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : { duration: 12 + i * 2, repeat: Infinity, repeatType: "mirror" }
+            }
+          >
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+              <path fill={blob.color} d="M44.8,-67.2C57.2,-59.2,65.7,-44.2,70.2,-28.7C74.7,-13.2,75.2,2.8,70.2,16.7C65.2,30.6,54.7,42.4,41.7,51.7C28.7,61,14.3,67.8,-1.2,69.3C-16.7,70.8,-33.4,67,-45.2,57.1C-57,47.2,-63.8,31.2,-67.2,14.2C-70.6,-2.8,-70.6,-20.8,-62.7,-32.7C-54.8,-44.6,-39.1,-50.4,-24.1,-57.2C-9.1,-64,5.2,-71.7,20.7,-73.2C36.2,-74.7,52.4,-70.2,44.8,-67.2Z" transform="translate(100 100)" />
+            </svg>
+          </motion.div>
+        ))}
+      </div>
 
-      {/* Glassmorphism overlay */}
-      <div className="absolute inset-0 bg-white/10 backdrop-blur-2xl z-10" />
+      {/* Glassmorphism overlay (reduced blur on mobile) */}
+      <div className="absolute inset-0 bg-white/10 md:backdrop-blur-2xl z-10" />
 
       <div className="relative z-20 w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between px-6 py-20 md:py-32 gap-12">
         {/* Left: Text */}

@@ -3,10 +3,20 @@
 import React from "react";
 import Header from "@/components/Header";
 import AnimatedHero from "@/components/AnimatedHero";
-import About from "@/components/About";
-import Features from "@/components/Features";
-import ImageExample from "@/components/ImageExample";
-import Footer from "@/components/Footer";
+import dynamic from "next/dynamic";
+
+const About = dynamic(() => import("@/components/About"), {
+  loading: () => <div className="py-20" />,
+});
+const Features = dynamic(() => import("@/components/Features"), {
+  loading: () => <div className="py-20" />,
+});
+const ImageExample = dynamic(() => import("@/components/ImageExample"), {
+  loading: () => <div className="py-20" />,
+});
+const Footer = dynamic(() => import("@/components/Footer"), {
+  loading: () => <div className="py-12" />,
+});
 
 export default function Home() {
   return (
