@@ -4,7 +4,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import AnimatedHero from "@/components/AnimatedHero";
 
 const BlogPage = () => {
   const blogPosts = [
@@ -76,32 +75,6 @@ const BlogPage = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
-      <AnimatedHero
-        headline="Our Blog"
-        subheadline="Insights & Innovation"
-        description="Insights, trends, and expert perspectives on AI, technology, and innovation. Stay ahead with our latest articles and thought leadership."
-        primaryAction={{
-          text: "Read Articles",
-          onClick: () => {
-            const blogSection = document.getElementById('blog-posts');
-            if (blogSection) {
-              blogSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        }}
-        secondaryAction={{
-          text: "Subscribe",
-          onClick: () => {
-            const newsletterSection = document.getElementById('newsletter');
-            if (newsletterSection) {
-              newsletterSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        }}
-        illustrationUrl="/images/blog-hero.webp"
-      />
-
       {/* Blog Posts Grid */}
       <section id="blog-posts" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

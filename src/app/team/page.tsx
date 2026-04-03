@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import AnimatedHero from "@/components/AnimatedHero";
 import { FaStar, FaLinkedin, FaGithub, FaTwitter, FaRobot, FaBrain, FaCode, FaChartLine, FaCogs, FaUserTie, FaCloud } from "react-icons/fa";
 
 const TeamPage = () => {
@@ -99,32 +98,6 @@ const TeamPage = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
-      <AnimatedHero
-        headline="Meet Our Team"
-        subheadline="The Minds Behind Innovation"
-        description="Passionate experts dedicated to transforming businesses through innovative technology solutions and cutting-edge AI development."
-        primaryAction={{
-          text: "Meet the Team",
-          onClick: () => {
-            const teamSection = document.getElementById('team-grid');
-            if (teamSection) {
-              teamSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        }}
-        secondaryAction={{
-          text: "View Values",
-          onClick: () => {
-            const valuesSection = document.getElementById('values');
-            if (valuesSection) {
-              valuesSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        }}
-        illustrationUrl="/images/join_our_team.jpg"
-      />
-
       {/* Team Grid */}
       <section id="team-grid" className="py-20 relative overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
         {/* Decorative background shapes */}

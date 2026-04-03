@@ -49,6 +49,24 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Reduce work for offscreen content */
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Custom animations */
 @keyframes float {
   0%, 100% {

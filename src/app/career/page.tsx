@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import AnimatedHero from "@/components/AnimatedHero";
 
 interface JobPosition {
   id: string;
@@ -225,32 +224,6 @@ const CareerPage = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
-      <AnimatedHero
-        headline="Join Our Team"
-        subheadline="Build The Future With Us"
-        description="Join a dynamic team of innovators and problem-solvers. We're looking for talented individuals who are passionate about technology and making a difference."
-        primaryAction={{
-          text: "View Open Positions",
-          onClick: () => {
-            const jobsSection = document.getElementById('job-openings');
-            if (jobsSection) {
-              jobsSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        }}
-        secondaryAction={{
-          text: "Learn About Culture",
-          onClick: () => {
-            const cultureSection = document.getElementById('company-culture');
-            if (cultureSection) {
-              cultureSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        }}
-        illustrationUrl="/images/career-hero.webp"
-      />
-
       {/* Benefits Section */}
       <section id="benefits" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import AnimatedHero from "@/components/AnimatedHero";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -64,27 +63,6 @@ const ContactPage = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
-      <AnimatedHero
-        headline="Get In Touch"
-        subheadline="Let's Start a Conversation"
-        description="Ready to transform your business with AI and automation? Let's discuss your project and explore how we can help you achieve your goals."
-        primaryAction={{
-          text: "Send Message",
-          onClick: () => {
-            const formSection = document.getElementById('contact-form');
-            if (formSection) {
-              formSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        }}
-        secondaryAction={{
-          text: "View Services",
-          href: "/services"
-        }}
-        illustrationUrl="/images/contact-hero.webp"
-      />
-
       {/* Contact Form & Info */}
       <section id="contact-form" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

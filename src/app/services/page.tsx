@@ -6,7 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import AnimatedHero from "@/components/AnimatedHero";
 import { 
   FaRobot, 
   FaEye, 
@@ -302,20 +301,6 @@ const ServicesPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
       <Header />
       
-      <AnimatedHero 
-        headline="Transform Your Business"
-        subheadline="With Our Services"
-        description="From AI-powered automation to cutting-edge robotics, we deliver innovative solutions that drive growth, efficiency, and competitive advantage."
-        primaryAction={{
-          text: "Explore Services",
-          href: "#services"
-        }}
-        secondaryAction={{
-          text: "Get Free Consultation",
-          href: "#contact"
-        }}
-      />
-
       {/* Stats Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
