@@ -18,10 +18,10 @@ const Footer = () => {
           >
             <div className="mb-4">
               <Image
-                src="/images/qbrix-logo-mark.svg"
+                src="/images/qbrix-logo.png"
                 alt="QBrix Solutions"
-                width={56}
-                height={56}
+                width={180}
+                height={180}
                 className="h-14 w-14 object-contain"
               />
             </div>

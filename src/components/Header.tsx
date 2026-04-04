@@ -76,11 +76,11 @@ const Header = () => {
           <div className="flex-shrink-0 transition-transform duration-200 hover:scale-105">
             <Link href="/" className="flex items-center">
               <Image
-                src="/images/qbrix-logo-mark.svg"
+                src="/images/qbrix-logo.png"
                 alt="QBrix Solutions"
-                width={56}
-                height={56}
-                className="h-12 w-12 md:h-14 md:w-14 object-contain"
+                width={180}
+                height={180}
+                className="h-11 w-11 md:h-14 md:w-14 object-contain"
                 priority
               />
             </Link>
