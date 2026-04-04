@@ -55,8 +55,8 @@ export default function RootLayout({
         <Providers>
           {children}
           <Chatbot />
-          <SpeedInsights />
         </Providers>
+        <SpeedInsights />
       </body>
     </html>
   );
