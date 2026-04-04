@@ -165,7 +165,9 @@ const AISolutionsPage = () => {
             el?.scrollIntoView({ behavior: "smooth" });
           },
         }}
-        illustrationUrl="/images/ai.jpg"
+        illustrationUrl="/images/ai-solutions-hero.png"
+        illustrationObjectFit="cover"
+        illustrationAlt="Hand presenting a glowing digital globe with AI, machine learning, and computer vision concepts"
       />
 
       {/* AI Solutions Grid */}

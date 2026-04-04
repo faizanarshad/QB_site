@@ -20,6 +20,9 @@ interface AnimatedHeroProps {
     href?: string;
   };
   illustrationUrl?: string;
+  /** How the hero image fills its frame (default: contain). */
+  illustrationObjectFit?: "contain" | "cover";
+  illustrationAlt?: string;
   showBrand?: boolean;
 }
 
@@ -54,6 +57,8 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({
   primaryAction,
   secondaryAction,
   illustrationUrl,
+  illustrationObjectFit = "contain",
+  illustrationAlt = "Hero Illustration",
   showBrand = true
 }) => {
   const shouldReduceMotion = useReducedMotion();
@@ -198,10 +203,10 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({
             <div className="relative w-80 h-80 md:w-[28rem] md:h-[28rem] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20 bg-white/10">
               <Image
                 src={illustrationUrl}
-                alt="Hero Illustration"
+                alt={illustrationAlt}
                 fill
                 sizes="(max-width: 768px) 70vw, 28rem"
-                className="object-contain"
+                className={illustrationObjectFit === "cover" ? "object-cover" : "object-contain"}
                 priority
                 onError={(e) => {
                   // Hide the illustration container if image fails to load
