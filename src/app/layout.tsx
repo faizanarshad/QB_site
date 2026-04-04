@@ -56,8 +56,8 @@ export default function RootLayout({
           {children}
           <DeferredChatbot />
         </Providers>
-        <SpeedInsights />
+        {process.env.NODE_ENV === "production" ? <SpeedInsights /> : null}
       </body>
     </html>
   );
-} 
+}

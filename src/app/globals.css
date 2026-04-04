@@ -49,11 +49,8 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Reduce work for offscreen content */
-section {
-  content-visibility: auto;
-  contain-intrinsic-size: 800px;
-}
+/* Avoid global content-visibility on <section>: it can defer painting and look
+   like a blank or “stuck loading” page until scroll (browser-dependent). */
 
 @media (prefers-reduced-motion: reduce) {
   html {
