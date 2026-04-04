@@ -42,7 +42,7 @@ const TeamPage = () => {
     {
       name: "Mohammad Farhan",
       role: "Senior AI/ML Engineer",
-      image: "/images/team/farhan.webp",
+      image: "/images/team/farhan.png",
       bio: "Business development lead driving growth and strategic partnerships.",
       expertise: ["Business Strategy", "Partnerships", "Growth Hacking"],
       linkedin: "#",
