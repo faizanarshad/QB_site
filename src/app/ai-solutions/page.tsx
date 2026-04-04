@@ -197,7 +197,7 @@ const AISolutionsPage = () => {
                 whileHover={{ y: -10 }}
                 className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col"
               >
-                <div className="relative aspect-[4/3] w-full bg-gradient-to-b from-slate-50 to-white border-b border-gray-100">
+                <div className="relative aspect-[4/3] w-full bg-zinc-950 border-b border-zinc-800">
                   <Image
                     src={solution.image}
                     alt={solution.title}
