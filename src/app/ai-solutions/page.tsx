@@ -27,42 +27,42 @@ const AISolutionsPage = () => {
     {
       title: "Machine Learning Models",
       description: "Custom ML models tailored to your business needs",
-      icon: "🧠",
+      image: "/images/ai-solutions/machine-learning.png",
       features: ["Predictive Analytics", "Pattern Recognition", "Automated Decision Making"],
       useCases: ["Customer Behavior Analysis", "Sales Forecasting", "Risk Assessment"],
     },
     {
       title: "Natural Language Processing",
       description: "Advanced text and speech processing solutions",
-      icon: "💬",
+      image: "/images/ai-solutions/natural-language-processing.png",
       features: ["Text Analysis", "Sentiment Analysis", "Language Translation"],
       useCases: ["Chatbots & Virtual Assistants", "Document Processing", "Social Media Monitoring"],
     },
     {
       title: "Computer Vision",
       description: "Image and video analysis for automation",
-      icon: "👁️",
+      image: "/images/ai-solutions/computer-vision.png",
       features: ["Object Detection", "Facial Recognition", "Quality Control"],
       useCases: ["Manufacturing Quality Control", "Security Systems", "Medical Imaging"],
     },
     {
       title: "Deep Learning",
       description: "Neural networks for complex problem solving",
-      icon: "🕸️",
+      image: "/images/ai-solutions/deep-learning.png",
       features: ["Neural Networks", "Image Classification", "Sequence Modeling"],
       useCases: ["Autonomous Vehicles", "Medical Diagnosis", "Financial Trading"],
     },
     {
       title: "Predictive Analytics",
       description: "Data-driven insights for strategic decisions",
-      icon: "📊",
+      image: "/images/ai-solutions/predictive-analytics.png",
       features: ["Trend Analysis", "Forecasting Models", "Risk Prediction"],
       useCases: ["Market Analysis", "Inventory Management", "Customer Churn Prediction"],
     },
     {
       title: "AI Automation",
       description: "Intelligent process automation solutions",
-      icon: "⚡",
+      image: "/images/ai-solutions/ai-automation.png",
       features: ["Process Optimization", "Workflow Automation", "Intelligent Routing"],
       useCases: ["Customer Service", "Supply Chain Management", "Document Workflows"],
     },
@@ -195,8 +195,18 @@ const AISolutionsPage = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -10 }}
-                className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300"
+                className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col"
               >
+                <div className="relative aspect-[4/3] w-full bg-gradient-to-b from-slate-50 to-white border-b border-gray-100">
+                  <Image
+                    src={solution.image}
+                    alt={solution.title}
+                    fill
+                    className="object-contain p-4 sm:p-5"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                </div>
+                <div className="p-8 flex flex-col flex-1">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">
                   {solution.title}
                 </h3>
@@ -229,10 +239,11 @@ const AISolutionsPage = () => {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200"
+                  className="w-full mt-auto bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200"
                 >
                   Explore Solution
                 </motion.button>
+                </div>
               </motion.div>
             ))}
           </div>
