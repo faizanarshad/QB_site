@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" role="img" aria-label="QBrix">
+  <defs>
+    <linearGradient id="qbrix-outer" x1="20" y1="30" x2="190" y2="170" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38bdf8"/>
+      <stop offset="0.5" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="qbrix-inner" x1="180" y1="40" x2="40" y2="170" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="qbrix-accent" x1="100" y1="70" x2="160" y2="130" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e879f9"/>
+      <stop offset="1" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+  <!-- Colorful mark only — no wordmark -->
+  <path
+    fill="url(#qbrix-outer)"
+    d="M100 16 178 61v78l-78 45-78-45V61l78-45Z"
+  />
+  <path
+    fill="url(#qbrix-inner)"
+    opacity="0.92"
+    d="M100 44 154 75v50l-54 31-54-31V75l54-31Z"
+  />
+  <path
+    fill="url(#qbrix-accent)"
+    opacity="0.88"
+    d="M128 52h36l8 40-44 32-44-32 8-40h36Z"
+  />
+  <circle cx="100" cy="118" r="18" fill="#f0f9ff" fill-opacity="0.45"/>
+</svg>

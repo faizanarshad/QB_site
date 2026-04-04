@@ -5,6 +5,9 @@ const nextConfig = {
     serverComponentsExternalPackages: ['@prisma/client']
   },
   images: {
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; frame-src 'none'; sandbox;",
     remotePatterns: [
       {
         protocol: "https",

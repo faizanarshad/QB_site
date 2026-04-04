@@ -51,11 +51,11 @@ const Hero = () => {
             className="flex justify-center mb-6"
           >
             <Image
-              src="/images/qbrix-logo.png"
+              src="/images/qbrix-logo-mark.svg"
               alt="QBrix Solutions"
-              width={300}
-              height={120}
-              className="h-24 md:h-32 w-auto object-contain"
+              width={320}
+              height={320}
+              className="h-36 md:h-44 w-36 md:w-44 mx-auto object-contain drop-shadow-lg"
               priority
             />
           </motion.div>
