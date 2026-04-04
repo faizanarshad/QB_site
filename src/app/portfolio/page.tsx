@@ -1,15 +1,43 @@
 "use client";
 
 import React, { useState } from "react";
+import type { IconType } from "react-icons";
 import { motion } from "framer-motion";
+import { FaBrain, FaRobot } from "react-icons/fa";
+import {
+  SiArduino,
+  SiMongodb,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiOpencv,
+  SiPostgresql,
+  SiPython,
+  SiPytorch,
+  SiReact,
+  SiStripe,
+  SiTensorflow,
+  SiAmazonwebservices,
+} from "react-icons/si";
+import { TbBrandAzure } from "react-icons/tb";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedHero from "@/components/AnimatedHero";
 
+type ProjectTech = { name: string; Icon: IconType };
+
 const PortfolioPage = () => {
   const [activeFilter, setActiveFilter] = useState("all");
 
-  const projects = [
+  const projects: {
+    id: number;
+    title: string;
+    category: string;
+    description: string;
+    image: string;
+    technologies: ProjectTech[];
+    results: string;
+    client: string;
+  }[] = [
     {
       id: 1,
       title: "AI-Powered Manufacturing Quality Control",
@@ -17,9 +45,9 @@ const PortfolioPage = () => {
       description: "Computer vision system for automated quality inspection in manufacturing",
       image: "🏭",
       technologies: [
-        { name: "Computer Vision", icon: "👁️" },
-        { name: "Machine Learning", icon: "🧠" },
-        { name: "IoT", icon: "🌐" }
+        { name: "Computer Vision", Icon: SiOpencv },
+        { name: "Machine Learning", Icon: SiPytorch },
+        { name: "IoT", Icon: SiArduino },
       ],
       results: "Reduced defects by 85% and increased production efficiency by 40%",
       client: "Global Manufacturing Corp",
@@ -31,10 +59,10 @@ const PortfolioPage = () => {
       description: "Complete e-commerce solution with intelligent product recommendations",
       image: "🛒",
       technologies: [
-        { name: "React", icon: "⚛️" },
-        { name: "Node.js", icon: "🟢" },
-        { name: "Machine Learning", icon: "🧠" },
-        { name: "MongoDB", icon: "🍃" }
+        { name: "React", Icon: SiReact },
+        { name: "Node.js", Icon: SiNodedotjs },
+        { name: "Machine Learning", Icon: SiPytorch },
+        { name: "MongoDB", Icon: SiMongodb },
       ],
       results: "Increased conversion rate by 35% and average order value by 25%",
       client: "TechRetail Inc",
@@ -46,10 +74,10 @@ const PortfolioPage = () => {
       description: "Real-time analytics platform for business intelligence",
       image: "📊",
       technologies: [
-        { name: "Python", icon: "🐍" },
-        { name: "TensorFlow", icon: "🔧" },
-        { name: "React", icon: "⚛️" },
-        { name: "PostgreSQL", icon: "🐘" }
+        { name: "Python", Icon: SiPython },
+        { name: "TensorFlow", Icon: SiTensorflow },
+        { name: "React", Icon: SiReact },
+        { name: "PostgreSQL", Icon: SiPostgresql },
       ],
       results: "Improved decision-making speed by 60% and accuracy by 45%",
       client: "DataCorp Solutions",
@@ -61,10 +89,10 @@ const PortfolioPage = () => {
       description: "Automated workflow system for document processing",
       image: "🤖",
       technologies: [
-        { name: "RPA", icon: "🤖" },
-        { name: "AI", icon: "🧠" },
-        { name: "Python", icon: "🐍" },
-        { name: "Azure", icon: "☁️" }
+        { name: "RPA", Icon: FaRobot },
+        { name: "AI", Icon: FaBrain },
+        { name: "Python", Icon: SiPython },
+        { name: "Azure", Icon: TbBrandAzure },
       ],
       results: "Reduced processing time by 70% and eliminated manual errors",
       client: "FinanceTech Ltd",
@@ -76,10 +104,10 @@ const PortfolioPage = () => {
       description: "Advanced security monitoring with facial recognition",
       image: "🔒",
       technologies: [
-        { name: "OpenCV", icon: "👁️" },
-        { name: "Deep Learning", icon: "🕸️" },
-        { name: "Python", icon: "🐍" },
-        { name: "AWS", icon: "☁️" }
+        { name: "OpenCV", Icon: SiOpencv },
+        { name: "Deep Learning", Icon: SiPytorch },
+        { name: "Python", Icon: SiPython },
+        { name: "AWS", Icon: SiAmazonwebservices },
       ],
       results: "Improved security accuracy by 95% and reduced false alarms by 80%",
       client: "SecureTech Systems",
@@ -91,10 +119,10 @@ const PortfolioPage = () => {
       description: "Enterprise marketplace connecting manufacturers and suppliers",
       image: "🏢",
       technologies: [
-        { name: "Next.js", icon: "⚡" },
-        { name: "Node.js", icon: "🟢" },
-        { name: "PostgreSQL", icon: "🐘" },
-        { name: "Stripe", icon: "💳" }
+        { name: "Next.js", Icon: SiNextdotjs },
+        { name: "Node.js", Icon: SiNodedotjs },
+        { name: "PostgreSQL", Icon: SiPostgresql },
+        { name: "Stripe", Icon: SiStripe },
       ],
       results: "Facilitated $50M+ in transactions and connected 500+ businesses",
       client: "SupplyChain Hub",
@@ -183,9 +211,9 @@ const PortfolioPage = () => {
                       {project.technologies.map((tech) => (
                         <span
                           key={tech.name}
-                          className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium flex items-center gap-1"
+                          className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium inline-flex items-center gap-1.5"
                         >
-                          <span>{tech.icon}</span>
+                          <tech.Icon className="w-4 h-4 shrink-0 text-blue-700" aria-hidden />
                           <span>{tech.name}</span>
                         </span>
                       ))}
