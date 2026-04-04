@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Chatbot from "../components/Chatbot";
+import DeferredChatbot from "../components/DeferredChatbot";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Providers from "../components/Providers";
 import "../lib/analytics"; // Import analytics to initialize performance monitoring
@@ -49,12 +49,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <head />
       <body className={`${inter.className} antialiased`}>
         <Providers>
           {children}
-          <Chatbot />
+          <DeferredChatbot />
         </Providers>
         <SpeedInsights />
       </body>
