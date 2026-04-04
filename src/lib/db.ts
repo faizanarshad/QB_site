@@ -1,4 +1,5 @@
 import { prisma } from './prisma'
+import { AI_ML_INTERN_JOB } from './aiMlInternJob'
 
 // Database utility functions
 export const db = {
@@ -337,6 +338,7 @@ export async function seedDatabase() {
 
     // Create default job positions
     const jobPositions = [
+      { ...AI_ML_INTERN_JOB },
       {
         title: "Senior Machine Learning Engineer",
         department: "AI & ML",
@@ -352,7 +354,7 @@ export async function seedDatabase() {
           "Understanding of MLOps practices",
           "Experience with cloud platforms (AWS/Azure/GCP)"
         ],
-        order: 1
+        order: 1,
       },
       {
         title: "Computer Vision Engineer",
@@ -442,10 +444,11 @@ export async function seedDatabase() {
     ]
 
     for (const jobData of jobPositions) {
+      const { id: _id, ...updateFields } = jobData as typeof jobData & { id?: string }
       await prisma.jobPosition.upsert({
         where: { title: jobData.title },
-        update: jobData,
-        create: jobData
+        update: updateFields,
+        create: jobData,
       })
     }
 

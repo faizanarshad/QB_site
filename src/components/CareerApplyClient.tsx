@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { AI_ML_INTERN_JOB } from "@/lib/aiMlInternJob";
 import { FaArrowLeft, FaUpload, FaCheck, FaTimes, FaUser, FaEnvelope, FaPhone, FaBriefcase, FaGraduationCap, FaFileAlt } from "react-icons/fa";
 
 interface JobPosition {
@@ -16,6 +17,57 @@ interface JobPosition {
   experience: string;
   description: string;
   requirements: string[];
+  applyUrl?: string | null;
+}
+
+const OFFLINE_JOB_BY_ID: Record<string, JobPosition> = {
+  [AI_ML_INTERN_JOB.id]: { ...AI_ML_INTERN_JOB },
+  "intern-aiml": { ...AI_ML_INTERN_JOB, id: "intern-aiml" },
+};
+
+function ExternalApplyFormOpen({
+  job,
+  onBack,
+}: {
+  job: JobPosition;
+  onBack: () => void;
+}) {
+  const openedRef = useRef(false);
+  useEffect(() => {
+    if (!job.applyUrl || openedRef.current) return;
+    openedRef.current = true;
+    window.open(job.applyUrl, "_blank", "noopener,noreferrer");
+  }, [job.applyUrl]);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      <Header />
+      <div className="max-w-xl mx-auto px-4 pt-28 pb-20 text-center">
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">Apply for {job.title}</h1>
+        <p className="text-gray-600 mb-6">
+          We opened the application form in a new tab. If it did not open (for example, if your browser blocked pop-ups), use the button below.
+        </p>
+        <a
+          href={job.applyUrl ?? "#"}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block mb-8 px-6 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-colors"
+        >
+          Open application form
+        </a>
+        <div>
+          <button
+            type="button"
+            onClick={onBack}
+            className="text-blue-600 hover:underline font-medium"
+          >
+            Back to Careers
+          </button>
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
 }
 
 interface ApplicationData {
@@ -61,14 +113,25 @@ const CareerApplyClient = ({ jobId }: CareerApplyClientProps) => {
         const response = await fetch("/api/jobs");
         if (response.ok) {
           const jobs = await response.json();
-          const selectedJob = jobs.find((j: JobPosition) => j.id === jobId);
+          const selectedJob =
+            jobs.find((j: JobPosition) => j.id === jobId) ??
+            (jobId ? OFFLINE_JOB_BY_ID[jobId] : undefined);
           if (selectedJob) {
             setJob(selectedJob);
             setFormData((prev) => ({ ...prev, position: selectedJob.title }));
           }
+        } else if (jobId && OFFLINE_JOB_BY_ID[jobId]) {
+          const fallback = OFFLINE_JOB_BY_ID[jobId];
+          setJob(fallback);
+          setFormData((prev) => ({ ...prev, position: fallback.title }));
         }
       } catch (error) {
         console.error("Error fetching job:", error);
+        if (jobId && OFFLINE_JOB_BY_ID[jobId]) {
+          const fallback = OFFLINE_JOB_BY_ID[jobId];
+          setJob(fallback);
+          setFormData((prev) => ({ ...prev, position: fallback.title }));
+        }
       } finally {
         setIsLoading(false);
       }
@@ -159,6 +222,10 @@ const CareerApplyClient = ({ jobId }: CareerApplyClientProps) => {
         </div>
       </div>
     );
+  }
+
+  if (job?.applyUrl) {
+    return <ExternalApplyFormOpen job={job} onBack={() => router.push("/career")} />;
   }
 
   if (isSuccess) {

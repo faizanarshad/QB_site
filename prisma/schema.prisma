@@ -250,6 +250,8 @@ model JobPosition {
   experience  String
   description String
   requirements String[]
+  /// When set, "Apply" opens this URL (e.g. Google Form) instead of the built-in form
+  applyUrl    String?
   isActive    Boolean  @default(true)
   order       Int      @default(0)
   createdAt   DateTime @default(now())

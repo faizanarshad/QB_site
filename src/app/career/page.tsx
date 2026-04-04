@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { AI_ML_INTERN_JOB } from "@/lib/aiMlInternJob";
 
 interface JobPosition {
   id: string;
@@ -15,6 +16,7 @@ interface JobPosition {
   experience: string;
   description: string;
   requirements: string[];
+  applyUrl?: string | null;
   isActive: boolean;
   order: number;
   createdAt: string;
@@ -51,13 +53,22 @@ const CareerPage = () => {
     fetchJobs();
   }, []);
 
-  // Open application form for a specific job
+  // Open application form for a specific job (external Google Form when applyUrl is set)
   const openApplicationForm = (job: JobPosition) => {
+    if (job.applyUrl) {
+      window.open(job.applyUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
     router.push(`/career/apply?jobId=${job.id}`);
   };
 
   // Fallback job data if API fails
   const fallbackJobOpenings: JobPosition[] = [
+    {
+      ...AI_ML_INTERN_JOB,
+      createdAt: AI_ML_INTERN_JOB.createdAt.toISOString(),
+      updatedAt: AI_ML_INTERN_JOB.updatedAt.toISOString(),
+    },
     {
       id: "1",
       title: "Senior Machine Learning Engineer",

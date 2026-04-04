@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { AI_ML_INTERN_JOB } from '@/lib/aiMlInternJob';
 
 export async function GET() {
   try {
@@ -8,12 +9,22 @@ export async function GET() {
       orderBy: { order: 'asc' },
     });
 
+    const hasIntern = jobs.some((j) => j.title === AI_ML_INTERN_JOB.title);
+    if (!hasIntern) {
+      return NextResponse.json([AI_ML_INTERN_JOB, ...jobs]);
+    }
+
     return NextResponse.json(jobs);
   } catch (error) {
     console.error('Error fetching jobs:', error);
     
     // Return fallback data when database is not available
     const fallbackJobs = [
+      {
+        ...AI_ML_INTERN_JOB,
+        createdAt: AI_ML_INTERN_JOB.createdAt.toISOString(),
+        updatedAt: AI_ML_INTERN_JOB.updatedAt.toISOString(),
+      },
       {
         id: "1",
         title: "Senior Machine Learning Engineer",
@@ -81,7 +92,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     
-    const { title, department, location, type, experience, description, requirements } = body;
+    const { title, department, location, type, experience, description, requirements, applyUrl } = body;
 
     // Validate required fields
     if (!title || !department || !location || !type || !experience || !description) {
@@ -100,6 +111,7 @@ export async function POST(request: NextRequest) {
         experience,
         description,
         requirements: requirements || [],
+        applyUrl: applyUrl || null,
       },
     });
 
