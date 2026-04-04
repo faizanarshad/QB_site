@@ -1,29 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import type { IconType } from "react-icons";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { FaBrain, FaRobot } from "react-icons/fa";
-import {
-  SiArduino,
-  SiMongodb,
-  SiNextdotjs,
-  SiNodedotjs,
-  SiOpencv,
-  SiPostgresql,
-  SiPython,
-  SiPytorch,
-  SiReact,
-  SiStripe,
-  SiTensorflow,
-  SiAmazonwebservices,
-} from "react-icons/si";
-import { TbBrandAzure } from "react-icons/tb";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedHero from "@/components/AnimatedHero";
-
-type ProjectTech = { name: string; Icon: IconType };
 
 const PortfolioPage = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -34,7 +16,6 @@ const PortfolioPage = () => {
     category: string;
     description: string;
     image: string;
-    technologies: ProjectTech[];
     results: string;
     client: string;
   }[] = [
@@ -44,11 +25,6 @@ const PortfolioPage = () => {
       category: "ai",
       description: "Computer vision system for automated quality inspection in manufacturing",
       image: "🏭",
-      technologies: [
-        { name: "Computer Vision", Icon: SiOpencv },
-        { name: "Machine Learning", Icon: SiPytorch },
-        { name: "IoT", Icon: SiArduino },
-      ],
       results: "Reduced defects by 85% and increased production efficiency by 40%",
       client: "Global Manufacturing Corp",
     },
@@ -58,12 +34,6 @@ const PortfolioPage = () => {
       category: "ecommerce",
       description: "Complete e-commerce solution with intelligent product recommendations",
       image: "🛒",
-      technologies: [
-        { name: "React", Icon: SiReact },
-        { name: "Node.js", Icon: SiNodedotjs },
-        { name: "Machine Learning", Icon: SiPytorch },
-        { name: "MongoDB", Icon: SiMongodb },
-      ],
       results: "Increased conversion rate by 35% and average order value by 25%",
       client: "TechRetail Inc",
     },
@@ -73,12 +43,6 @@ const PortfolioPage = () => {
       category: "ai",
       description: "Real-time analytics platform for business intelligence",
       image: "📊",
-      technologies: [
-        { name: "Python", Icon: SiPython },
-        { name: "TensorFlow", Icon: SiTensorflow },
-        { name: "React", Icon: SiReact },
-        { name: "PostgreSQL", Icon: SiPostgresql },
-      ],
       results: "Improved decision-making speed by 60% and accuracy by 45%",
       client: "DataCorp Solutions",
     },
@@ -88,12 +52,6 @@ const PortfolioPage = () => {
       category: "robotics",
       description: "Automated workflow system for document processing",
       image: "🤖",
-      technologies: [
-        { name: "RPA", Icon: FaRobot },
-        { name: "AI", Icon: FaBrain },
-        { name: "Python", Icon: SiPython },
-        { name: "Azure", Icon: TbBrandAzure },
-      ],
       results: "Reduced processing time by 70% and eliminated manual errors",
       client: "FinanceTech Ltd",
     },
@@ -103,12 +61,6 @@ const PortfolioPage = () => {
       category: "ai",
       description: "Advanced security monitoring with facial recognition",
       image: "🔒",
-      technologies: [
-        { name: "OpenCV", Icon: SiOpencv },
-        { name: "Deep Learning", Icon: SiPytorch },
-        { name: "Python", Icon: SiPython },
-        { name: "AWS", Icon: SiAmazonwebservices },
-      ],
       results: "Improved security accuracy by 95% and reduced false alarms by 80%",
       client: "SecureTech Systems",
     },
@@ -118,12 +70,6 @@ const PortfolioPage = () => {
       category: "ecommerce",
       description: "Enterprise marketplace connecting manufacturers and suppliers",
       image: "🏢",
-      technologies: [
-        { name: "Next.js", Icon: SiNextdotjs },
-        { name: "Node.js", Icon: SiNodedotjs },
-        { name: "PostgreSQL", Icon: SiPostgresql },
-        { name: "Stripe", Icon: SiStripe },
-      ],
       results: "Facilitated $50M+ in transactions and connected 500+ businesses",
       client: "SupplyChain Hub",
     },
@@ -206,17 +152,17 @@ const PortfolioPage = () => {
                   <p className="text-gray-600 mb-6">{project.description}</p>
                   
                   <div className="mb-6">
-                    <h4 className="font-semibold text-gray-900 mb-3">Technologies:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech) => (
-                        <span
-                          key={tech.name}
-                          className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium inline-flex items-center gap-1.5"
-                        >
-                          <tech.Icon className="w-4 h-4 shrink-0 text-blue-700" aria-hidden />
-                          <span>{tech.name}</span>
-                        </span>
-                      ))}
+                    <div
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 ring-1 ring-blue-100/80 shadow-sm"
+                      aria-label="Technologies"
+                    >
+                      <Image
+                        src="/images/qbrix-logo-mark.svg"
+                        alt=""
+                        width={28}
+                        height={28}
+                        className="h-7 w-7 object-contain"
+                      />
                     </div>
                   </div>
 
