@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AnimatedHero from "@/components/AnimatedHero";
 import { 
   FaRobot, 
   FaEye, 
@@ -300,7 +301,21 @@ const ServicesPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
       <Header />
-      
+
+      <AnimatedHero
+        headline="Transform Your Business"
+        subheadline="With Our Services"
+        description="From AI-powered automation to cutting-edge robotics, we deliver innovative solutions that drive growth, efficiency, and competitive advantage."
+        primaryAction={{
+          text: "Explore Services",
+          href: "#services",
+        }}
+        secondaryAction={{
+          text: "Get Free Consultation",
+          href: "#contact",
+        }}
+      />
+
       {/* Stats Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -341,7 +356,7 @@ const ServicesPage = () => {
       </section>
 
       {/* Interactive Services Section */}
-      <section className="py-20">
+      <section id="services" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -682,7 +697,7 @@ const ServicesPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 relative overflow-hidden">
+      <section id="contact" className="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20" />
         <motion.div 
           animate={floatingAnimation}

@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AnimatedHero from "@/components/AnimatedHero";
 import { 
   SiTensorflow, 
   SiPytorch, 
@@ -145,7 +146,28 @@ const AISolutionsPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
+      <AnimatedHero
+        headline="AI Solutions"
+        subheadline="Artificial Intelligence Excellence"
+        description="Cutting-edge artificial intelligence solutions that transform data into actionable insights and drive business innovation."
+        primaryAction={{
+          text: "Explore AI Capabilities",
+          onClick: () => {
+            const el = document.getElementById("ai-capabilities");
+            el?.scrollIntoView({ behavior: "smooth" });
+          },
+        }}
+        secondaryAction={{
+          text: "View Technologies",
+          onClick: () => {
+            const el = document.getElementById("technologies");
+            el?.scrollIntoView({ behavior: "smooth" });
+          },
+        }}
+        illustrationUrl="/images/ai.jpg"
+      />
+
       {/* AI Solutions Grid */}
       <section id="ai-capabilities" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

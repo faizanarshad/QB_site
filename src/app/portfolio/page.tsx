@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AnimatedHero from "@/components/AnimatedHero";
 
 const PortfolioPage = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -114,7 +115,25 @@ const PortfolioPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
       <Header />
-      
+
+      <AnimatedHero
+        headline="Our Portfolio"
+        subheadline="Showcasing Innovation"
+        description="Showcasing our innovative projects and successful client transformations that demonstrate our expertise in AI, technology, and business solutions."
+        primaryAction={{
+          text: "View Projects",
+          onClick: () => {
+            const el = document.getElementById("projects-grid");
+            el?.scrollIntoView({ behavior: "smooth" });
+          },
+        }}
+        secondaryAction={{
+          text: "Contact Us",
+          href: "/contact",
+        }}
+        illustrationUrl="/images/data_visualization.webp"
+      />
+
       {/* Filter Section */}
       <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
