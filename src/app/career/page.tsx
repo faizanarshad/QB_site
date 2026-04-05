@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AnimatedHero from "@/components/AnimatedHero";
 import { AI_ML_INTERN_JOB } from "@/lib/aiMlInternJob";
 
 interface JobPosition {
@@ -234,7 +235,26 @@ const CareerPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
+      <AnimatedHero
+        headline="Careers"
+        subheadline="Grow With QBrix Solutions"
+        description="Build impactful products with our AI, machine learning, and engineering teams. Explore open roles and what we offer."
+        primaryAction={{
+          text: "View Openings",
+          onClick: () => {
+            document.getElementById("job-openings")?.scrollIntoView({ behavior: "smooth" });
+          },
+        }}
+        secondaryAction={{
+          text: "Why Join Us",
+          onClick: () => {
+            document.getElementById("benefits")?.scrollIntoView({ behavior: "smooth" });
+          },
+        }}
+        illustrationUrl="/images/join_our_team.jpg"
+      />
+
       {/* Benefits Section */}
       <section id="benefits" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
