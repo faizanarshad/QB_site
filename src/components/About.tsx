@@ -85,16 +85,16 @@ const About = () => {
           viewport={{ once: true }}
           className="mt-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
         >
-          <div className="relative">
+          <div className="relative w-full max-w-xl mx-auto lg:mx-0">
             <Image
-              src="/images/tenweb_media_rtyvghhu7.webp"
-              alt="QBrix Solutions Team"
-              width={600}
-              height={400}
-              sizes="(max-width: 1024px) 100vw, 50vw"
+              src="/images/ai-solutions-hero.png"
+              alt="Hand presenting a glowing digital globe with AI, machine learning, and computer vision concepts"
+              width={740}
+              height={577}
+              sizes="(max-width: 1024px) 100vw, 42vw"
               loading="lazy"
-              quality={70}
-              className="rounded-2xl shadow-2xl"
+              quality={85}
+              className="rounded-2xl shadow-2xl w-full h-auto"
             />
           </div>
           <div>
