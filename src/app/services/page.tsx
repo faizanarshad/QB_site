@@ -263,32 +263,54 @@ const ServicesPage = () => {
 
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      role: "CTO, TechCorp",
-      content: "QBrix's AI solutions transformed our operations completely. We've seen a 60% increase in efficiency.",
+      name: "Hieu Bui",
+      role: "Contractor",
+      content:
+        "QBrix Solutions' performance has been outstanding. As a contractor, they have been punctual, responsive, and consistently meet client needs beyond expectations. They are dedicated, determined, and produced high quality work while frequently going above and beyond the call of duty. Since their first day, they have exceeded expectations daily. I am incredibly grateful for their insightful feedback and feel fortunate to have connected with them.",
       rating: 5,
-      initials: "SJ",
-      company: "TechCorp",
-      industry: "Technology"
+      initials: "HB",
+      company: "New York, USA",
+      industry: "USA",
     },
     {
-      name: "Michael Chen",
-      role: "CEO, InnovateLab",
-      content: "The computer vision system they built for us is incredibly accurate and has revolutionized our quality control.",
+      name: "Zephirex Technologies",
+      role: "Atlanta, GA, USA",
+      content:
+        "Outstanding experience. QBrix Solutions' expertise and professionalism truly stood out. They communicated clearly, met all deadlines, and delivered high-quality work.",
       rating: 5,
-      initials: "MC",
-      company: "InnovateLab",
-      industry: "Manufacturing"
+      initials: "ZT",
+      company: "Zephirex Technologies",
+      industry: "Technology",
     },
     {
-      name: "Emily Rodriguez",
-      role: "Operations Director, RetailPlus",
-      content: "Our e-commerce platform built by QBrix has increased our online sales by 150% in just 6 months.",
+      name: "Kasia Szokalska",
+      role: "Munich, Germany",
+      content:
+        "Many thanks for having delivered excellent work on our project! QBrix Solutions proved their expertise in Excel and additional programming skills. They delivered high quality work and were very cooperative and patient answering all our questions. They were perfectly able to implement whatever idea we had, though next time we will be clearer about the \"why\" behind ideas, so they can easily suggest potential better solutions thanks to their expertise. This was our first project, so for sure we too can learn how to communicate even better. Again, many thanks and all the best!",
       rating: 5,
-      initials: "ER",
-      company: "RetailPlus",
-      industry: "Retail"
-    }
+      initials: "KS",
+      company: "Client",
+      industry: "Germany",
+    },
+    {
+      name: "Lia Ricci",
+      role: "MFashion Group",
+      content: "Excellent quality and highly recommended to any clients.",
+      rating: 5,
+      initials: "LR",
+      company: "Canada",
+      industry: "Retail",
+    },
+    {
+      name: "Sam Devlin",
+      role: "Surry Hills",
+      content:
+        "Thank you so much for your work! The payment should have come through. I would love to work with you again.",
+      rating: 5,
+      initials: "SD",
+      company: "Australia",
+      industry: "Australia",
+    },
   ];
 
   const stats = [
@@ -619,10 +641,10 @@ const ServicesPage = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <motion.div
-                key={testimonial.name}
+                key={`${testimonial.name}-${index}`}
                 initial={{ opacity: 0, y: 50, scale: 0.9 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
