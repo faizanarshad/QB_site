@@ -87,10 +87,10 @@ const About = () => {
         >
           <div className="relative w-full max-w-xl mx-auto lg:mx-0">
             <Image
-              src="/images/ai-solutions-hero.png"
-              alt="Hand presenting a glowing digital globe with AI, machine learning, and computer vision concepts"
-              width={740}
-              height={577}
+              src="/images/innovation-excellence.png"
+              alt="Medical professional interacting with a holographic patient statistics and health metrics dashboard"
+              width={1017}
+              height={937}
               sizes="(max-width: 1024px) 100vw, 42vw"
               loading="lazy"
               quality={85}
