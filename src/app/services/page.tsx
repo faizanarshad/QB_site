@@ -27,6 +27,101 @@ import {
   FaVolumeMute
 } from "react-icons/fa";
 
+type TestimonialEntry = {
+  name: string;
+  role: string;
+  content: string;
+  rating: number;
+  initials: string;
+  company: string;
+  industry: string;
+};
+
+function TestimonialCard({
+  testimonial,
+  index,
+}: {
+  testimonial: TestimonialEntry;
+  index: number;
+}) {
+  const attribution = [testimonial.role, testimonial.company]
+    .filter(Boolean)
+    .join(" · ");
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50, scale: 0.9 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.6, delay: index * 0.15 }}
+      viewport={{ once: true }}
+      whileHover={{ y: -10, scale: 1.02 }}
+      className="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-2xl shadow-lg border border-gray-100"
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ delay: index * 0.15 + 0.3, duration: 0.6 }}
+        viewport={{ once: true }}
+        className="flex items-center mb-4"
+      >
+        <div className="flex space-x-1">
+          {[...Array(testimonial.rating)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.15 + 0.4 + i * 0.1, duration: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <FaStar className="text-yellow-400" />
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, rotate: -10 }}
+        whileInView={{ opacity: 1, rotate: 0 }}
+        transition={{ delay: index * 0.15 + 0.5, duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        <FaQuoteLeft className="text-3xl text-blue-500 mb-4" />
+      </motion.div>
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: index * 0.15 + 0.6, duration: 0.6 }}
+        viewport={{ once: true }}
+        className="text-gray-700 mb-6 italic"
+      >
+        &ldquo;{testimonial.content}&rdquo;
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ delay: index * 0.15 + 0.7, duration: 0.6 }}
+        viewport={{ once: true }}
+        className="flex items-center space-x-4"
+      >
+        <motion.div
+          whileHover={{ scale: 1.1, rotate: 360 }}
+          transition={{ duration: 0.6 }}
+          className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center shrink-0"
+        >
+          <span className="text-white font-semibold text-sm">{testimonial.initials}</span>
+        </motion.div>
+        <div>
+          <div className="font-semibold text-gray-900">{testimonial.name}</div>
+          {attribution ? (
+            <div className="text-gray-600 text-sm">{attribution}</div>
+          ) : null}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 const ServicesPage = () => {
   const [activeService, setActiveService] = useState(0);
   const [hoveredService, setHoveredService] = useState<number | null>(null);
@@ -641,81 +736,25 @@ const ServicesPage = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={`${testimonial.name}-${index}`}
-                initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-2xl shadow-lg border border-gray-100"
-              >
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.2 + 0.3, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="flex items-center mb-4"
-                >
-                  <div className="flex space-x-1">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, scale: 0 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: index * 0.2 + 0.4 + i * 0.1, duration: 0.4 }}
-                        viewport={{ once: true }}
-                      >
-                        <FaStar className="text-yellow-400" />
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, rotate: -10 }}
-                  whileInView={{ opacity: 1, rotate: 0 }}
-                  transition={{ delay: index * 0.2 + 0.5, duration: 0.6 }}
-                  viewport={{ once: true }}
-                >
-                  <FaQuoteLeft className="text-3xl text-blue-500 mb-4" />
-                </motion.div>
-                <motion.p 
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.2 + 0.6, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="text-gray-700 mb-6 italic"
-                >
-                  "{testimonial.content}"
-                </motion.p>
-                
-                <motion.div 
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.2 + 0.7, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="flex items-center space-x-4"
-                >
-                  <motion.div 
-                    whileHover={{ scale: 1.1, rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                    className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center"
-                  >
-                    <span className="text-white font-semibold text-sm">{testimonial.initials}</span>
-                  </motion.div>
-                  <div>
-                    <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                    <div className="text-gray-600 text-sm">{testimonial.role}</div>
-                    {testimonial.company ? (
-                      <div className="text-blue-600 text-xs font-medium">{testimonial.company}</div>
-                    ) : null}
-                  </div>
-                </motion.div>
-              </motion.div>
-            ))}
+          <div className="flex flex-col gap-8 lg:gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto w-full">
+              {testimonials.slice(0, 2).map((testimonial, index) => (
+                <TestimonialCard
+                  key={`${testimonial.name}-${index}`}
+                  testimonial={testimonial}
+                  index={index}
+                />
+              ))}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {testimonials.slice(2, 5).map((testimonial, index) => (
+                <TestimonialCard
+                  key={`${testimonial.name}-${index + 2}`}
+                  testimonial={testimonial}
+                  index={index + 2}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
