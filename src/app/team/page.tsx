@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AnimatedHero from "@/components/AnimatedHero";
 import { FaStar, FaLinkedin, FaGithub, FaTwitter, FaRobot, FaBrain, FaCode, FaChartLine, FaCogs, FaUserTie, FaCloud } from "react-icons/fa";
 
 const TeamPage = () => {
@@ -97,7 +98,26 @@ const TeamPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
+      <AnimatedHero
+        headline="Our Team"
+        subheadline="People Behind QBrix Solutions"
+        description="Engineers, strategists, and builders who ship AI, software, and automation that clients rely on."
+        primaryAction={{
+          text: "Meet the Team",
+          onClick: () => {
+            document.getElementById("team-grid")?.scrollIntoView({ behavior: "smooth" });
+          },
+        }}
+        secondaryAction={{
+          text: "Contact Us",
+          href: "/contact",
+        }}
+        illustrationUrl="/images/join_our_team.jpg"
+        illustrationObjectFit="cover"
+        illustrationAlt="Collaborative team working together in a modern office"
+      />
+
       {/* Team Grid */}
       <section id="team-grid" className="py-20 relative overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
         {/* Decorative background shapes */}
