@@ -368,16 +368,6 @@ const ServicesPage = () => {
       industry: "USA",
     },
     {
-      name: "Zephirex Technologies",
-      role: "Atlanta, GA, USA",
-      content:
-        "Outstanding experience. QBrix Solutions' expertise and professionalism truly stood out. They communicated clearly, met all deadlines, and delivered high-quality work.",
-      rating: 5,
-      initials: "ZT",
-      company: "Zephirex Technologies",
-      industry: "Technology",
-    },
-    {
       name: "Kasia Szokalska",
       role: "Munich, Germany",
       content:
@@ -386,6 +376,16 @@ const ServicesPage = () => {
       initials: "KS",
       company: "",
       industry: "Germany",
+    },
+    {
+      name: "Zephirex Technologies",
+      role: "Atlanta, GA, USA",
+      content:
+        "Outstanding experience. QBrix Solutions' expertise and professionalism truly stood out. They communicated clearly, met all deadlines, and delivered high-quality work.",
+      rating: 5,
+      initials: "ZT",
+      company: "Zephirex Technologies",
+      industry: "Technology",
     },
     {
       name: "Lia Ricci",
