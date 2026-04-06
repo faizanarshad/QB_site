@@ -1,144 +1,27 @@
 "use client";
 
 import React, { useState } from "react";
-import type { IconType } from "react-icons";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { FaBrain, FaRobot } from "react-icons/fa";
-import {
-  SiArduino,
-  SiMongodb,
-  SiNextdotjs,
-  SiNodedotjs,
-  SiOpencv,
-  SiPostgresql,
-  SiPython,
-  SiPytorch,
-  SiReact,
-  SiStripe,
-  SiTensorflow,
-  SiAmazonwebservices,
-} from "react-icons/si";
-import { TbBrandAzure } from "react-icons/tb";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedHero from "@/components/AnimatedHero";
-
-type ProjectTech = { name: string; Icon: IconType };
+import { portfolioProjects } from "@/data/portfolioProjects";
 
 const PortfolioPage = () => {
   const [activeFilter, setActiveFilter] = useState("all");
 
-  const projects: {
-    id: number;
-    title: string;
-    category: string;
-    description: string;
-    image: string;
-    technologies: ProjectTech[];
-    results: string;
-    client: string;
-  }[] = [
-    {
-      id: 1,
-      title: "AI-Powered Manufacturing Quality Control",
-      category: "ai",
-      description: "Computer vision system for automated quality inspection in manufacturing",
-      image: "🏭",
-      technologies: [
-        { name: "Computer Vision", Icon: SiOpencv },
-        { name: "Machine Learning", Icon: SiPytorch },
-        { name: "IoT", Icon: SiArduino },
-      ],
-      results: "Reduced defects by 85% and increased production efficiency by 40%",
-      client: "Global Manufacturing Corp",
-    },
-    {
-      id: 2,
-      title: "E-commerce Platform with AI Recommendations",
-      category: "ecommerce",
-      description: "Complete e-commerce solution with intelligent product recommendations",
-      image: "🛒",
-      technologies: [
-        { name: "React", Icon: SiReact },
-        { name: "Node.js", Icon: SiNodedotjs },
-        { name: "Machine Learning", Icon: SiPytorch },
-        { name: "MongoDB", Icon: SiMongodb },
-      ],
-      results: "Increased conversion rate by 35% and average order value by 25%",
-      client: "TechRetail Inc",
-    },
-    {
-      id: 3,
-      title: "Predictive Analytics Dashboard",
-      category: "ai",
-      description: "Real-time analytics platform for business intelligence",
-      image: "📊",
-      technologies: [
-        { name: "Python", Icon: SiPython },
-        { name: "TensorFlow", Icon: SiTensorflow },
-        { name: "React", Icon: SiReact },
-        { name: "PostgreSQL", Icon: SiPostgresql },
-      ],
-      results: "Improved decision-making speed by 60% and accuracy by 45%",
-      client: "DataCorp Solutions",
-    },
-    {
-      id: 4,
-      title: "Robotic Process Automation System",
-      category: "robotics",
-      description: "Automated workflow system for document processing",
-      image: "🤖",
-      technologies: [
-        { name: "RPA", Icon: FaRobot },
-        { name: "AI", Icon: FaBrain },
-        { name: "Python", Icon: SiPython },
-        { name: "Azure", Icon: TbBrandAzure },
-      ],
-      results: "Reduced processing time by 70% and eliminated manual errors",
-      client: "FinanceTech Ltd",
-    },
-    {
-      id: 5,
-      title: "Computer Vision Security System",
-      category: "ai",
-      description: "Advanced security monitoring with facial recognition",
-      image: "🔒",
-      technologies: [
-        { name: "OpenCV", Icon: SiOpencv },
-        { name: "Deep Learning", Icon: SiPytorch },
-        { name: "Python", Icon: SiPython },
-        { name: "AWS", Icon: SiAmazonwebservices },
-      ],
-      results: "Improved security accuracy by 95% and reduced false alarms by 80%",
-      client: "SecureTech Systems",
-    },
-    {
-      id: 6,
-      title: "B2B Marketplace Platform",
-      category: "ecommerce",
-      description: "Enterprise marketplace connecting manufacturers and suppliers",
-      image: "🏢",
-      technologies: [
-        { name: "Next.js", Icon: SiNextdotjs },
-        { name: "Node.js", Icon: SiNodedotjs },
-        { name: "PostgreSQL", Icon: SiPostgresql },
-        { name: "Stripe", Icon: SiStripe },
-      ],
-      results: "Facilitated $50M+ in transactions and connected 500+ businesses",
-      client: "SupplyChain Hub",
-    },
-  ];
-
   const filters = [
     { id: "all", label: "All Projects" },
+    { id: "healthcare", label: "Healthcare & BI" },
     { id: "ai", label: "AI & ML" },
-    { id: "ecommerce", label: "E-commerce" },
-    { id: "robotics", label: "Robotics" },
+    { id: "data", label: "Data & Analytics" },
   ];
 
-  const filteredProjects = activeFilter === "all" 
-    ? projects 
-    : projects.filter(project => project.category === activeFilter);
+  const filteredProjects =
+    activeFilter === "all"
+      ? portfolioProjects
+      : portfolioProjects.filter((p) => p.category === activeFilter);
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
@@ -147,12 +30,11 @@ const PortfolioPage = () => {
       <AnimatedHero
         headline="Our Portfolio"
         subheadline="Showcasing Innovation"
-        description="Showcasing our innovative projects and successful client transformations that demonstrate our expertise in AI, technology, and business solutions."
+        description="Product-grade systems across healthcare BI, voice AI, RAG, analytics, and more — with measurable outcomes."
         primaryAction={{
           text: "View Projects",
           onClick: () => {
-            const el = document.getElementById("projects-grid");
-            el?.scrollIntoView({ behavior: "smooth" });
+            document.getElementById("projects-grid")?.scrollIntoView({ behavior: "smooth" });
           },
         }}
         secondaryAction={{
@@ -162,7 +44,6 @@ const PortfolioPage = () => {
         illustrationUrl="/images/data_visualization.webp"
       />
 
-      {/* Filter Section */}
       <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-4">
@@ -185,66 +66,66 @@ const PortfolioPage = () => {
         </div>
       </section>
 
-      {/* Projects Grid */}
       <section id="projects-grid" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
+              <motion.article
+                key={project.slug}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden"
+                transition={{ duration: 0.6, delay: index * 0.08 }}
+                whileHover={{ y: -8 }}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col border border-gray-100"
               >
-                <div className="p-8">
-                  <div className="text-6xl mb-6 text-center">{project.image}</div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                <div className="p-8 flex flex-col flex-1">
+                  <div className="text-6xl mb-4 text-center" aria-hidden>
+                    {project.emoji}
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
                     {project.title}
                   </h3>
-                  <p className="text-gray-600 mb-6">{project.description}</p>
-                  
+                  <p className="text-sm text-blue-700 font-medium mb-4 line-clamp-2">
+                    {project.subtitle}
+                  </p>
+                  <p className="text-gray-600 mb-6 text-sm leading-relaxed flex-1">
+                    {project.summary}
+                  </p>
+
                   <div className="mb-6">
-                    <h4 className="font-semibold text-gray-900 mb-3">Technologies:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech) => (
+                    <h4 className="font-semibold text-gray-900 text-sm mb-2">
+                      Stack highlights
+                    </h4>
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.technologies.slice(0, 5).map((tech) => (
                         <span
-                          key={tech.name}
-                          className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium inline-flex items-center gap-1.5"
+                          key={tech}
+                          className="px-2 py-0.5 bg-gray-100 text-gray-800 rounded text-xs"
                         >
-                          <tech.Icon className="w-4 h-4 shrink-0 text-blue-700" aria-hidden />
-                          <span>{tech.name}</span>
+                          {tech}
                         </span>
                       ))}
+                      {project.technologies.length > 5 ? (
+                        <span className="text-xs text-gray-500 self-center">
+                          +{project.technologies.length - 5} more
+                        </span>
+                      ) : null}
                     </div>
                   </div>
 
-                  <div className="mb-6">
-                    <h4 className="font-semibold text-gray-900 mb-3">Results:</h4>
-                    <p className="text-green-600 font-medium">{project.results}</p>
-                  </div>
-
-                  <div className="mb-6">
-                    <h4 className="font-semibold text-gray-900 mb-3">Client:</h4>
-                    <p className="text-gray-700">{project.client}</p>
-                  </div>
-
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200"
+                  <Link
+                    href={`/portfolio/${project.slug}`}
+                    className="block w-full text-center bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
                   >
-                    View Case Study
-                  </motion.button>
+                    View project
+                  </Link>
                 </div>
-              </motion.div>
+              </motion.article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -274,7 +155,9 @@ const PortfolioPage = () => {
                 viewport={{ once: true }}
                 className="text-center"
               >
-                <div className="text-4xl font-bold text-blue-600 mb-2">{stat.number}</div>
+                <div className="text-4xl font-bold text-blue-600 mb-2">
+                  {stat.number}
+                </div>
                 <div className="text-gray-600">{stat.label}</div>
               </motion.div>
             ))}
@@ -282,7 +165,6 @@ const PortfolioPage = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
@@ -295,15 +177,15 @@ const PortfolioPage = () => {
               Ready to Start Your Next Project?
             </h2>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Let's create something amazing together. Our team is ready to bring your vision to life.
+              Let&apos;s create something amazing together. Our team is ready to
+              bring your vision to life.
             </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg transition-all duration-200"
+            <Link
+              href="/contact"
+              className="inline-block bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg transition-all duration-200"
             >
               Start Your Project
-            </motion.button>
+            </Link>
           </motion.div>
         </div>
       </section>
@@ -313,4 +195,4 @@ const PortfolioPage = () => {
   );
 };
 
-export default PortfolioPage; 
+export default PortfolioPage;
