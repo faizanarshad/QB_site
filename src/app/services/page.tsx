@@ -289,7 +289,7 @@ const ServicesPage = () => {
         "Many thanks for having delivered excellent work on our project! QBrix Solutions proved their expertise in Excel and additional programming skills. They delivered high quality work and were very cooperative and patient answering all our questions. They were perfectly able to implement whatever idea we had, though next time we will be clearer about the \"why\" behind ideas, so they can easily suggest potential better solutions thanks to their expertise. This was our first project, so for sure we too can learn how to communicate even better. Again, many thanks and all the best!",
       rating: 5,
       initials: "KS",
-      company: "Client",
+      company: "",
       industry: "Germany",
     },
     {
@@ -709,7 +709,9 @@ const ServicesPage = () => {
                   <div>
                     <div className="font-semibold text-gray-900">{testimonial.name}</div>
                     <div className="text-gray-600 text-sm">{testimonial.role}</div>
-                    <div className="text-blue-600 text-xs font-medium">{testimonial.company}</div>
+                    {testimonial.company ? (
+                      <div className="text-blue-600 text-xs font-medium">{testimonial.company}</div>
+                    ) : null}
                   </div>
                 </motion.div>
               </motion.div>
