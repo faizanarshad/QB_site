@@ -78,7 +78,9 @@ const ContactPage = () => {
           text: "Our Services",
           href: "/services",
         }}
-        illustrationUrl="/images/data_visualization.webp"
+        illustrationUrl="/images/contact-hero.png"
+        illustrationObjectFit="cover"
+        illustrationAlt="Futuristic support interface with communication icons and hand reaching toward a glowing SUPPORT control"
       />
 
       {/* Contact Form & Info */}
