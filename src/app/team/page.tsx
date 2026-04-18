@@ -1,76 +1,17 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedHero from "@/components/AnimatedHero";
+import { teamMembers } from "@/data/teamMembers";
 import { FaStar, FaLinkedin, FaGithub, FaTwitter, FaRobot, FaBrain, FaCode, FaChartLine, FaCogs, FaUserTie, FaCloud } from "react-icons/fa";
 
 const TeamPage = () => {
-  const team = [
-    {
-      name: "Faizan Arshad",
-      role: "Chief Executive Officer",
-      image: "/images/team/faizan.webp",
-      bio: "Visionary leader driving innovation and excellence at QBrix Solutions.",
-      expertise: ["AI Strategy", "Business Leadership", "Innovation"],
-      linkedin: "#",
-      github: "#",
-      twitter: "#",
-    },
-    {
-      name: "Zeeshan Arshad",
-      role: "Chief Technology Officer",
-      image: "/images/team/zeeshan.webp",
-      bio: "Technology expert overseeing all technical aspects and product development.",
-      expertise: ["System Architecture", "AI Development", "Cloud Computing"],
-      linkedin: "#",
-      github: "#",
-      twitter: "#",
-    },
-    {
-      name: "Iqra Nazir",
-      role: "Lead Robotics Engineer",
-      image: "/images/team/iqra.webp",
-      bio: "Robotics engineer with a passion for automation and intelligent systems.",
-      expertise: ["Robotics", "Automation", "IoT Integration"],
-      linkedin: "#",
-      github: "#",
-      twitter: "#",
-    },
-    {
-      name: "Mohammad Farhan",
-      role: "Senior AI/ML Engineer",
-      image: "/images/team/farhan.png",
-      bio: "Business development lead driving growth and strategic partnerships.",
-      expertise: ["Business Strategy", "Partnerships", "Growth Hacking"],
-      linkedin: "#",
-      github: "#",
-      twitter: "#",
-    },
-    {
-      name: "Hamza",
-      role: "Head of Digital Marketing",
-      image: "/images/team/hamza.webp",
-      bio: "Digital marketing expert driving growth and brand awareness through innovative strategies.",
-      expertise: ["Digital Marketing", "SEO/SEM", "Social Media Strategy"],
-      linkedin: "#",
-      github: "#",
-      twitter: "#",
-    },
-    {
-      name: "Muhammad Usman",
-      role: "Senior Software Engineer",
-      image: "/images/team/usman.webp",
-      bio: "AI specialist focused on developing intelligent solutions and advanced analytics.",
-      expertise: ["Artificial Intelligence", "Machine Learning", "Data Science"],
-      linkedin: "#",
-      github: "#",
-      twitter: "#",
-    },
-  ];
+  const team = teamMembers;
 
   const values = [
     {
@@ -156,7 +97,7 @@ const TeamPage = () => {
             {/* First row */}
             {team.slice(0, 3).map((member, index) => (
               <motion.div
-                key={member.name}
+                key={member.slug}
                 initial={{ opacity: 0, y: 60, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.7, delay: index * 0.15 }}
@@ -164,38 +105,29 @@ const TeamPage = () => {
                 whileHover={{ y: -8, scale: 1.04, boxShadow: "0 8px 32px 0 rgba(99,102,241,0.18)" }}
                 className="relative bg-white/60 backdrop-blur-lg p-8 rounded-3xl shadow-2xl border border-blue-100 hover:border-blue-400 transition-all duration-300 group overflow-visible"
               >
-                {/* Colored ribbon for role */}
-                <div className="absolute -top-4 -left-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-1 rounded-xl shadow-lg text-xs font-bold uppercase tracking-wider z-10">
-                  {member.role}
-                </div>
-                <div className="flex flex-col items-center">
-                  <div className="relative w-32 h-32 mb-6 rounded-full overflow-hidden border-4 border-gradient-to-br from-blue-400 via-purple-400 to-pink-400 group-hover:scale-105 transition-transform duration-300">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      loading="lazy"
-                      sizes="128px"
-                      className={
-                        member.name === "Muhammad Usman"
-                          ? "object-cover object-center"
-                          : ["Faizan Arshad", "Zeeshan Arshad", "Mohammad Farhan"].includes(member.name)
-                            ? "object-cover object-top"
-                            : "object-cover"
-                      }
-                    />
+                <Link
+                  href={`/team/${member.slug}`}
+                  className="block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                >
+                  <div className="absolute -top-4 -left-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-1 rounded-xl shadow-lg text-xs font-bold uppercase tracking-wider z-10">
+                    {member.role}
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-1 mt-2 group-hover:text-blue-700 transition-colors duration-200">
-                    {member.name}
-                  </h3>
-                  <p className="text-gray-600 mb-4 text-sm text-center">{member.bio}</p>
-                  {/* Social Media Icons */}
-                  <div className="flex gap-4 mb-4">
-                    <a href={member.linkedin || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-xl transition-colors"><FaLinkedin /></a>
-                    <a href={member.github || "#"} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-black text-xl transition-colors"><FaGithub /></a>
-                    <a href={member.twitter || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600 text-xl transition-colors"><FaTwitter /></a>
-                  </div>
-                  <div className="mb-4 flex flex-wrap gap-2 justify-center">
+                  <div className="flex flex-col items-center">
+                    <div className="relative w-32 h-32 mb-6 rounded-full overflow-hidden border-4 border-gradient-to-br from-blue-400 via-purple-400 to-pink-400 group-hover:scale-105 transition-transform duration-300">
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        loading="lazy"
+                        sizes="128px"
+                        className={member.imageObjectClassName}
+                      />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-1 mt-2 group-hover:text-blue-700 transition-colors duration-200">
+                      {member.name}
+                    </h3>
+                    <p className="text-gray-600 mb-4 text-sm text-center">{member.shortBio}</p>
+                    <div className="mb-4 flex flex-wrap gap-2 justify-center">
                     {/* Colorful badges with icons */}
                     {member.expertise.map((skill, i) => (
                       <span
@@ -232,6 +164,14 @@ const TeamPage = () => {
                             case "Artificial Intelligence": return <FaBrain className="text-base" />;
                             case "Machine Learning": return <FaBrain className="text-base" />;
                             case "Data Science": return <FaChartLine className="text-base" />;
+                            case "Deep Learning": return <FaBrain className="text-base" />;
+                            case "MLOps": return <FaCogs className="text-base" />;
+                            case "Python": return <FaCode className="text-base" />;
+                            case "Model Evaluation": return <FaChartLine className="text-base" />;
+                            case "Cloud ML": return <FaCloud className="text-base" />;
+                            case "Software Engineering": return <FaCode className="text-base" />;
+                            case "Full-Stack Development": return <FaCode className="text-base" />;
+                            case "System Design": return <FaCogs className="text-base" />;
                             default: return <FaStar className="text-base text-yellow-400" />;
                           }
                         })()}
@@ -239,6 +179,15 @@ const TeamPage = () => {
                       </span>
                     ))}
                   </div>
+                    <p className="text-blue-600 text-sm font-semibold mt-2 mb-1">
+                      View profile →
+                    </p>
+                  </div>
+                </Link>
+                <div className="flex gap-4 justify-center mt-4">
+                  <a href={member.linkedin || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="LinkedIn"><FaLinkedin /></a>
+                  <a href={member.github || "#"} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-black text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="GitHub"><FaGithub /></a>
+                  <a href={member.twitter || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600 text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="Twitter"><FaTwitter /></a>
                 </div>
               </motion.div>
             ))}
@@ -247,7 +196,7 @@ const TeamPage = () => {
             {/* Second row */}
             {team.slice(3, 6).map((member, index) => (
               <motion.div
-                key={member.name}
+                key={member.slug}
                 initial={{ opacity: 0, y: 60, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.7, delay: index * 0.15 }}
@@ -255,38 +204,29 @@ const TeamPage = () => {
                 whileHover={{ y: -8, scale: 1.04, boxShadow: "0 8px 32px 0 rgba(236,72,153,0.18)" }}
                 className="relative bg-white/60 backdrop-blur-lg p-8 rounded-3xl shadow-2xl border border-pink-100 hover:border-pink-400 transition-all duration-300 group overflow-visible"
               >
-                {/* Colored ribbon for role */}
-                <div className="absolute -top-4 -left-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-4 py-1 rounded-xl shadow-lg text-xs font-bold uppercase tracking-wider z-10">
-                  {member.role}
-                </div>
-                <div className="flex flex-col items-center">
-                  <div className="relative w-32 h-32 mb-6 rounded-full overflow-hidden border-4 border-gradient-to-br from-pink-400 via-purple-400 to-blue-400 group-hover:scale-105 transition-transform duration-300">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      loading="lazy"
-                      sizes="128px"
-                      className={
-                        member.name === "Muhammad Usman"
-                          ? "object-cover object-center"
-                          : ["Faizan Arshad", "Zeeshan Arshad", "Mohammad Farhan"].includes(member.name)
-                            ? "object-cover object-top"
-                            : "object-cover"
-                      }
-                    />
+                <Link
+                  href={`/team/${member.slug}`}
+                  className="block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-pink-500"
+                >
+                  <div className="absolute -top-4 -left-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-4 py-1 rounded-xl shadow-lg text-xs font-bold uppercase tracking-wider z-10">
+                    {member.role}
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-1 mt-2 group-hover:text-pink-700 transition-colors duration-200">
-                    {member.name}
-                  </h3>
-                  <p className="text-gray-600 mb-4 text-sm text-center">{member.bio}</p>
-                  {/* Social Media Icons */}
-                  <div className="flex gap-4 mb-4">
-                    <a href={member.linkedin || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-xl transition-colors"><FaLinkedin /></a>
-                    <a href={member.github || "#"} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-black text-xl transition-colors"><FaGithub /></a>
-                    <a href={member.twitter || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600 text-xl transition-colors"><FaTwitter /></a>
-                  </div>
-                  <div className="mb-4 flex flex-wrap gap-2 justify-center">
+                  <div className="flex flex-col items-center">
+                    <div className="relative w-32 h-32 mb-6 rounded-full overflow-hidden border-4 border-gradient-to-br from-pink-400 via-purple-400 to-blue-400 group-hover:scale-105 transition-transform duration-300">
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        loading="lazy"
+                        sizes="128px"
+                        className={member.imageObjectClassName}
+                      />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-1 mt-2 group-hover:text-pink-700 transition-colors duration-200">
+                      {member.name}
+                    </h3>
+                    <p className="text-gray-600 mb-4 text-sm text-center">{member.shortBio}</p>
+                    <div className="mb-4 flex flex-wrap gap-2 justify-center">
                     {/* Colorful badges with icons */}
                     {member.expertise.map((skill, i) => (
                       <span
@@ -323,6 +263,14 @@ const TeamPage = () => {
                             case "Artificial Intelligence": return <FaBrain className="text-base" />;
                             case "Machine Learning": return <FaBrain className="text-base" />;
                             case "Data Science": return <FaChartLine className="text-base" />;
+                            case "Deep Learning": return <FaBrain className="text-base" />;
+                            case "MLOps": return <FaCogs className="text-base" />;
+                            case "Python": return <FaCode className="text-base" />;
+                            case "Model Evaluation": return <FaChartLine className="text-base" />;
+                            case "Cloud ML": return <FaCloud className="text-base" />;
+                            case "Software Engineering": return <FaCode className="text-base" />;
+                            case "Full-Stack Development": return <FaCode className="text-base" />;
+                            case "System Design": return <FaCogs className="text-base" />;
                             default: return <FaStar className="text-base text-yellow-400" />;
                           }
                         })()}
@@ -330,6 +278,15 @@ const TeamPage = () => {
                       </span>
                     ))}
                   </div>
+                    <p className="text-pink-600 text-sm font-semibold mt-2 mb-1">
+                      View profile →
+                    </p>
+                  </div>
+                </Link>
+                <div className="flex gap-4 justify-center mt-4">
+                  <a href={member.linkedin || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="LinkedIn"><FaLinkedin /></a>
+                  <a href={member.github || "#"} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-black text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="GitHub"><FaGithub /></a>
+                  <a href={member.twitter || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600 text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="Twitter"><FaTwitter /></a>
                 </div>
               </motion.div>
             ))}
