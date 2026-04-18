@@ -7,7 +7,7 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedHero from "@/components/AnimatedHero";
-import { teamMembers } from "@/data/teamMembers";
+import { teamMembers, expertiseForMember } from "@/data/teamMembers";
 import { FaStar, FaLinkedin, FaGithub, FaTwitter, FaRobot, FaBrain, FaCode, FaChartLine, FaCogs, FaUserTie, FaCloud } from "react-icons/fa";
 
 const TeamPage = () => {
@@ -92,29 +92,46 @@ const TeamPage = () => {
             </motion.p>
           </motion.div>
 
-          {/* Custom 2-row, 3-column grid for team */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
-            {/* First row */}
-            {team.slice(0, 3).map((member, index) => (
+          {/* Team grid: equal-height cards (min height + flex) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {team.map((member, index) => {
+              const isBlueRow = index < 3;
+              return (
               <motion.div
                 key={member.slug}
                 initial={{ opacity: 0, y: 60, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.7, delay: index * 0.15 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -8, scale: 1.04, boxShadow: "0 8px 32px 0 rgba(99,102,241,0.18)" }}
-                className="relative bg-white/60 backdrop-blur-lg rounded-3xl shadow-2xl border border-blue-100 hover:border-blue-400 transition-all duration-300 group overflow-visible"
+                whileHover={{ y: -8, scale: 1.04, boxShadow: isBlueRow ? "0 8px 32px 0 rgba(99,102,241,0.18)" : "0 8px 32px 0 rgba(236,72,153,0.18)" }}
+                className={`relative flex h-full min-h-[440px] flex-col rounded-3xl border bg-white/60 shadow-2xl backdrop-blur-lg transition-all duration-300 group overflow-visible sm:min-h-[460px] md:min-h-[520px] ${
+                  isBlueRow
+                    ? "border-blue-100 hover:border-blue-400"
+                    : "border-pink-100 hover:border-pink-400"
+                }`}
               >
                 <Link
                   href={`/team/${member.slug}`}
                   prefetch
-                  className="block p-8 rounded-3xl relative z-[1] cursor-pointer text-inherit no-underline hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                  className={`relative z-[1] flex flex-1 flex-col rounded-3xl p-8 cursor-pointer text-inherit no-underline hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+                    isBlueRow ? "focus-visible:ring-blue-500" : "focus-visible:ring-pink-500"
+                  }`}
                 >
-                  <div className="absolute -top-4 -left-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-1 rounded-xl shadow-lg text-xs font-bold uppercase tracking-wider z-10 pointer-events-none">
+                  <div
+                    className={`absolute -top-4 -left-4 bg-gradient-to-r text-white px-4 py-1 rounded-xl shadow-lg text-xs font-bold uppercase tracking-wider z-10 pointer-events-none ${
+                      isBlueRow ? "from-blue-500 to-purple-500" : "from-pink-500 to-purple-500"
+                    }`}
+                  >
                     {member.role}
                   </div>
                   <div className="flex flex-col items-center">
-                    <div className="relative w-32 h-32 mb-6 rounded-full overflow-hidden border-4 border-gradient-to-br from-blue-400 via-purple-400 to-pink-400 group-hover:scale-105 transition-transform duration-300">
+                    <div
+                      className={`relative w-32 h-32 mb-6 rounded-full overflow-hidden border-4 group-hover:scale-105 transition-transform duration-300 ${
+                        isBlueRow
+                          ? "border-gradient-to-br from-blue-400 via-purple-400 to-pink-400"
+                          : "border-gradient-to-br from-pink-400 via-purple-400 to-blue-400"
+                      }`}
+                    >
                       <Image
                         src={member.image}
                         alt={member.name}
@@ -124,25 +141,39 @@ const TeamPage = () => {
                         className={member.imageObjectClassName}
                       />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-1 mt-2 group-hover:text-blue-700 transition-colors duration-200">
+                    <h3
+                      className={`text-2xl font-bold text-gray-900 mb-1 mt-2 transition-colors duration-200 ${
+                        isBlueRow ? "group-hover:text-blue-700" : "group-hover:text-pink-700"
+                      }`}
+                    >
                       {member.name}
                     </h3>
                     <p className="text-gray-600 mb-3 text-sm text-center">{member.shortBio}</p>
                     <div className="mb-0 flex flex-wrap gap-2 justify-center">
                     {/* Colorful badges with icons */}
-                    {member.expertise.map((skill, i) => (
+                    {expertiseForMember(member).map((skill, i) => (
                       <span
-                        key={skill}
+                        key={`${member.slug}-tag-${i}-${skill}`}
                         className={
                           `inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ` +
-                          [
-                            "from-blue-100 to-blue-200 text-blue-800",
-                            "from-purple-100 to-purple-200 text-purple-800",
-                            "from-pink-100 to-pink-200 text-pink-800",
-                            "from-green-100 to-green-200 text-green-800",
-                            "from-yellow-100 to-yellow-200 text-yellow-800",
-                            "from-red-100 to-red-200 text-red-800"
-                          ][i % 6]
+                          (isBlueRow
+                            ? [
+                                "from-blue-100 to-blue-200 text-blue-800",
+                                "from-purple-100 to-purple-200 text-purple-800",
+                                "from-pink-100 to-pink-200 text-pink-800",
+                                "from-green-100 to-green-200 text-green-800",
+                                "from-yellow-100 to-yellow-200 text-yellow-800",
+                                "from-red-100 to-red-200 text-red-800",
+                              ]
+                            : [
+                                "from-pink-100 to-pink-200 text-pink-800",
+                                "from-purple-100 to-purple-200 text-purple-800",
+                                "from-blue-100 to-blue-200 text-blue-800",
+                                "from-green-100 to-green-200 text-green-800",
+                                "from-yellow-100 to-yellow-200 text-yellow-800",
+                                "from-red-100 to-red-200 text-red-800",
+                              ]
+                          )[i % 6]
                         }
                       >
                         {(() => {
@@ -171,7 +202,10 @@ const TeamPage = () => {
                             case "Model Evaluation": return <FaChartLine className="text-base" />;
                             case "Cloud ML": return <FaCloud className="text-base" />;
                             case "Software Engineering": return <FaCode className="text-base" />;
-                            case "Full-Stack Development": return <FaCode className="text-base" />;
+                            case "Full Stack":
+                            case "Full Stack Development":
+                            case "Full-Stack Development":
+                              return <FaCode className="text-base" />;
                             case "System Design": return <FaCogs className="text-base" />;
                             default: return <FaStar className="text-base text-yellow-400" />;
                           }
@@ -182,110 +216,14 @@ const TeamPage = () => {
                   </div>
                   </div>
                 </Link>
-                <div className="flex gap-4 justify-center mt-2 px-8 pb-1">
+                <div className="mt-auto flex shrink-0 justify-center gap-4 px-8 pb-2 pt-1">
                   <a href={member.linkedin || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="LinkedIn"><FaLinkedin /></a>
                   <a href={member.github || "#"} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-black text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="GitHub"><FaGithub /></a>
                   <a href={member.twitter || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600 text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="Twitter"><FaTwitter /></a>
                 </div>
               </motion.div>
-            ))}
-          </div>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
-            {/* Second row */}
-            {team.slice(3, 6).map((member, index) => (
-              <motion.div
-                key={member.slug}
-                initial={{ opacity: 0, y: 60, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.7, delay: index * 0.15 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -8, scale: 1.04, boxShadow: "0 8px 32px 0 rgba(236,72,153,0.18)" }}
-                className="relative bg-white/60 backdrop-blur-lg rounded-3xl shadow-2xl border border-pink-100 hover:border-pink-400 transition-all duration-300 group overflow-visible"
-              >
-                <Link
-                  href={`/team/${member.slug}`}
-                  prefetch
-                  className="block p-8 rounded-3xl relative z-[1] cursor-pointer text-inherit no-underline hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-pink-500"
-                >
-                  <div className="absolute -top-4 -left-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-4 py-1 rounded-xl shadow-lg text-xs font-bold uppercase tracking-wider z-10 pointer-events-none">
-                    {member.role}
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <div className="relative w-32 h-32 mb-6 rounded-full overflow-hidden border-4 border-gradient-to-br from-pink-400 via-purple-400 to-blue-400 group-hover:scale-105 transition-transform duration-300">
-                      <Image
-                        src={member.image}
-                        alt={member.name}
-                        fill
-                        loading="lazy"
-                        sizes="128px"
-                        className={member.imageObjectClassName}
-                      />
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-1 mt-2 group-hover:text-pink-700 transition-colors duration-200">
-                      {member.name}
-                    </h3>
-                    <p className="text-gray-600 mb-3 text-sm text-center">{member.shortBio}</p>
-                    <div className="mb-0 flex flex-wrap gap-2 justify-center">
-                    {/* Colorful badges with icons */}
-                    {member.expertise.map((skill, i) => (
-                      <span
-                        key={skill}
-                        className={
-                          `inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ` +
-                          [
-                            "from-pink-100 to-pink-200 text-pink-800",
-                            "from-purple-100 to-purple-200 text-purple-800",
-                            "from-blue-100 to-blue-200 text-blue-800",
-                            "from-green-100 to-green-200 text-green-800",
-                            "from-yellow-100 to-yellow-200 text-yellow-800",
-                            "from-red-100 to-red-200 text-red-800"
-                          ][i % 6]
-                        }
-                      >
-                        {(() => {
-                          switch (skill) {
-                            case "AI Strategy": return <FaBrain className="text-base" />;
-                            case "Business Leadership": return <FaUserTie className="text-base" />;
-                            case "Innovation": return <FaStar className="text-base text-yellow-400" />;
-                            case "System Architecture": return <FaCogs className="text-base" />;
-                            case "AI Development": return <FaBrain className="text-base" />;
-                            case "Cloud Computing": return <FaCloud className="text-base" />;
-                            case "Robotics": return <FaRobot className="text-base" />;
-                            case "Automation": return <FaCogs className="text-base" />;
-                            case "IoT Integration": return <FaChartLine className="text-base" />;
-                            case "E-commerce": return <FaChartLine className="text-base" />;
-                            case "Digital Strategy": return <FaChartLine className="text-base" />;
-                            case "Platform Development": return <FaCode className="text-base" />;
-                            case "Business Strategy": return <FaUserTie className="text-base" />;
-                            case "Partnerships": return <FaUserTie className="text-base" />;
-                            case "Growth Hacking": return <FaChartLine className="text-base" />;
-                            case "Artificial Intelligence": return <FaBrain className="text-base" />;
-                            case "Machine Learning": return <FaBrain className="text-base" />;
-                            case "Data Science": return <FaChartLine className="text-base" />;
-                            case "Deep Learning": return <FaBrain className="text-base" />;
-                            case "MLOps": return <FaCogs className="text-base" />;
-                            case "Python": return <FaCode className="text-base" />;
-                            case "Model Evaluation": return <FaChartLine className="text-base" />;
-                            case "Cloud ML": return <FaCloud className="text-base" />;
-                            case "Software Engineering": return <FaCode className="text-base" />;
-                            case "Full-Stack Development": return <FaCode className="text-base" />;
-                            case "System Design": return <FaCogs className="text-base" />;
-                            default: return <FaStar className="text-base text-yellow-400" />;
-                          }
-                        })()}
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                  </div>
-                </Link>
-                <div className="flex gap-4 justify-center mt-2 px-8 pb-1">
-                  <a href={member.linkedin || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="LinkedIn"><FaLinkedin /></a>
-                  <a href={member.github || "#"} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-black text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="GitHub"><FaGithub /></a>
-                  <a href={member.twitter || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600 text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="Twitter"><FaTwitter /></a>
-                </div>
-              </motion.div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

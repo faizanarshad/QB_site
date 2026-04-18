@@ -29,6 +29,13 @@ export type TeamMember = {
   twitter: string;
 };
 
+/** Single source for Usman's expertise badges (team card + profile). */
+const USMAN_EXPERTISE_LABELS: readonly string[] = [
+  "Software Engineering",
+  "Full Stack",
+  "System Design",
+];
+
 export const teamMembers: TeamMember[] = [
   {
     slug: "faizan-arshad",
@@ -68,9 +75,9 @@ export const teamMembers: TeamMember[] = [
       "Drives cross-functional alignment between engineering, product, and client success",
       "Champions ethical AI and clear communication with stakeholders",
     ],
-    linkedin: "#",
-    github: "#",
-    twitter: "#",
+    linkedin: "https://www.linkedin.com/in/mfaizanarshad/",
+    github: "https://github.com/faizanarshad",
+    twitter: "https://x.com/Faizaan_Arshad",
   },
   {
     slug: "zeeshan-arshad",
@@ -253,14 +260,10 @@ export const teamMembers: TeamMember[] = [
     image: "/images/team/usman.webp",
     imageObjectClassName: "object-cover object-center",
     shortBio:
-      "Software engineer focused on full-stack delivery, performance, and maintainable systems.",
+      "Software engineer focused on end-to-end delivery, performance, and maintainable systems.",
     fullBio:
       "Usman builds and evolves client-facing applications and internal tooling with emphasis on code quality, performance, and developer experience. He contributes across the stack—from APIs and data layers to modern frontends—and collaborates on architecture for scalable features.",
-    expertise: [
-      "Software Engineering",
-      "Full-Stack Development",
-      "System Design",
-    ],
+    expertise: [...USMAN_EXPERTISE_LABELS],
     experience: [
       {
         title: "Senior Software Engineer",
@@ -293,6 +296,22 @@ export const teamMembers: TeamMember[] = [
     twitter: "#",
   },
 ];
+
+/** Maps legacy expertise strings to display labels (team cards + profile). */
+export function formatExpertiseLabel(skill: string): string {
+  if (skill === "Full-Stack Development" || skill === "Full Stack Development") {
+    return "Full Stack";
+  }
+  return skill;
+}
+
+/** Expertise strings to show on team cards and profile (normalized + pinned where needed). */
+export function expertiseForMember(member: TeamMember): string[] {
+  if (member.slug === "muhammad-usman") {
+    return [...USMAN_EXPERTISE_LABELS];
+  }
+  return member.expertise.map(formatExpertiseLabel);
+}
 
 export function getTeamMemberBySlug(slug: string): TeamMember | undefined {
   return teamMembers.find((m) => m.slug === slug);

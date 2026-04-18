@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import {
   getTeamMemberBySlug,
   getAllTeamSlugs,
+  expertiseForMember,
 } from "@/data/teamMembers";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
@@ -149,9 +150,9 @@ export default function TeamMemberPage({ params }: Props) {
                   Expertise
                 </h2>
                 <div className="flex flex-wrap gap-2">
-                  {member.expertise.map((skill) => (
+                  {expertiseForMember(member).map((skill, i) => (
                     <span
-                      key={skill}
+                      key={`${member.slug}-ex-${i}-${skill}`}
                       className="px-3 py-1.5 rounded-full text-sm font-medium bg-blue-50 text-blue-900 border border-blue-100"
                     >
                       {skill}
