@@ -93,7 +93,7 @@ const TeamPage = () => {
           </motion.div>
 
           {/* Custom 2-row, 3-column grid for team */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
             {/* First row */}
             {team.slice(0, 3).map((member, index) => (
               <motion.div
@@ -127,8 +127,8 @@ const TeamPage = () => {
                     <h3 className="text-2xl font-bold text-gray-900 mb-1 mt-2 group-hover:text-blue-700 transition-colors duration-200">
                       {member.name}
                     </h3>
-                    <p className="text-gray-600 mb-4 text-sm text-center">{member.shortBio}</p>
-                    <div className="mb-4 flex flex-wrap gap-2 justify-center">
+                    <p className="text-gray-600 mb-3 text-sm text-center">{member.shortBio}</p>
+                    <div className="mb-0 flex flex-wrap gap-2 justify-center">
                     {/* Colorful badges with icons */}
                     {member.expertise.map((skill, i) => (
                       <span
@@ -182,7 +182,7 @@ const TeamPage = () => {
                   </div>
                   </div>
                 </Link>
-                <div className="flex gap-4 justify-center mt-4">
+                <div className="flex gap-4 justify-center mt-2 px-8 pb-1">
                   <a href={member.linkedin || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="LinkedIn"><FaLinkedin /></a>
                   <a href={member.github || "#"} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-black text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="GitHub"><FaGithub /></a>
                   <a href={member.twitter || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600 text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="Twitter"><FaTwitter /></a>
@@ -190,7 +190,7 @@ const TeamPage = () => {
               </motion.div>
             ))}
           </div>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
             {/* Second row */}
             {team.slice(3, 6).map((member, index) => (
               <motion.div
@@ -224,8 +224,8 @@ const TeamPage = () => {
                     <h3 className="text-2xl font-bold text-gray-900 mb-1 mt-2 group-hover:text-pink-700 transition-colors duration-200">
                       {member.name}
                     </h3>
-                    <p className="text-gray-600 mb-4 text-sm text-center">{member.shortBio}</p>
-                    <div className="mb-4 flex flex-wrap gap-2 justify-center">
+                    <p className="text-gray-600 mb-3 text-sm text-center">{member.shortBio}</p>
+                    <div className="mb-0 flex flex-wrap gap-2 justify-center">
                     {/* Colorful badges with icons */}
                     {member.expertise.map((skill, i) => (
                       <span
@@ -279,7 +279,7 @@ const TeamPage = () => {
                   </div>
                   </div>
                 </Link>
-                <div className="flex gap-4 justify-center mt-4">
+                <div className="flex gap-4 justify-center mt-2 px-8 pb-1">
                   <a href={member.linkedin || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="LinkedIn"><FaLinkedin /></a>
                   <a href={member.github || "#"} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-black text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="GitHub"><FaGithub /></a>
                   <a href={member.twitter || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600 text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="Twitter"><FaTwitter /></a>
