@@ -10,6 +10,15 @@ import AnimatedHero from "@/components/AnimatedHero";
 import { teamMembers, expertiseForMember } from "@/data/teamMembers";
 import { FaStar, FaLinkedin, FaGithub, FaTwitter, FaRobot, FaBrain, FaCode, FaChartLine, FaCogs, FaUserTie, FaCloud } from "react-icons/fa";
 
+function socialHref(url: string): string {
+  return url && url !== "#" ? url : "#";
+}
+
+function onSocialClick(e: React.MouseEvent<HTMLAnchorElement>, url: string) {
+  e.stopPropagation();
+  if (!url || url === "#") e.preventDefault();
+}
+
 const TeamPage = () => {
   const team = teamMembers;
 
@@ -104,7 +113,7 @@ const TeamPage = () => {
                 transition={{ duration: 0.7, delay: index * 0.15 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -8, scale: 1.04, boxShadow: isBlueRow ? "0 8px 32px 0 rgba(99,102,241,0.18)" : "0 8px 32px 0 rgba(236,72,153,0.18)" }}
-                className={`relative flex h-full min-h-[440px] flex-col rounded-3xl border bg-white/60 shadow-2xl backdrop-blur-lg transition-all duration-300 group overflow-visible sm:min-h-[460px] md:min-h-[520px] ${
+                className={`relative isolate flex h-full min-h-0 flex-col rounded-3xl border bg-white/60 shadow-2xl backdrop-blur-lg transition-all duration-300 group overflow-visible ${
                   isBlueRow
                     ? "border-blue-100 hover:border-blue-400"
                     : "border-pink-100 hover:border-pink-400"
@@ -113,7 +122,7 @@ const TeamPage = () => {
                 <Link
                   href={`/team/${member.slug}`}
                   prefetch
-                  className={`relative z-[1] flex flex-1 flex-col rounded-3xl p-8 cursor-pointer text-inherit no-underline hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+                  className={`relative z-[1] flex flex-col rounded-3xl p-8 pb-4 cursor-pointer text-inherit no-underline hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
                     isBlueRow ? "focus-visible:ring-blue-500" : "focus-visible:ring-pink-500"
                   }`}
                 >
@@ -216,10 +225,43 @@ const TeamPage = () => {
                   </div>
                   </div>
                 </Link>
-                <div className="mt-auto flex shrink-0 justify-center gap-4 px-8 pb-2 pt-1">
-                  <a href={member.linkedin || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="LinkedIn"><FaLinkedin /></a>
-                  <a href={member.github || "#"} target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-black text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="GitHub"><FaGithub /></a>
-                  <a href={member.twitter || "#"} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600 text-xl transition-colors" onClick={(e) => e.stopPropagation()} aria-label="Twitter"><FaTwitter /></a>
+                <div className="relative z-[5] flex shrink-0 justify-center gap-1 border-t border-gray-100/80 bg-white/40 px-4 py-2.5 backdrop-blur-sm">
+                  <a
+                    href={socialHref(member.linkedin)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-blue-600 transition-colors hover:bg-blue-50 hover:text-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 ${
+                      !member.linkedin || member.linkedin === "#" ? "pointer-events-none opacity-35" : ""
+                    }`}
+                    onClick={(e) => onSocialClick(e, member.linkedin)}
+                    aria-label={`${member.name} on LinkedIn`}
+                  >
+                    <FaLinkedin className="text-2xl" />
+                  </a>
+                  <a
+                    href={socialHref(member.github)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-gray-700 transition-colors hover:bg-gray-100 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 ${
+                      !member.github || member.github === "#" ? "pointer-events-none opacity-35" : ""
+                    }`}
+                    onClick={(e) => onSocialClick(e, member.github)}
+                    aria-label={`${member.name} on GitHub`}
+                  >
+                    <FaGithub className="text-2xl" />
+                  </a>
+                  <a
+                    href={socialHref(member.twitter)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-sky-500 transition-colors hover:bg-sky-50 hover:text-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 ${
+                      !member.twitter || member.twitter === "#" ? "pointer-events-none opacity-35" : ""
+                    }`}
+                    onClick={(e) => onSocialClick(e, member.twitter)}
+                    aria-label={`${member.name} on X`}
+                  >
+                    <FaTwitter className="text-2xl" />
+                  </a>
                 </div>
               </motion.div>
               );
