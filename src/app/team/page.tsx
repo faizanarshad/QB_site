@@ -103,13 +103,14 @@ const TeamPage = () => {
                 transition={{ duration: 0.7, delay: index * 0.15 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -8, scale: 1.04, boxShadow: "0 8px 32px 0 rgba(99,102,241,0.18)" }}
-                className="relative bg-white/60 backdrop-blur-lg p-8 rounded-3xl shadow-2xl border border-blue-100 hover:border-blue-400 transition-all duration-300 group overflow-visible"
+                className="relative bg-white/60 backdrop-blur-lg rounded-3xl shadow-2xl border border-blue-100 hover:border-blue-400 transition-all duration-300 group overflow-visible"
               >
                 <Link
                   href={`/team/${member.slug}`}
-                  className="block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                  prefetch
+                  className="block p-8 rounded-3xl relative z-[1] cursor-pointer text-inherit no-underline hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                 >
-                  <div className="absolute -top-4 -left-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-1 rounded-xl shadow-lg text-xs font-bold uppercase tracking-wider z-10">
+                  <div className="absolute -top-4 -left-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-1 rounded-xl shadow-lg text-xs font-bold uppercase tracking-wider z-10 pointer-events-none">
                     {member.role}
                   </div>
                   <div className="flex flex-col items-center">
@@ -202,13 +203,14 @@ const TeamPage = () => {
                 transition={{ duration: 0.7, delay: index * 0.15 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -8, scale: 1.04, boxShadow: "0 8px 32px 0 rgba(236,72,153,0.18)" }}
-                className="relative bg-white/60 backdrop-blur-lg p-8 rounded-3xl shadow-2xl border border-pink-100 hover:border-pink-400 transition-all duration-300 group overflow-visible"
+                className="relative bg-white/60 backdrop-blur-lg rounded-3xl shadow-2xl border border-pink-100 hover:border-pink-400 transition-all duration-300 group overflow-visible"
               >
                 <Link
                   href={`/team/${member.slug}`}
-                  className="block rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-pink-500"
+                  prefetch
+                  className="block p-8 rounded-3xl relative z-[1] cursor-pointer text-inherit no-underline hover:no-underline focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-pink-500"
                 >
-                  <div className="absolute -top-4 -left-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-4 py-1 rounded-xl shadow-lg text-xs font-bold uppercase tracking-wider z-10">
+                  <div className="absolute -top-4 -left-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-4 py-1 rounded-xl shadow-lg text-xs font-bold uppercase tracking-wider z-10 pointer-events-none">
                     {member.role}
                   </div>
                   <div className="flex flex-col items-center">
