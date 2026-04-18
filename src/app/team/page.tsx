@@ -180,9 +180,6 @@ const TeamPage = () => {
                       </span>
                     ))}
                   </div>
-                    <p className="text-blue-600 text-sm font-semibold mt-2 mb-1">
-                      View profile →
-                    </p>
                   </div>
                 </Link>
                 <div className="flex gap-4 justify-center mt-4">
@@ -280,9 +277,6 @@ const TeamPage = () => {
                       </span>
                     ))}
                   </div>
-                    <p className="text-pink-600 text-sm font-semibold mt-2 mb-1">
-                      View profile →
-                    </p>
                   </div>
                 </Link>
                 <div className="flex gap-4 justify-center mt-4">
