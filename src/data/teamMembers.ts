@@ -258,7 +258,7 @@ export const teamMembers: TeamMember[] = [
     name: "Muhammad Usman",
     role: "Senior Software Engineer",
     image: "/images/team/usman.webp",
-    imageObjectClassName: "object-cover object-center",
+    imageObjectClassName: "object-cover object-top",
     shortBio:
       "Software engineer focused on end-to-end delivery, performance, and maintainable systems.",
     fullBio:
