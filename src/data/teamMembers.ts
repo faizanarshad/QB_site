@@ -279,14 +279,14 @@ export const teamMembers: TeamMember[] = [
       {
         title: "Senior Software Engineer",
         organization: "QBrix Solutions",
-        period: "May 2024 – Present",
+        period: "April 2026 – Present",
         description:
           "Senior software engineer delivering backend and full-stack work for client platforms, AI-driven products, and integrations—.NET, APIs, microservices, and cloud-native patterns in line with QBrix delivery standards.",
       },
       {
         title: "Senior Software Engineer — .NET / FastAPI",
         organization: "Addo AI",
-        period: "April 2024 – April 2024",
+        period: "April 2024 – March 2026",
         description: `• Led backend development across multiple projects including an enterprise-grade AI platform, focusing on scalability, reliability, and integration with external enterprise systems.
 • Contributed to low-level design (LLD), including system architecture planning and data flow diagrams.
 • Designed and implemented event-driven microservices with Apache Kafka: topic design, message flow optimization, partitions, and dead letter queues (DLQs).
