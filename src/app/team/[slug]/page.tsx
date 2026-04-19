@@ -110,7 +110,9 @@ export default function TeamMemberPage({ params }: Props) {
                         {exp.organization} · {exp.period}
                       </div>
                       {exp.description ? (
-                        <p className="text-gray-600 text-sm mt-1">{exp.description}</p>
+                        <p className="text-gray-600 text-sm mt-1 whitespace-pre-line">
+                          {exp.description}
+                        </p>
                       ) : null}
                     </li>
                   ))}

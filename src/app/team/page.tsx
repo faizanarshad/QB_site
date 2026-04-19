@@ -211,6 +211,11 @@ const TeamPage = () => {
                             case "Model Evaluation": return <FaChartLine className="text-base" />;
                             case "Cloud ML": return <FaCloud className="text-base" />;
                             case "Software Engineering": return <FaCode className="text-base" />;
+                            case ".NET": return <FaCode className="text-base" />;
+                            case "Microservices": return <FaCogs className="text-base" />;
+                            case "Kubernetes": return <FaCloud className="text-base" />;
+                            case "Kafka": return <FaChartLine className="text-base" />;
+                            case "REST APIs": return <FaCode className="text-base" />;
                             case "Full Stack":
                             case "Full Stack Development":
                             case "Full-Stack Development":

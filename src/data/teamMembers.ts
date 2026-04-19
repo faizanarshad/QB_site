@@ -29,13 +29,6 @@ export type TeamMember = {
   twitter: string;
 };
 
-/** Single source for Usman's expertise badges (team card + profile). */
-const USMAN_EXPERTISE_LABELS: readonly string[] = [
-  "Software Engineering",
-  "Full Stack",
-  "System Design",
-];
-
 export const teamMembers: TeamMember[] = [
   {
     slug: "faizan-arshad",
@@ -258,38 +251,73 @@ export const teamMembers: TeamMember[] = [
     name: "Muhammad Usman",
     role: "Senior Software Engineer",
     image: "/images/team/usman.webp",
-    imageObjectClassName: "object-cover object-top",
+    imageObjectClassName: "object-cover object-[50%_0%]",
     shortBio:
-      "Software engineer focused on end-to-end delivery, performance, and maintainable systems.",
+      "Accomplished software engineer with 5+ years in backend and full-stack development, specializing in .NET, microservices, and AI-driven enterprise platforms.",
     fullBio:
-      "Usman builds and evolves client-facing applications and internal tooling with emphasis on code quality, performance, and developer experience. He contributes across the stack—from APIs and data layers to modern frontends—and collaborates on architecture for scalable features.",
-    expertise: [...USMAN_EXPERTISE_LABELS],
+      "Accomplished software engineer with 5+ years of experience in backend and full-stack development, specializing in .NET, microservices, and AI-driven enterprise platforms. Skilled in designing scalable architectures, integrating enterprise systems, and delivering robust solutions in Agile environments. Proficient in cloud-native development, Kubernetes, Kafka, RESTful APIs, and payment workflows, with a strong track record of leading projects from design to deployment while ensuring high performance, reliability, and maintainability.",
+    expertise: [
+      ".NET",
+      "Microservices",
+      "Kubernetes",
+      "Kafka",
+      "REST APIs",
+      "Full Stack",
+      "Cloud Computing",
+      "Software Engineering",
+    ],
     experience: [
       {
-        title: "Senior Software Engineer",
-        organization: "QBrix Solutions",
-        period: "Present",
-        description:
-          "Feature delivery, refactoring, reviews, and technical mentorship.",
+        title: "Senior Software Engineer — .NET / FastAPI",
+        organization: "Addo AI",
+        period: "April 2024 – Present",
+        description: `• Led backend development across multiple projects including an enterprise-grade AI platform, focusing on scalability, reliability, and integration with external enterprise systems.
+• Contributed to low-level design (LLD), including system architecture planning and data flow diagrams.
+• Designed and implemented event-driven microservices with Apache Kafka: topic design, message flow optimization, partitions, and dead letter queues (DLQs).
+• Analyzed and planned integrations with external systems and APIs including SAP and Microsoft Dynamics (MSD).
+• Operated Kubernetes for monitoring and troubleshooting microservices: cluster concepts (pods, services, deployments), log analysis, and debugging with Lens.`,
       },
       {
-        title: "Software development",
-        organization: "Product & services",
-        period: "Prior experience",
-        description:
-          "Web applications, integrations, and performance optimization.",
+        title: "Senior Software Engineer — .NET",
+        organization: "NorthBay Solutions",
+        period: "Nov 2022 – April 2024",
+        description: `• Improved core platform services in .NET Framework and delivered full-stack features from database through backend with solid engineering principles.
+• Designed and implemented subscription flows with Stripe, including invoicing and secure payment processing.
+• Built a matrices feature for law firms to compare multiple documents and sections accurately.
+• Integrated PDF and Word conversion tooling; improved format compatibility and document management.
+• Worked in Agile: backlog creation and grooming, sprint planning, demos, and client coordination.`,
+      },
+      {
+        title: ".NET Developer",
+        organization: "3s Solutions (Pvt) Ltd",
+        period: "Nov 2021 – Nov 2022",
+        description: `• Planned and implemented scalable RESTful web services exposing JSON to web and mobile clients.
+• Delivered incremental enhancements on schedule against sprint goals.
+• Delivered single sign-on (SSO) across client applications.
+• Tested APIs with Postman, JMeter, and SOAP UI; supported CI/CD with Jenkins and Git.`,
+      },
+      {
+        title: "Software Engineer — JavaScript / .NET",
+        organization: "IMSI Technologies",
+        period: "Oct 2020 – Nov 2022",
+        description: `• Enhanced a desktop application for performance and new capabilities.
+• Built interactive canvas with drag-and-drop for cards, letters, drawings, and multimedia.
+• Ran complex tests, debugging, and system hardening.
+• Partnered with QA and UX in stand-ups to iterate on UI from feedback.`,
       },
     ],
     education: [
       {
-        degree: "Computer Science / Software Engineering (or related)",
-        institution: "University program",
+        degree: "Bachelor of Science in Information Technology",
+        institution: "PUCIT, Lahore",
+        year: "July 2016 – Aug 2020",
       },
     ],
     achievements: [
-      "Delivers reliable releases with testing and observability in mind",
-      "Helps standardize patterns for Next.js/React and API design",
-      "Supports cross-team integration between AI services and product UIs",
+      "Coursework: Data Structures, Algorithms, Databases, Computer Systems, Linear Algebra",
+      "Final year project: Transportation assistant app providing local transit options (buses, metro, vans) from source to destination with travel time and cost estimates for convenience, efficiency, and budget planning",
+      "Skills: .NET, SQL (MySQL, PostgreSQL), microservices architecture, Kafka, Kubernetes, Stripe, Redis, Firebase, Azure AD auth, REST APIs, LINQ, HTML/CSS, JavaScript, AngularJS, SignalR",
+      "Tools: Jira, Bitbucket, Kubernetes Lens, Jenkins, Kibana, DBeaver, Visual Studio, Postman, JMeter, Hangfire, RedisInsight, Apache JMeter, browser developer tools, Swagger",
     ],
     linkedin: "#",
     github: "#",
@@ -305,11 +333,8 @@ export function formatExpertiseLabel(skill: string): string {
   return skill;
 }
 
-/** Expertise strings to show on team cards and profile (normalized + pinned where needed). */
+/** Expertise strings to show on team cards and profile (normalized). */
 export function expertiseForMember(member: TeamMember): string[] {
-  if (member.slug === "muhammad-usman") {
-    return [...USMAN_EXPERTISE_LABELS];
-  }
   return member.expertise.map(formatExpertiseLabel);
 }
 
