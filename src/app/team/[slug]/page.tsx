@@ -34,17 +34,17 @@ export default function TeamMemberPage({ params }: Props) {
     <div className="min-h-screen bg-gray-50 pt-20">
       <Header />
 
-      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <article className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-10">
         <Link
           href="/team"
-          className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium mb-10"
+          className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium mb-8"
         >
           ← Back to team
         </Link>
 
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
-          <div className="md:flex">
-            <div className="md:w-2/5 bg-gradient-to-br from-blue-50 to-purple-50 p-8 flex flex-col items-center text-center border-b md:border-b-0 md:border-r border-gray-100">
+          <div className="md:flex md:items-stretch">
+            <div className="md:w-64 lg:w-72 shrink-0 bg-gradient-to-br from-blue-50 to-purple-50 p-5 md:p-6 flex flex-col items-center text-center border-b md:border-b-0 md:border-r border-gray-100">
               <div className="relative w-48 h-48 rounded-2xl overflow-hidden shadow-lg border-4 border-white">
                 <Image
                   src={member.image}
@@ -90,19 +90,19 @@ export default function TeamMemberPage({ params }: Props) {
               </div>
             </div>
 
-            <div className="md:w-3/5 p-8 md:p-10">
-              <section className="mb-10">
+            <div className="md:flex-1 md:min-w-0 p-5 md:p-6 lg:p-8">
+              <section className="mb-8">
                 <h2 className="text-lg font-bold text-gray-900 mb-3 border-b border-gray-200 pb-2">
                   Profile
                 </h2>
-                <p className="text-gray-700 leading-relaxed">{member.fullBio}</p>
+                <p className="text-gray-700 leading-relaxed text-base">{member.fullBio}</p>
               </section>
 
-              <section className="mb-10">
+              <section className="mb-8">
                 <h2 className="text-lg font-bold text-gray-900 mb-3 border-b border-gray-200 pb-2">
                   Experience
                 </h2>
-                <ul className="space-y-4">
+                <ul className="space-y-5">
                   {member.experience.map((exp) => (
                     <li key={`${exp.title}-${exp.organization}`}>
                       <div className="font-semibold text-gray-900">{exp.title}</div>
@@ -110,7 +110,7 @@ export default function TeamMemberPage({ params }: Props) {
                         {exp.organization} · {exp.period}
                       </div>
                       {exp.description ? (
-                        <p className="text-gray-600 text-sm mt-1 whitespace-pre-line">
+                        <p className="text-gray-600 text-base mt-1.5 whitespace-pre-line leading-relaxed">
                           {exp.description}
                         </p>
                       ) : null}
@@ -119,7 +119,7 @@ export default function TeamMemberPage({ params }: Props) {
                 </ul>
               </section>
 
-              <section className="mb-10">
+              <section className="mb-8">
                 <h2 className="text-lg font-bold text-gray-900 mb-3 border-b border-gray-200 pb-2">
                   Education
                 </h2>
@@ -136,11 +136,11 @@ export default function TeamMemberPage({ params }: Props) {
                 </ul>
               </section>
 
-              <section className="mb-10">
+              <section className="mb-8">
                 <h2 className="text-lg font-bold text-gray-900 mb-3 border-b border-gray-200 pb-2">
                   Achievements
                 </h2>
-                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                <ul className="list-disc list-inside space-y-2 text-gray-700 text-base leading-relaxed">
                   {member.achievements.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
@@ -166,7 +166,7 @@ export default function TeamMemberPage({ params }: Props) {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-wrap gap-4 justify-center">
+        <div className="mt-8 flex flex-wrap gap-4 justify-center">
           <Link
             href="/contact"
             className="inline-flex items-center justify-center bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"

@@ -73,7 +73,7 @@ const TeamPage = () => {
         {/* Decorative background shapes */}
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-gradient-to-br from-blue-400/30 to-purple-400/10 rounded-full blur-3xl z-0" />
         <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tr from-pink-400/20 to-purple-400/10 rounded-full blur-2xl z-0" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
