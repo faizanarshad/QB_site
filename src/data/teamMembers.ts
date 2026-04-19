@@ -11,6 +11,13 @@ export type EducationItem = {
   year?: string;
 };
 
+export type ProjectItem = {
+  name: string;
+  description: string;
+  technologies: string;
+  role: string;
+};
+
 export type TeamMember = {
   slug: string;
   name: string;
@@ -22,6 +29,8 @@ export type TeamMember = {
   fullBio: string;
   expertise: string[];
   experience: ExperienceItem[];
+  /** Optional highlighted projects (e.g. portfolio work). */
+  projects?: ProjectItem[];
   education: EducationItem[];
   achievements: string[];
   linkedin: string;
@@ -304,6 +313,38 @@ export const teamMembers: TeamMember[] = [
 • Built interactive canvas with drag-and-drop for cards, letters, drawings, and multimedia.
 • Ran complex tests, debugging, and system hardening.
 • Partnered with QA and UX in stand-ups to iterate on UI from feedback.`,
+      },
+    ],
+    projects: [
+      {
+        name: "J&J BionicAssist",
+        description:
+          "An AI-powered customer inquiry management solution on top of Dynamics 365, leveraging agentic AI to automate and enhance the end-to-end inquiry lifecycle, including intelligent case triaging, routing, investigation, and resolution.",
+        technologies:
+          ".NET, FastAPI, Azure AD, Dynamics 365, Kafka, Kubernetes, React, PostgreSQL, Elasticsearch",
+        role: "Lead backend developer",
+      },
+      {
+        name: "Intelligize",
+        description:
+          "A web-based compliance and analytics platform for legal, accounting, and finance professionals to research, analyze, and benchmark SEC (Securities and Exchange Commission) filings and regulatory disclosures.",
+        technologies: ".NET Core, React, JavaScript, SQL Server, LINQ, Redis",
+        role: "Backend developer",
+      },
+      {
+        name: "Dilner's Secure Client Portal",
+        description:
+          "A paperless online platform for accountants to securely exchange documents and payroll information with clients. It offers unlimited portals for staff and clients, working across PCs and mobile devices for secure file sharing and communication.",
+        technologies:
+          ".NET MVC, Razor Web Pages, JavaScript, MySQL, SignalR, Entity Framework Core (ORM)",
+        role: "Full stack developer",
+      },
+      {
+        name: "The Printshop",
+        description:
+          "A desktop application for Windows and Mac for creating personalized print projects such as greeting cards, banners, business cards, and marketing materials.",
+        technologies: ".NET MVC, Electron.NET, AngularJS, Bootstrap",
+        role: "Full stack developer",
       },
     ],
     education: [

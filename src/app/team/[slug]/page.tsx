@@ -119,6 +119,31 @@ export default function TeamMemberPage({ params }: Props) {
                 </ul>
               </section>
 
+              {member.projects?.length ? (
+                <section className="mb-8">
+                  <h2 className="text-lg font-bold text-gray-900 mb-3 border-b border-gray-200 pb-2">
+                    Projects
+                  </h2>
+                  <ul className="space-y-5">
+                    {member.projects.map((proj) => (
+                      <li key={proj.name}>
+                        <div className="font-semibold text-gray-900">{proj.name}</div>
+                        <p className="text-gray-700 text-base mt-1.5 leading-relaxed">
+                          {proj.description}
+                        </p>
+                        <p className="text-gray-600 text-sm mt-2">
+                          <span className="font-medium text-gray-800">Technologies:</span>{" "}
+                          {proj.technologies}
+                        </p>
+                        <p className="text-blue-700 text-sm mt-1">
+                          <span className="font-medium text-gray-900">Role:</span> {proj.role}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ) : null}
+
               <section className="mb-8">
                 <h2 className="text-lg font-bold text-gray-900 mb-3 border-b border-gray-200 pb-2">
                   Education
