@@ -34,7 +34,7 @@ export default function TeamMemberPage({ params }: Props) {
     <div className="min-h-screen bg-gray-50 pt-20">
       <Header />
 
-      <article className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-10">
+      <article className="w-full max-w-7xl mx-auto px-2 sm:px-3 md:px-4 lg:px-5 py-10">
         <Link
           href="/team"
           className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium mb-8"
@@ -44,7 +44,7 @@ export default function TeamMemberPage({ params }: Props) {
 
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
           <div className="md:flex md:items-stretch">
-            <div className="md:w-64 lg:w-72 shrink-0 bg-gradient-to-br from-blue-50 to-purple-50 p-5 md:p-6 flex flex-col items-center text-center border-b md:border-b-0 md:border-r border-gray-100">
+            <div className="md:w-64 lg:w-72 shrink-0 bg-gradient-to-br from-blue-50 to-purple-50 p-4 md:p-5 flex flex-col items-center text-center border-b md:border-b-0 md:border-r border-gray-100">
               <div className="relative w-48 h-48 rounded-2xl overflow-hidden shadow-lg border-4 border-white">
                 <Image
                   src={member.image}
@@ -90,7 +90,7 @@ export default function TeamMemberPage({ params }: Props) {
               </div>
             </div>
 
-            <div className="md:flex-1 md:min-w-0 p-5 md:p-6 lg:p-8">
+            <div className="md:flex-1 md:min-w-0 p-4 md:p-5 lg:p-6">
               <section className="mb-8">
                 <h2 className="text-lg font-bold text-gray-900 mb-3 border-b border-gray-200 pb-2">
                   Profile
