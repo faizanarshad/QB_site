@@ -221,6 +221,15 @@ const TeamPage = () => {
                             case "Full-Stack Development":
                               return <FaCode className="text-base" />;
                             case "System Design": return <FaCogs className="text-base" />;
+                            case "Meta Ads":
+                            case "TikTok Ads":
+                            case "Amazon PPC":
+                            case "Paid Media":
+                            case "Creative Strategy":
+                            case "Digital Marketing":
+                            case "SEO/SEM":
+                            case "Social Media Strategy":
+                              return <FaChartLine className="text-base" />;
                             default: return <FaStar className="text-base text-yellow-400" />;
                           }
                         })()}

@@ -216,42 +216,99 @@ export const teamMembers: TeamMember[] = [
   {
     slug: "hamza",
     name: "Hamza",
-    role: "Head of Digital Marketing",
+    role: "Social Media Ads Manager",
     image: "/images/team/hamza.webp",
-    imageObjectClassName: "object-cover",
+    imageObjectClassName: "object-cover object-top",
     shortBio:
-      "Digital marketing expert driving growth and brand awareness through innovative strategies.",
+      "Social Media Ads Manager specializing in Meta, TikTok, and Amazon PPC—building and scaling campaigns that turn data and creativity into measurable business growth.",
     fullBio:
-      "Hamza leads digital marketing and demand generation for QBrix Solutions. He focuses on clear positioning of complex technical offerings, multi-channel campaigns, and analytics-driven optimization—aligning marketing with sales and delivery.",
-    expertise: ["Digital Marketing", "SEO/SEM", "Social Media Strategy"],
+      "Hamza is a Social Media Ads Manager specializing in Meta, TikTok, and Amazon PPC. He builds and scales campaigns that transform data and creativity into measurable business growth. Partnering with eCommerce brands and service-based businesses, he provides end-to-end campaign management—strategy development, creative direction, ad copywriting, execution, optimization, and performance reporting. His approach integrates analytical rigor with compelling creative storytelling to capture attention, convert audiences, and foster community growth. Every campaign is engineered for profitability while building lasting brand impact.",
+    expertise: [
+      "Meta Ads",
+      "TikTok Ads",
+      "Amazon PPC",
+      "Paid Media",
+      "Creative Strategy",
+    ],
     experience: [
       {
-        title: "Head of Digital Marketing",
+        title: "Social Media Ads Manager",
         organization: "QBrix Solutions",
-        period: "Present",
-        description:
-          "Brand, campaigns, content, and performance marketing leadership.",
+        period: "March 2026 – Present",
+        description: `• Leads paid social and marketplace advertising across Meta, TikTok, and Amazon PPC for QBrix and partner brands.
+• End-to-end campaign management: strategy, creative direction, copy, launch, optimization, and reporting tied to revenue and ROAS.
+• Aligns creative and analytics to improve conversion, audience growth, and profitable scaling in eCommerce and service verticals.`,
       },
       {
-        title: "Growth & digital marketing",
-        organization: "B2B technology",
-        period: "Prior experience",
-        description:
-          "Lead generation, marketing automation, and analytics.",
+        title: "Social Media & Content Manager",
+        organization: "IBLC · Lahore, Pakistan",
+        period: "July 2025 – Feb 2026",
+        description: `• Shaped the center's digital presence through strategic content and community engagement.
+• Developed and executed content across platforms that reflects the school's nurturing environment and specialized therapy programs.
+• Managed content calendars and storytelling initiatives that communicate IBLC's unique value.`,
+      },
+      {
+        title: "Facebook Manager & Creative Designer",
+        organization: "BOFT · Lahore, Pakistan",
+        period: "Feb 2024 – July 2025",
+        description: `• Developed and executed Meta daily posting schedules that doubled lead generation.
+• Designed creatives while monitoring performance metrics to optimize strategy; strengthened the brand's online presence through consistent campaign success.`,
+      },
+      {
+        title: "Meta Ads Manager",
+        organization: "HashClub · Lahore, Pakistan",
+        period: "Aug 2024 – Feb 2025",
+        description: `• Led Meta Ads campaigns that increased reach, engagement, and conversions for a fashion brand.
+• Created visually compelling content and managed posting schedules to grow the audience base.
+• Applied A/B testing and targeting refinement to maximize ROI.`,
+      },
+      {
+        title: "Shopify Store Creation & Social Media Ads Advisor",
+        organization: "AdaptZone · USA",
+        period: "April 2024 – Nov 2024",
+        description: `• Scaled Facebook Ads campaigns globally for an ergonomic product line, achieving consistent sales growth.
+• Managed the Shopify storefront and aligned ads with the customer journey for higher conversions.
+• Applied data-driven insights to refine targeting, creatives, and budgets.`,
+      },
+      {
+        title: "Facebook Ads Specialist",
+        organization: "Just Clean · West Yorkshire, UK",
+        period: "May 2022 – Dec 2023",
+        description: `• Ran Facebook Lead Ads that generated consistent inquiries for a UK-based cleaning service.
+• Improved cost efficiency by refining targeting and creative messaging; helped establish a reliable digital funnel for lead generation.`,
+      },
+      {
+        title: "Meta Ads & Facebook Marketing Manager",
+        organization: "Happy Trails Pakistan · Lahore, Pakistan",
+        period: "Jan 2020 – Feb 2023",
+        description: `• Drove brand visibility and engagement in travel and tourism; improved cost efficiency through targeting and creative refinement.
+• Helped establish a reliable digital funnel for lead generation.
+• Applied social media strategies for a leading travel company, growing online presence and community engagement.`,
       },
     ],
     education: [
       {
-        degree: "Marketing / Communications / related",
-        institution: "University or professional programs",
+        degree: "Bachelor of Science",
+        institution: "University of the Punjab, Lahore",
+        year: "2016–2020",
+      },
+      {
+        degree: "Facebook Ads Specialist",
+        institution: "Extreme Commerce",
+        year: "2021",
+      },
+      {
+        degree: "AI in Digital Marketing",
+        institution: "Simplilearn",
+        year: "2023",
       },
     ],
     achievements: [
-      "Built measurable funnel reporting tied to pipeline and content performance",
-      "Strengthens QBrix brand presence across digital channels",
-      "Partners with leadership on messaging for AI and services offerings",
+      "Designs campaigns for profitability first—clear KPIs, structured tests, and disciplined budget pacing",
+      "Combines creative storytelling with performance data to improve CTR, conversion, and community growth",
+      "Trusted partner for eCommerce and service businesses from strategy through ongoing optimization",
     ],
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/hamza-nazir/",
     github: "#",
     twitter: "#",
   },
