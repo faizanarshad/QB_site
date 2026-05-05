@@ -327,7 +327,7 @@ const Chatbot = () => {
                   ref={inputRef}
                   type="text"
                   value={inputValue}
-                  onChange={(e) => setInputValue(e.targetValue)}
+                  onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Ask about services, team, careers…"
                   aria-label="Message to assistant"
