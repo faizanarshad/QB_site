@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback, useMemo, memo, startTransition } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { CHATBOT_WELCOME, expandQuickReply, matchBotReply } from "../lib/chatbotEngine";
 
 interface Message {
@@ -240,7 +241,13 @@ const Chatbot = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                    <span className="text-lg">🤖</span>
+                    <Image
+                      src="/images/qbrix-logo.png"
+                      alt="QBrix Solutions"
+                      width={32}
+                      height={32}
+                      className="h-8 w-8 object-contain"
+                    />
                   </div>
                   <div>
                     <h3 id="qbrix-chat-title" className="font-semibold">
