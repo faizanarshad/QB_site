@@ -23,7 +23,7 @@ export type ChatRule = {
 };
 
 export const CHATBOT_WELCOME: BotReply = {
-  text: "Hello — I’m the QBrix site assistant (rule-based, not a live LLM). I can point you to AI/ML, computer vision, e‑commerce, automation, our portfolio, team, careers, and contact details. What do you want to explore?",
+  text: "Hello — I’m the QBrix site assistant. Ask me about AI/ML, computer vision, e‑commerce, automation, our portfolio, team, careers, or how to reach us. What would you like to explore?",
   quickReplies: [
     "Tell me about AI services",
     "Show me your portfolio",

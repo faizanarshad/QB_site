@@ -58,6 +58,8 @@ const Chatbot = () => {
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [showQuickReplies, setShowQuickReplies] = useState(true);
+  /** When true, messages are completed via /api/chat (OpenAI-compatible). Fetched on mount. */
+  const [llmMode, setLlmMode] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -91,8 +93,32 @@ const Chatbot = () => {
     };
   }, []);
 
-  const appendBotReply = useCallback((replyText: string) => {
-    const response = matchBotReply(replyText);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/chat");
+        if (!res.ok) return;
+        const data = (await res.json()) as { llm?: boolean };
+        if (!cancelled && data.llm === true) setLlmMode(true);
+      } catch {
+        /* keep rule-based */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const toApiMessages = useCallback((transcript: Message[]) => {
+    return transcript.map((m) => ({
+      role: m.sender === "user" ? ("user" as const) : ("assistant" as const),
+      content: m.text,
+    }));
+  }, []);
+
+  const appendRuleBasedReply = useCallback((expandedQuery: string) => {
+    const response = matchBotReply(expandedQuery);
     const botMessage: Message = {
       id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
       text: response.text,
@@ -107,17 +133,70 @@ const Chatbot = () => {
     });
   }, []);
 
+  const appendLlmReply = useCallback((text: string) => {
+    const botMessage: Message = {
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+      text,
+      sender: "bot",
+      timestamp: new Date(),
+    };
+    startTransition(() => {
+      setMessages((prev) => [...prev, botMessage]);
+      setIsTyping(false);
+      setShowQuickReplies(false);
+    });
+  }, []);
+
+  const completeWithLlm = useCallback(
+    async (transcript: Message[], fallbackExpandedQuery: string) => {
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: toApiMessages(transcript) }),
+        });
+        if (res.status === 503) {
+          setLlmMode(false);
+          appendRuleBasedReply(fallbackExpandedQuery);
+          return;
+        }
+        if (!res.ok) {
+          appendRuleBasedReply(fallbackExpandedQuery);
+          return;
+        }
+        const data = (await res.json()) as { text?: string; error?: string };
+        if (!data.text?.trim()) {
+          appendRuleBasedReply(fallbackExpandedQuery);
+          return;
+        }
+        appendLlmReply(data.text.trim());
+      } catch {
+        appendRuleBasedReply(fallbackExpandedQuery);
+      }
+    },
+    [appendLlmReply, appendRuleBasedReply, toApiMessages]
+  );
+
   const processUserInput = useCallback(
-    (rawInput: string) => {
-      const query = expandQuickReply(rawInput);
+    (rawInput: string, transcriptAfterUser: Message[]) => {
+      const expanded = expandQuickReply(rawInput);
       setIsTyping(true);
-      if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
+      if (typingTimerRef.current) {
+        clearTimeout(typingTimerRef.current);
+        typingTimerRef.current = null;
+      }
+
+      if (llmMode) {
+        void completeWithLlm(transcriptAfterUser, expanded);
+        return;
+      }
+
       typingTimerRef.current = setTimeout(() => {
         typingTimerRef.current = null;
-        appendBotReply(query);
+        appendRuleBasedReply(expanded);
       }, TYPING_MS);
     },
-    [appendBotReply]
+    [appendRuleBasedReply, completeWithLlm, llmMode]
   );
 
   const handleQuickReply = useCallback(
@@ -129,10 +208,11 @@ const Chatbot = () => {
         sender: "user",
         timestamp: new Date(),
       };
-      setMessages((prev) => [...prev, userMessage]);
-      processUserInput(reply);
+      const transcript = [...messages, userMessage];
+      setMessages(transcript);
+      processUserInput(reply, transcript);
     },
-    [processUserInput]
+    [messages, processUserInput]
   );
 
   const handleSendMessage = useCallback(() => {
@@ -147,9 +227,10 @@ const Chatbot = () => {
       sender: "user",
       timestamp: new Date(),
     };
-    setMessages((prev) => [...prev, userMessage]);
-    processUserInput(message);
-  }, [inputValue, processUserInput]);
+    const transcript = [...messages, userMessage];
+    setMessages(transcript);
+    processUserInput(message, transcript);
+  }, [inputValue, messages, processUserInput]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -240,20 +321,22 @@ const Chatbot = () => {
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-t-2xl">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                  <div className="shrink-0 flex items-center justify-center h-10 w-10">
                     <Image
-                      src="/images/qbrix-logo.png"
+                      src="/images/qbrix-logo-mark.svg"
                       alt="QBrix Solutions"
-                      width={32}
-                      height={32}
-                      className="h-8 w-8 object-contain"
+                      width={40}
+                      height={40}
+                      className="h-10 w-10 object-contain drop-shadow-sm"
                     />
                   </div>
                   <div>
                     <h3 id="qbrix-chat-title" className="font-semibold">
                       QBrix assistant
                     </h3>
-                    <p className="text-sm text-blue-100">Site guide • Instant replies</p>
+                    <p className="text-sm text-blue-100">
+                      {llmMode ? "AI assistant • Answers about QBrix" : "Site guide • Instant replies"}
+                    </p>
                   </div>
                 </div>
                 <div className="flex space-x-2">
