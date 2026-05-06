@@ -5,6 +5,9 @@ import { retrieveContext } from "@/lib/chatbot/rag";
 import { getChatbotSystemPrompt } from "@/lib/chatbot/systemPrompt";
 import type { ChatIntent, SessionState } from "@/lib/chatbot/types";
 
+/** Env and session state must be evaluated per-request (not statically cached). */
+export const dynamic = "force-dynamic";
+
 const sessionStore = new Map<string, SessionState>();
 const MAX_TEXT = 4000;
 const MAX_MEMORY = 5;

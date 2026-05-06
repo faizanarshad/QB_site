@@ -73,21 +73,22 @@ const Chatbot = () => {
   }, [isOpen]);
 
   useEffect(() => {
+    if (!isOpen) return;
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch("/api/chat");
+        const res = await fetch("/api/chat", { cache: "no-store" });
         if (!res.ok) return;
         const data = (await res.json()) as { llm?: boolean };
         if (!cancelled) setLlmMode(Boolean(data.llm));
       } catch {
-        setLlmMode(false);
+        if (!cancelled) setLlmMode(false);
       }
     })();
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [isOpen]);
 
   const addBotMessage = useCallback((text: string) => {
     setMessages((prev) => [
@@ -153,7 +154,13 @@ const Chatbot = () => {
     setIsTyping(true);
     try {
       if (!llmMode) {
-        addBotMessage("LLM mode is not configured yet. Please set OPENAI_API_KEY and refresh.");
+        addBotMessage(
+          "The assistant is off because the server does not see a valid OPENAI_API_KEY.\n\n" +
+            "• Local: add OPENAI_API_KEY to `.env.local` (or `.env`), then restart `npm run dev`.\n" +
+            "• Vercel: Project → Settings → Environment Variables → add OPENAI_API_KEY for Production, then Redeploy.\n" +
+            "• Ensure CHATBOT_LLM_DISABLED is not set to true.\n\n" +
+            "Open the chat again after fixing so it can re-check configuration."
+        );
         setIsTyping(false);
         return;
       }
