@@ -21,6 +21,8 @@ Marketing site for **QBrix Solutions**: AI, machine learning, computer vision, e
 
 ## Environment variables
 
+Copy `.env.example` to `.env` (or `.env.local`) and fill in values. **Do not commit `.env`.**
+
 Production and local builds that run `prisma db push` need a database URL. Prisma is configured to read:
 
 - `qbrix_DATABASE_URL` — connection string for the app database (see `prisma/schema.prisma`)

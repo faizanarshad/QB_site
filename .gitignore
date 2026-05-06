@@ -4,7 +4,7 @@ node_modules
 
 .next
 
-# Environment variables
+# Environment variables (never commit real secrets)
 .env
 .env.local
 .env.development.local
@@ -47,9 +47,6 @@ jspm_packages/
 
 # Yarn Integrity file
 .yarn-integrity
-
-# dotenv environment variables file
-.env
 
 # next.js build output
 .next
