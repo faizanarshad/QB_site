@@ -27,6 +27,15 @@ Production and local builds that run `prisma db push` need a database URL. Prism
 
 Optional values for auth and third-party integrations are documented under `docs/` (for example `docs/AUTH_SETUP.md`, `docs/DATABASE_SETUP.md`).
 
+For the production chatbot assistant, configure:
+
+- `OPENAI_API_KEY` (required for LLM + embeddings)
+- `OPENAI_MODEL` (optional, default `gpt-4o-mini`)
+- `OPENAI_EMBEDDING_MODEL` (optional, default `text-embedding-3-small`)
+- `OPENAI_BASE_URL` (optional for OpenAI-compatible providers)
+- `CHATBOT_SYSTEM_PROMPT` (optional extra business instructions)
+- `CHATBOT_LLM_DISABLED=true` (optional kill-switch)
+
 ## Getting started
 
 ```bash
@@ -52,6 +61,7 @@ The dev server defaults to **http://localhost:3001**. Use `npm run dev:3000` for
 | `npm run vercel-build` | Same as build (Vercel) |
 | `npm run db:generate` | `prisma generate` |
 | `npm run db:push` / `db:migrate` / `db:studio` / `db:seed` | Database workflows |
+| `npm run chat:rag:index` | Build RAG embeddings index from QBrix knowledge docs |
 
 ## Repository layout (high level)
 
@@ -72,6 +82,15 @@ Extended setup, deployment, and feature guides live in **`docs/README.md`** and 
 - Vercel deployment
 - Images and performance notes
 - Career applications
+
+## AI Chatbot Architecture
+
+- API endpoint: `POST /api/chat` (alias `POST /chat`)
+  - Request: `{ "message": "...", "session_id": "..." }`
+  - Response: `{ "reply": "...", "intent": "...", "lead_collected": true|false }`
+- Lead endpoint: `POST /api/save-lead` (alias `POST /save-lead`)
+- Session memory: last 5 messages per `session_id`
+- RAG retrieval: top 4 chunks from QBrix knowledge index
 
 ## License
 
