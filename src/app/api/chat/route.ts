@@ -2,13 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { detectIntent } from "@/lib/chatbot/intent";
 import { completeChat, isLlmConfigured } from "@/lib/chatbot/openai";
 import { retrieveContext } from "@/lib/chatbot/rag";
+import { getSessionState, pruneSessions, saveSessionState } from "@/lib/chatbot/sessionStore";
 import { getChatbotSystemPrompt } from "@/lib/chatbot/systemPrompt";
-import type { ChatIntent, SessionState } from "@/lib/chatbot/types";
+import type { ChatIntent } from "@/lib/chatbot/types";
 
 /** Env and session state must be evaluated per-request (not statically cached). */
 export const dynamic = "force-dynamic";
 
-const sessionStore = new Map<string, SessionState>();
 const MAX_TEXT = 4000;
 const MAX_MEMORY = 5;
 const SESSION_TTL_MS = 1000 * 60 * 60 * 6;
@@ -18,32 +18,7 @@ type ChatBody = {
   session_id?: unknown;
 };
 
-function nowMs(): number {
-  return Date.now();
-}
-
-function getSession(sessionId: string): SessionState {
-  const existing = sessionStore.get(sessionId);
-  if (existing) return existing;
-  const created: SessionState = {
-    sessionId,
-    messages: [],
-    leadDraft: {},
-    leadCollected: false,
-    updatedAt: nowMs(),
-  };
-  sessionStore.set(sessionId, created);
-  return created;
-}
-
-function pruneSessions(): void {
-  const cutoff = nowMs() - SESSION_TTL_MS;
-  for (const [id, session] of sessionStore.entries()) {
-    if (session.updatedAt < cutoff) sessionStore.delete(id);
-  }
-}
-
-function parseLeadDetails(text: string, session: SessionState): void {
+function parseLeadDetails(text: string, session: Awaited<ReturnType<typeof getSessionState>>): void {
   const lower = text.toLowerCase();
   if (!session.leadDraft.project_type) {
     if (lower.includes("chatbot") || lower.includes("nlp")) session.leadDraft.project_type = "NLP / Chatbot";
@@ -75,6 +50,33 @@ function parseLeadDetails(text: string, session: SessionState): void {
   const emailMatch = text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi)?.[0];
   if (emailMatch) session.leadDraft.email = emailMatch;
   if (!session.leadDraft.description) session.leadDraft.description = text;
+
+  const nameMatch = text.match(/(?:my name is|i am|i'm)\s+([a-z][a-z\s'-]{1,40})/i)?.[1];
+  if (nameMatch && !session.userName) {
+    session.userName = nameMatch.trim().replace(/\s+/g, " ");
+    session.leadDraft.name = session.userName;
+  }
+
+  const companyMatch = text.match(/(?:company is|from|at)\s+([A-Za-z0-9][A-Za-z0-9\s&._-]{1,50})/i)?.[1];
+  if (companyMatch && !session.companyName) {
+    session.companyName = companyMatch.trim().replace(/\s+/g, " ");
+  }
+
+  const serviceTags: Array<[RegExp, string]> = [
+    [/rag|retrieval/i, "RAG Systems"],
+    [/computer vision|ocr|detection/i, "Computer Vision"],
+    [/automation|workflow|agent/i, "Automation"],
+    [/robotics|robot/i, "Robotics"],
+    [/chatbot|nlp|assistant/i, "NLP / Chatbot"],
+    [/saas|platform/i, "SaaS Development"],
+    [/analytics|dashboard|bi/i, "Data Analytics"],
+  ];
+  const selected = new Set(session.selectedServices ?? []);
+  for (const [rx, label] of serviceTags) {
+    if (rx.test(text)) selected.add(label);
+  }
+  session.selectedServices = Array.from(selected);
+  session.projectInterests = Array.from(selected);
 }
 
 function buildQualificationPrompt(intent: ChatIntent, session: SessionState): string | null {
@@ -107,7 +109,7 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  pruneSessions();
+  await pruneSessions(SESSION_TTL_MS);
   if (!isLlmConfigured()) {
     return NextResponse.json({ error: "LLM is not configured" }, { status: 503 });
   }
@@ -129,8 +131,8 @@ export async function POST(request: NextRequest) {
   }
 
   const intent = detectIntent(message);
-  const session = getSession(sessionId);
-  session.updatedAt = nowMs();
+  const session = await getSessionState(sessionId);
+  session.updatedAt = Date.now();
   parseLeadDetails(message, session);
 
   const retrieved = await retrieveContext(message, 4);
@@ -140,12 +142,21 @@ export async function POST(request: NextRequest) {
 
   const qualification = buildQualificationPrompt(intent, session);
   const memory = session.messages.slice(-MAX_MEMORY);
+  const knownProfile = [
+    session.userName ? `User name: ${session.userName}` : "",
+    session.companyName ? `Company: ${session.companyName}` : "",
+    session.selectedServices?.length ? `Selected services: ${session.selectedServices.join(", ")}` : "",
+    session.projectInterests?.length ? `Project interests: ${session.projectInterests.join(", ")}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
   const llmMessages = [
     { role: "system" as const, content: getChatbotSystemPrompt() },
     {
       role: "system" as const,
       content:
         `Intent classified as: ${intent}.\n` +
+        `Known user profile:\n${knownProfile || "No profile captured yet."}\n\n` +
         `Retrieved website context:\n${contextBlock || "No context found."}\n\n` +
         (qualification || "No additional qualification prompt required."),
     },
@@ -156,9 +167,10 @@ export async function POST(request: NextRequest) {
   try {
     const reply = await completeChat(llmMessages, 0.3);
     session.messages = [...memory, { role: "user", content: message }, { role: "assistant", content: reply }];
-    session.updatedAt = nowMs();
+    session.updatedAt = Date.now();
     const leadCollected = Boolean(session.leadDraft.email && session.leadDraft.description);
     session.leadCollected = leadCollected;
+    await saveSessionState(session);
 
     return NextResponse.json({
       reply,

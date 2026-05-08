@@ -21,6 +21,10 @@ export type SessionState = {
   messages: ChatMessage[];
   leadDraft: LeadDraft;
   leadCollected: boolean;
+  userName?: string;
+  companyName?: string;
+  selectedServices?: string[];
+  projectInterests?: string[];
   updatedAt: number;
 };
 
