@@ -66,19 +66,28 @@ export async function createEmbeddings(inputs: string[]): Promise<number[][]> {
 }
 
 export async function completeChat(messages: ChatMessage[], temperature = 0.35): Promise<string> {
-  const res = await fetch(`${getBaseUrl()}/chat/completions`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getApiKey()}`,
-    },
-    body: JSON.stringify({
-      model: process.env.OPENAI_MODEL?.trim() || "gpt-4o-mini",
-      temperature,
-      max_tokens: 900,
-      messages,
-    }),
-  });
+  const controller = new AbortController();
+  const timeoutMs = Number(process.env.OPENAI_CHAT_TIMEOUT_MS || 15000);
+  const timeout = setTimeout(() => controller.abort(), Number.isFinite(timeoutMs) ? timeoutMs : 15000);
+  let res: Response;
+  try {
+    res = await fetch(`${getBaseUrl()}/chat/completions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getApiKey()}`,
+      },
+      signal: controller.signal,
+      body: JSON.stringify({
+        model: process.env.OPENAI_MODEL?.trim() || "gpt-4o-mini",
+        temperature,
+        max_tokens: Number(process.env.OPENAI_CHAT_MAX_TOKENS || 450),
+        messages,
+      }),
+    });
+  } finally {
+    clearTimeout(timeout);
+  }
 
   if (!res.ok) {
     const errText = await res.text().catch(() => "");

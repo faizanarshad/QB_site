@@ -56,10 +56,13 @@ export async function getSessionState(sessionId: string): Promise<SessionState> 
       leadDraft: {
         name: leadDraft.name,
         email: leadDraft.email,
+        phone: leadDraft.phone,
+        company: leadDraft.company,
         project_type: leadDraft.project_type,
         industry: leadDraft.industry,
         description: leadDraft.description,
         timeline: leadDraft.timeline,
+        selected_services: Array.isArray(leadDraft.selected_services) ? leadDraft.selected_services : [],
       },
       leadCollected: row.leadCollected,
       userName: leadDraft.userName,

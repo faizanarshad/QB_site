@@ -15,16 +15,26 @@ type ChatApiResponse = {
   reply: string;
   intent: "info" | "project" | "pricing" | "casual" | "lead";
   lead_collected: boolean;
+  lead_draft?: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    company?: string;
+    project_type?: string;
+    industry?: string;
+    description?: string;
+    timeline?: string;
+    selected_services?: string[];
+  };
   suggested_followups?: string[];
 };
 
-const INITIAL_QUICK_OPTIONS = ["Build AI Model", "Create Chatbot", "Automation Solution", "Data Analytics"];
+const INITIAL_QUICK_OPTIONS = ["I need an AI chatbot", "Automate manual workflows", "Build a custom ML model", "AI for analytics"];
 
 const initialMessages = (): Message[] => [
   {
     id: "welcome-1",
-    text:
-      "Hi, I am your QBrix AI consultant. Tell me what you want to build and I will recommend a practical AI/ML solution.",
+    text: "Hi! Tell me what you want to build, and I will suggest a practical AI approach for your business.",
     sender: "bot",
     timestamp: new Date(),
   },
@@ -102,14 +112,14 @@ const Chatbot = () => {
     ]);
   }, []);
 
-  const maybeSaveLead = useCallback(async (transcript: Message[]) => {
+  const maybeSaveLead = useCallback(async (transcript: Message[], draft?: ChatApiResponse["lead_draft"]) => {
     if (leadSaved) return;
     const fullUserText = transcript
       .filter((m) => m.sender === "user")
       .map((m) => m.text)
       .join("\n");
 
-    const email = fullUserText.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi)?.[0];
+    const email = draft?.email || fullUserText.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi)?.[0];
     if (!email) return;
 
     const projectType = /vision|ocr/i.test(fullUserText)
@@ -128,7 +138,10 @@ const Chatbot = () => {
           ? "Finance"
           : "General";
 
-    const name = email.split("@")[0] || "Website Visitor";
+    const name = draft?.name || email.split("@")[0] || "Website Visitor";
+    const company = draft?.company || fullUserText.match(/(?:company is|from|at)\s+([A-Za-z0-9][A-Za-z0-9\s&._-]{1,50})/i)?.[1]?.trim() || "";
+    const phone = draft?.phone || fullUserText.match(/(?:\+?\d{1,3}[\s-]?)?(?:\(?\d{2,4}\)?[\s-]?)?\d{3,4}[\s-]?\d{3,4}/)?.[0] || "";
+    const timeline = draft?.timeline || fullUserText.match(/\b(?:in|within|around|about)\s+(\d+\s*(?:day|days|week|weeks|month|months)|q[1-4]|this quarter|next quarter)\b/i)?.[1] || "";
     try {
       const res = await fetch("/api/save-lead", {
         method: "POST",
@@ -136,9 +149,15 @@ const Chatbot = () => {
         body: JSON.stringify({
           name,
           email,
-          project_type: projectType,
-          industry,
-          description: fullUserText.slice(0, 1800),
+          phone: phone || undefined,
+          company: company || undefined,
+          project_type: draft?.project_type || projectType,
+          industry: draft?.industry || industry,
+          timeline: timeline || undefined,
+          selected_services: draft?.selected_services || [],
+          description: (draft?.description || fullUserText).slice(0, 1800),
+          transcript: fullUserText.slice(0, 7000),
+          session_id: sessionIdRef.current,
           timestamp: new Date().toISOString(),
         }),
       });
@@ -187,7 +206,7 @@ const Chatbot = () => {
       }
 
       if (data.lead_collected) {
-        void maybeSaveLead(transcript);
+        void maybeSaveLead(transcript, data.lead_draft);
       }
     } catch {
       addBotMessage("Network issue while contacting the assistant. Please retry.");
@@ -279,7 +298,7 @@ const Chatbot = () => {
 
               {isTyping && (
                 <div className="flex justify-start">
-                  <div className="bg-gray-100 text-gray-800 rounded-2xl rounded-bl-md px-4 py-2 text-sm">Thinking...</div>
+                  <div className="bg-gray-100 text-gray-800 rounded-2xl rounded-bl-md px-4 py-2 text-sm">Typing...</div>
                 </div>
               )}
 
@@ -314,7 +333,7 @@ const Chatbot = () => {
                       send(inputValue);
                     }
                   }}
-                  placeholder="Describe your AI project..."
+                  placeholder="What are you trying to build?"
                   className="flex-1 min-w-0 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                   disabled={isTyping}
                 />

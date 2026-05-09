@@ -113,6 +113,38 @@ export const db = {
   // Contact operations
   contact: {
     submit: (data: any) => prisma.contactSubmission.create({ data }),
+    update: (id: string, data: any) => prisma.contactSubmission.update({
+      where: { id },
+      data
+    }),
+    findLatestByEmail: (email: string) => prisma.contactSubmission.findFirst({
+      where: { email },
+      orderBy: { createdAt: "desc" }
+    }),
+    getLeads: (status?: string) => prisma.contactSubmission.findMany({
+      where: {
+        subject: { startsWith: "[AI Lead]" },
+        ...(status ? { leadStatus: status as any } : {})
+      },
+      orderBy: { createdAt: "desc" }
+    }),
+    getOverdueLeads: (olderThanHours: number) => prisma.contactSubmission.findMany({
+      where: {
+        subject: { startsWith: "[AI Lead]" },
+        leadStatus: { in: ["NEW", "CONTACTED"] as any },
+        createdAt: {
+          lt: new Date(Date.now() - olderThanHours * 60 * 60 * 1000)
+        }
+      },
+      orderBy: { createdAt: "asc" }
+    }),
+    updateLeadStatus: (id: string, status: string) => prisma.contactSubmission.update({
+      where: { id },
+      data: {
+        leadStatus: status as any,
+        isRead: true
+      }
+    }),
     getAll: () => prisma.contactSubmission.findMany({
       orderBy: { createdAt: 'desc' }
     }),

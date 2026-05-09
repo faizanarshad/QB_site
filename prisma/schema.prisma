@@ -234,6 +234,11 @@ model ContactSubmission {
   subject   String
   message   String
   isRead    Boolean  @default(false)
+  leadStatus LeadStatus @default(NEW)
+  source    String?
+  sessionId String?
+  timeline  String?
+  selectedServices String[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -346,4 +351,12 @@ enum ApplicationStatus {
   INTERVIEWING
   HIRED
   REJECTED
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  WON
+  LOST
 }

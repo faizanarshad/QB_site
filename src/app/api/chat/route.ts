@@ -4,7 +4,7 @@ import { completeChat, isLlmConfigured } from "@/lib/chatbot/openai";
 import { retrieveContext } from "@/lib/chatbot/rag";
 import { getSessionState, pruneSessions, saveSessionState } from "@/lib/chatbot/sessionStore";
 import { getChatbotSystemPrompt } from "@/lib/chatbot/systemPrompt";
-import type { ChatIntent } from "@/lib/chatbot/types";
+import type { ChatIntent, SessionState } from "@/lib/chatbot/types";
 
 /** Env and session state must be evaluated per-request (not statically cached). */
 export const dynamic = "force-dynamic";
@@ -12,6 +12,8 @@ export const dynamic = "force-dynamic";
 const MAX_TEXT = 4000;
 const MAX_MEMORY = 5;
 const SESSION_TTL_MS = 1000 * 60 * 60 * 6;
+const PRUNE_INTERVAL_MS = 1000 * 60 * 15;
+let lastPruneMs = 0;
 
 type ChatBody = {
   message?: unknown;
@@ -49,7 +51,19 @@ function parseLeadDetails(text: string, session: Awaited<ReturnType<typeof getSe
 
   const emailMatch = text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi)?.[0];
   if (emailMatch) session.leadDraft.email = emailMatch;
+  const phoneMatch = text.match(/(?:\+?\d{1,3}[\s-]?)?(?:\(?\d{2,4}\)?[\s-]?)?\d{3,4}[\s-]?\d{3,4}/)?.[0];
+  if (phoneMatch && phoneMatch.replace(/\D/g, "").length >= 8) {
+    session.leadDraft.phone = phoneMatch.trim();
+  }
   if (!session.leadDraft.description) session.leadDraft.description = text;
+  if (!session.leadDraft.timeline) {
+    const timelineMatch = text.match(
+      /\b(?:in|within|around|about)\s+(\d+\s*(?:day|days|week|weeks|month|months)|q[1-4]|this quarter|next quarter)\b/i
+    )?.[1];
+    if (timelineMatch) {
+      session.leadDraft.timeline = timelineMatch.trim();
+    }
+  }
 
   const nameMatch = text.match(/(?:my name is|i am|i'm)\s+([a-z][a-z\s'-]{1,40})/i)?.[1];
   if (nameMatch && !session.userName) {
@@ -60,6 +74,9 @@ function parseLeadDetails(text: string, session: Awaited<ReturnType<typeof getSe
   const companyMatch = text.match(/(?:company is|from|at)\s+([A-Za-z0-9][A-Za-z0-9\s&._-]{1,50})/i)?.[1];
   if (companyMatch && !session.companyName) {
     session.companyName = companyMatch.trim().replace(/\s+/g, " ");
+  }
+  if (!session.leadDraft.company && session.companyName) {
+    session.leadDraft.company = session.companyName;
   }
 
   const serviceTags: Array<[RegExp, string]> = [
@@ -77,6 +94,7 @@ function parseLeadDetails(text: string, session: Awaited<ReturnType<typeof getSe
   }
   session.selectedServices = Array.from(selected);
   session.projectInterests = Array.from(selected);
+  session.leadDraft.selected_services = Array.from(selected);
 }
 
 function buildQualificationPrompt(intent: ChatIntent, session: SessionState): string | null {
@@ -84,24 +102,28 @@ function buildQualificationPrompt(intent: ChatIntent, session: SessionState): st
   const missing: string[] = [];
   if (!session.leadDraft.description) missing.push("What problem are you solving?");
   if (!session.leadDraft.industry) missing.push("What industry/domain is this for?");
-  missing.push("Do you have existing data to train/evaluate with?");
+  if (!/data|dataset|csv|db|database|logs|history/i.test(session.leadDraft.description || "")) {
+    missing.push("Do you have existing data to train/evaluate with?");
+  }
   if (!session.leadDraft.timeline) missing.push("What timeline are you targeting?");
   if (!session.leadDraft.email) missing.push("Share your email so we can follow up with a solution outline.");
-
-  return `Before final recommendations, qualify this lead by asking these concise questions:\n- ${missing.join("\n- ")}`;
+  if (missing.length === 0) return null;
+  return `Ask only one concise qualification question in this reply, prioritizing:\n- ${missing.join(
+    "\n- "
+  )}\nAfter giving helpful advice, include a soft CTA for either email or a consultation call.`;
 }
 
 function suggestedFollowups(intent: ChatIntent): string[] {
   if (intent === "project" || intent === "lead" || intent === "pricing") {
     return [
-      "Build AI Model",
-      "Create Chatbot",
-      "Automation Solution",
-      "Data Analytics",
+      "I need an AI chatbot",
+      "Automate manual workflows",
+      "Build a custom ML model",
+      "AI for analytics",
       "Book a consultation call",
     ];
   }
-  return ["Build AI Model", "Create Chatbot", "Automation Solution", "Data Analytics"];
+  return ["I need an AI chatbot", "Automate manual workflows", "Build a custom ML model", "AI for analytics"];
 }
 
 export async function GET() {
@@ -109,7 +131,11 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  await pruneSessions(SESSION_TTL_MS);
+  const now = Date.now();
+  if (now - lastPruneMs > PRUNE_INTERVAL_MS) {
+    lastPruneMs = now;
+    await pruneSessions(SESSION_TTL_MS);
+  }
   if (!isLlmConfigured()) {
     return NextResponse.json({ error: "LLM is not configured" }, { status: 503 });
   }
@@ -165,7 +191,7 @@ export async function POST(request: NextRequest) {
   ];
 
   try {
-    const reply = await completeChat(llmMessages, 0.3);
+    const reply = await completeChat(llmMessages, 0.25);
     session.messages = [...memory, { role: "user", content: message }, { role: "assistant", content: reply }];
     session.updatedAt = Date.now();
     const leadCollected = Boolean(session.leadDraft.email && session.leadDraft.description);
@@ -176,6 +202,7 @@ export async function POST(request: NextRequest) {
       reply,
       intent,
       lead_collected: leadCollected,
+      lead_draft: session.leadDraft,
       suggested_followups: suggestedFollowups(intent),
       rag_sources: retrieved.map((r) => r.source),
     });

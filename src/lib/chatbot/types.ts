@@ -10,10 +10,13 @@ export type ChatMessage = {
 export type LeadDraft = {
   name?: string;
   email?: string;
+  phone?: string;
+  company?: string;
   project_type?: string;
   industry?: string;
   description?: string;
   timeline?: string;
+  selected_services?: string[];
 };
 
 export type SessionState = {
