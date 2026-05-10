@@ -9,7 +9,13 @@ import "../lib/analytics"; // Import analytics to initialize performance monitor
 
 const inter = Inter({ subsets: ["latin"] });
 
+/** Resolves relative og:image / twitter:image to this origin (not *.vercel.app). */
+const metadataBase = new URL(
+  (process.env.NEXT_PUBLIC_SITE_URL || "https://www.qbrixsolutions.com").replace(/\/$/, "")
+);
+
 export const metadata: Metadata = {
+  metadataBase,
   title: "QBrix Solutions - AI, ML, Computer Vision & Robotics Experts",
   description: "Leading software house specializing in AI, Machine Learning, Computer Vision, E-commerce, and Robotics & Automation solutions.",
   keywords: ["AI", "Machine Learning", "Computer Vision", "E-commerce", "Robotics", "Automation", "Software Development", "QBrix Solutions"],
