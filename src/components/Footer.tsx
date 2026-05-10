@@ -1,8 +1,23 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
+
+const serviceLinks = [
+  { name: "Artificial Intelligence", href: "/ai-solutions" },
+  { name: "Computer Vision", href: "/services" },
+  { name: "E-commerce", href: "/services" },
+  { name: "Robotics", href: "/services" },
+];
+
+const companyLinks = [
+  { name: "Home", href: "/" },
+  { name: "Team", href: "/team" },
+  { name: "Careers", href: "/career" },
+  { name: "Contact", href: "/contact" },
+];
 
 const Footer = () => {
   return (
@@ -54,11 +69,11 @@ const Footer = () => {
           >
             <h4 className="text-lg font-semibold mb-4">Services</h4>
             <ul className="space-y-2 text-gray-400">
-              {["Artificial Intelligence", "Computer Vision", "E-commerce", "Robotics"].map((service) => (
-                <li key={service}>
-                  <a href="#" className="hover:text-white transition-colors duration-200">
-                    {service}
-                  </a>
+              {serviceLinks.map((service) => (
+                <li key={service.name}>
+                  <Link href={service.href} className="hover:text-white transition-colors duration-200">
+                    {service.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -72,11 +87,11 @@ const Footer = () => {
           >
             <h4 className="text-lg font-semibold mb-4">Company</h4>
             <ul className="space-y-2 text-gray-400">
-              {["About", "Team", "Careers", "Contact"].map((item) => (
-                <li key={item}>
-                  <a href="#" className="hover:text-white transition-colors duration-200">
-                    {item}
-                  </a>
+              {companyLinks.map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="hover:text-white transition-colors duration-200">
+                    {item.name}
+                  </Link>
                 </li>
               ))}
             </ul>

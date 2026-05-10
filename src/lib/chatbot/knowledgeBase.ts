@@ -33,9 +33,9 @@ const staticDocs: KnowledgeDoc[] = [
   },
   {
     id: "company-about",
-    source: "About / Team",
+    source: "Homepage / About section",
     text:
-      "QBrix Solutions positions itself as an engineering-led partner that delivers AI systems from discovery to production with measurable impact for healthcare, retail, and industrial domains.",
+      "On the homepage, the About section (id about) explains why clients choose QBrix: AI-powered solutions, computer vision, e-commerce, and automation, plus innovation and delivery strengths. Company overview and positioning appear there alongside the rest of the marketing site.",
   },
 ];
 
