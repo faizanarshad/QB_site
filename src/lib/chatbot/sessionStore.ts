@@ -2,7 +2,8 @@ import { prisma } from "@/lib/prisma";
 import type { ChatMessage, SessionState } from "./types";
 
 const inMemoryStore = new Map<string, SessionState>();
-const MAX_MEMORY_MESSAGES = 20;
+/** Max messages persisted per session in `chat_messages` (and loaded for context). */
+const MAX_STORED_MESSAGES = 500;
 
 type LeadDraftPersisted = SessionState["leadDraft"] & {
   userName?: string;
@@ -30,14 +31,16 @@ function toInMemory(sessionId: string): SessionState {
 }
 
 function normalizeMessages(messages: ChatMessage[]): ChatMessage[] {
-  return messages.slice(-MAX_MEMORY_MESSAGES).filter((m) => (m.role === "user" || m.role === "assistant") && Boolean(m.content?.trim()));
+  return messages.slice(-MAX_STORED_MESSAGES).filter((m) => (m.role === "user" || m.role === "assistant") && Boolean(m.content?.trim()));
 }
 
 export async function getSessionState(sessionId: string): Promise<SessionState> {
   try {
     const row = await prisma.chatSession.findUnique({
       where: { sessionId },
-      include: { messages: { orderBy: { createdAt: "asc" }, take: MAX_MEMORY_MESSAGES } },
+      include: {
+        messages: { orderBy: { createdAt: "desc" }, take: MAX_STORED_MESSAGES },
+      },
     });
     if (!row) {
       return {
@@ -50,9 +53,10 @@ export async function getSessionState(sessionId: string): Promise<SessionState> 
     }
 
     const leadDraft = (row.leadDraft ?? {}) as LeadDraftPersisted;
+    const chronological = [...row.messages].reverse();
     return {
       sessionId: row.sessionId,
-      messages: row.messages.map((m) => ({ role: m.role as ChatMessage["role"], content: m.content })),
+      messages: chronological.map((m) => ({ role: m.role as ChatMessage["role"], content: m.content })),
       leadDraft: {
         name: leadDraft.name,
         email: leadDraft.email,
@@ -112,6 +116,11 @@ export async function saveSessionState(session: SessionState): Promise<void> {
         })),
       }),
     ]);
+
+    await prisma.chatSession.update({
+      where: { id: upserted.id },
+      data: { updatedAt: new Date() },
+    });
   } catch (error) {
     console.warn("Chat session DB write failed, using memory fallback:", error);
     inMemoryStore.set(session.sessionId, {
