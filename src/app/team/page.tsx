@@ -7,8 +7,8 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedHero from "@/components/AnimatedHero";
-import { teamMembers, expertiseForMember } from "@/data/teamMembers";
-import { FaStar, FaLinkedin, FaGithub, FaTwitter, FaRobot, FaBrain, FaCode, FaChartLine, FaCogs, FaUserTie, FaCloud } from "react-icons/fa";
+import { teamMembers, expertiseForTeamCard } from "@/data/teamMembers";
+import { FaStar, FaLinkedin, FaGithub, FaTwitter, FaRobot, FaBrain, FaCode, FaChartLine, FaCogs, FaUserTie, FaCloud, FaEye } from "react-icons/fa";
 
 function socialHref(url: string): string {
   return url && url !== "#" ? url : "#";
@@ -160,7 +160,7 @@ const TeamPage = () => {
                     <p className="text-gray-600 mb-3 text-sm text-center">{member.shortBio}</p>
                     <div className="mb-0 flex flex-wrap gap-2 justify-center">
                     {/* Colorful badges with icons */}
-                    {expertiseForMember(member).map((skill, i) => (
+                    {expertiseForTeamCard(member).map((skill, i) => (
                       <span
                         key={`${member.slug}-tag-${i}-${skill}`}
                         className={
@@ -204,6 +204,8 @@ const TeamPage = () => {
                             case "Growth Hacking": return <FaChartLine className="text-base" />;
                             case "Artificial Intelligence": return <FaBrain className="text-base" />;
                             case "Machine Learning": return <FaBrain className="text-base" />;
+                            case "Computer Vision": return <FaEye className="text-base" />;
+                            case "Big Data & Analytics": return <FaChartLine className="text-base" />;
                             case "Data Science": return <FaChartLine className="text-base" />;
                             case "Deep Learning": return <FaBrain className="text-base" />;
                             case "MLOps": return <FaCogs className="text-base" />;

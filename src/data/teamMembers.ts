@@ -28,6 +28,8 @@ export type TeamMember = {
   shortBio: string;
   fullBio: string;
   expertise: string[];
+  /** If set, /team grid cards show only these skills (order preserved). Profile still uses `expertise`. */
+  teamCardExpertise?: string[];
   experience: ExperienceItem[];
   /** Optional highlighted projects (e.g. portfolio work). */
   projects?: ProjectItem[];
@@ -60,6 +62,12 @@ export const teamMembers: TeamMember[] = [
       "NLP & Conversational AI",
       "Computer Vision",
       "PostgreSQL & APIs",
+      "Big Data & Analytics",
+      "AI Strategy",
+      "Business Leadership",
+    ],
+    teamCardExpertise: [
+      "Computer Vision",
       "Big Data & Analytics",
       "AI Strategy",
       "Business Leadership",
@@ -528,6 +536,14 @@ export function formatExpertiseLabel(skill: string): string {
 /** Expertise strings to show on team cards and profile (normalized). */
 export function expertiseForMember(member: TeamMember): string[] {
   return member.expertise.map(formatExpertiseLabel);
+}
+
+/** Skills shown on team grid cards; uses `teamCardExpertise` when defined. */
+export function expertiseForTeamCard(member: TeamMember): string[] {
+  if (member.teamCardExpertise?.length) {
+    return member.teamCardExpertise.map(formatExpertiseLabel);
+  }
+  return expertiseForMember(member);
 }
 
 export function getTeamMemberBySlug(slug: string): TeamMember | undefined {
