@@ -42,40 +42,127 @@ export const teamMembers: TeamMember[] = [
   {
     slug: "faizan-arshad",
     name: "Faizan Arshad",
-    role: "Chief Executive Officer",
+    role: "Chief Executive Officer & Co-Founder",
     image: "/images/team/faizan.webp",
     imageObjectClassName: "object-cover object-top",
     shortBio:
-      "Visionary leader driving innovation and excellence at QBrix Solutions.",
+      "AI engineer and leader with an MS in Computer Science and 4+ years building deployable LLM, RAG, and multimodal systems for healthcare, aerospace, and conversational AI.",
     fullBio:
-      "Faizan leads QBrix Solutions with a focus on sustainable growth, client outcomes, and a culture of innovation. He sets company strategy across AI services, delivery, and partnerships, ensuring every engagement aligns with long-term value for healthcare, retail, and industrial clients.",
-    expertise: ["AI Strategy", "Business Leadership", "Innovation"],
+      "Passionate AI engineer with an MS in Computer Science and 4+ years of experience building deployable AI solutions. Demonstrated expertise in LLMs, big data analytics, and multimodal AI through academic and professional work—including RAG systems, optimized inference pipelines, and modern AI techniques applied across healthcare, aerospace, and conversational AI.",
+    expertise: [
+      "LLMs & RAG",
+      "LangGraph & Agents",
+      "Python",
+      "PyTorch & TensorFlow",
+      "MLOps & Docker",
+      "AWS & GCP",
+      "Next.js & Node.js",
+      "NLP & Conversational AI",
+      "Computer Vision",
+      "PostgreSQL & APIs",
+      "Big Data & Analytics",
+      "AI Strategy",
+      "Business Leadership",
+    ],
     experience: [
       {
-        title: "Chief Executive Officer",
-        organization: "QBrix Solutions",
-        period: "Present",
-        description:
-          "Overall P&L, vision, and executive sponsorship of major client programs.",
+        title: "CEO & Co-Founder",
+        organization: "QBrix Solutions · Islamabad, Pakistan",
+        period: "October 2025 – Present",
+        description: `• Leading a technology solutions company specializing in AI-powered applications, full-stack development, and data analytics for global clients.
+• Architecting and delivering end-to-end AI solutions including LLM-based chatbots, RAG systems, voice assistants, and workflow automation platforms.
+• Designing and developing scalable web and desktop applications using Next.js, React, Node.js, Electron, and PostgreSQL.
+• Building and deploying AI pipelines for document processing, lead qualification, and real-time analytics across healthcare, finance, and logistics.
+• Managing client relationships, technical roadmaps, and production-ready deliverables with clean code and clear documentation.
+• Spearheaded HealthDataVitals.com, a U.S. healthcare transparency platform aggregating quality, cost, and performance data.`,
       },
       {
-        title: "Executive leadership & advisory",
-        organization: "Technology & services sector",
-        period: "Previous roles",
+        title: "AI & Data Science Engineer",
+        organization: "National Aerospace Science & Technology Park · Rawalpindi, Pakistan",
+        period: "April 2023 – June 2025",
+        description: `• Designed and implemented ML and deep learning models in Python, R, SQL, TensorFlow, and PyTorch for healthcare, finance, and real estate use cases.
+• Built interactive dashboards with Tableau, Streamlit, and Gradio to visualize model outputs and improve interpretability.
+• Applied statistical analysis, predictive modeling, and time-series forecasting to support process optimization and decision-making.
+• Partnered with cross-functional teams on KPIs, model evaluation, and production-ready solutions using MLflow and Docker.
+• Communicated technical findings to stakeholders, connecting data science insights to business strategy.`,
+      },
+      {
+        title: "Data Pricing Analyst",
+        organization: "Home Equity Options LLC · USA (Remote)",
+        period: "February 2021 – March 2023",
+        description: `• Applied data analysis to quantify property insight value and support client decisions.
+• Assessed Zillow and related data by location, size, price, and value features to identify strong options for clients.
+• Performed data cleaning and statistical analysis in Python and R to surface high value-for-money opportunities.
+• Used PropertyRadar and Google Earth–driven feature extraction aligned with client requirements.
+• Built Tableau dashboards to track changing data and support evidence-based analysis via SQL across databases.`,
+      },
+      {
+        title: "Visiting Lecturer",
+        organization: "BUITEMS · Quetta, Pakistan",
+        period: "March 2019 – January 2021",
+        description: `• Taught Computer Programming & Software Applications, Python for Data Science, and R for Data Analysis.
+• Collaborated with the Business Administration department on IT in Business subjects.`,
+      },
+      {
+        title: "Freelance Data Science & AI Expert",
+        organization: "Upwork · Remote",
+        period: "February 2021 – Present",
+        description: `• Partnering with global clients on end-to-end data science, AI, and full-stack delivery from requirements to production.
+• Core services: ML/AI model development, NLP and LLM solutions (chatbots, fine-tuning), analytics and interactive dashboards, AI-powered automation, and full-stack application development and deployment.
+• Selected work: anomaly detection in R (recognized for quality), BI dashboards in Excel, Power BI, and Tableau, Node.js and React.js web apps, and big data analytics with R and SQL.`,
+      },
+    ],
+    projects: [
+      {
+        name: "HealthDataVitals — U.S. healthcare analytics platform",
         description:
-          "Strategy, go-to-market, and scaling delivery organizations.",
+          "Full-stack healthcare transparency platform with React.js and Python dashboards, a PostgreSQL-backed Node.js API, and JSON/XML parsing to visualize U.S. healthcare data across cost, quality, ownership, and performance. Deployed on AWS with Docker for secure stakeholder access. https://www.healthdatavitals.com/",
+        technologies:
+          "React.js, Node.js, PostgreSQL, Python, AWS, Docker",
+        role: "Founder & lead engineer",
+      },
+      {
+        name: "Multimodal AI assistant",
+        description:
+          "Voice-controlled AI agent integrating speech-to-text, computer vision, and LangGraph orchestration for complex task automation. https://github.com/faizanarshad/Voice_Chatbot",
+        technologies: "Python, LangGraph, SpeechRecognition, OpenCV",
+        role: "Engineer",
+      },
+      {
+        name: "Healthcare disease prediction (RAG)",
+        description:
+          "Containerized retrieval-augmented generation system for medical data analysis with optimized inference and big-data-style analytics pipelines. https://github.com/faizanarshad/Disease_Prediction",
+        technologies: "Python, Docker, Hugging Face",
+        role: "Engineer",
+      },
+      {
+        name: "E-commerce AI agent",
+        description:
+          "Agentic workflow automation for customer analytics using LangGraph orchestration and semantic search. https://github.com/faizanarshad/Agentic_RAG_System",
+        technologies: "LangGraph, vector databases, AWS, Docker, shell scripting",
+        role: "Engineer",
+      },
+      {
+        name: "AI-powered hand gesture drawing",
+        description:
+          "Application combining hand-gesture recognition (computer vision), voice commands (STT), and AI-assisted shape detection with REST/MLOps-style delivery. https://github.com/faizanarshad/AI-Based-Virtual-Painter",
+        technologies: "Python, computer vision, REST API, MLOps",
+        role: "Engineer",
       },
     ],
     education: [
       {
-        degree: "Executive leadership & business (continuous)",
-        institution: "Industry programs & certifications",
+        degree:
+          "MS Computer Science — thesis: improving validity of disaster-related information by identifying correlation among social media streams",
+        institution: "BUITEMS, Quetta, Pakistan",
+        year: "2017–2019",
       },
     ],
     achievements: [
-      "Established QBrix Solutions as a trusted partner for AI and automation delivery",
-      "Drives cross-functional alignment between engineering, product, and client success",
-      "Champions ethical AI and clear communication with stakeholders",
+      "Publication: Springer conference proceedings (https://doi.org/10.1007/978-981-15-5232-8_29)",
+      "Google Data Analytics Professional Certificate",
+      "Shipped production AI spanning RAG, voice, and multimodal agents with strong documentation and client communication",
+      "Experience across healthcare transparency (HealthDataVitals), aerospace R&D (NASTP), and global freelance delivery",
     ],
     linkedin: "https://www.linkedin.com/in/mfaizanarshad/",
     github: "https://github.com/faizanarshad",
