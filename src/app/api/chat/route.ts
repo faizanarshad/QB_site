@@ -11,9 +11,26 @@ export const dynamic = "force-dynamic";
 
 const MAX_TEXT = 4000;
 const MAX_MEMORY = 5;
-const SESSION_TTL_MS = 1000 * 60 * 60 * 6;
+/** Default: remove sessions whose `updatedAt` is older than this (7 days). */
+const DEFAULT_SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 const PRUNE_INTERVAL_MS = 1000 * 60 * 15;
 let lastPruneMs = 0;
+
+/** When false, chat rows are never auto-deleted (keep full records). */
+function isChatSessionPruneEnabled(): boolean {
+  return process.env.CHAT_SESSION_PRUNE_ENABLED?.trim().toLowerCase() !== "false";
+}
+
+/** Age after which idle sessions are deleted when pruning is enabled (default 7 days). */
+function getSessionPruneTtlMs(): number {
+  const raw = process.env.CHAT_SESSION_TTL_HOURS?.trim();
+  if (!raw) return DEFAULT_SESSION_TTL_MS;
+  const hours = Number(raw);
+  if (!Number.isFinite(hours) || hours <= 0) return DEFAULT_SESSION_TTL_MS;
+  const ms = hours * 60 * 60 * 1000;
+  const maxMs = 1000 * 60 * 60 * 24 * 365 * 10;
+  return Math.min(ms, maxMs);
+}
 
 type ChatBody = {
   message?: unknown;
@@ -132,9 +149,9 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   const now = Date.now();
-  if (now - lastPruneMs > PRUNE_INTERVAL_MS) {
+  if (isChatSessionPruneEnabled() && now - lastPruneMs > PRUNE_INTERVAL_MS) {
     lastPruneMs = now;
-    await pruneSessions(SESSION_TTL_MS);
+    await pruneSessions(getSessionPruneTtlMs());
   }
   if (!isLlmConfigured()) {
     return NextResponse.json({ error: "LLM is not configured" }, { status: 503 });
@@ -192,7 +209,11 @@ export async function POST(request: NextRequest) {
 
   try {
     const reply = await completeChat(llmMessages, 0.25);
-    session.messages = [...memory, { role: "user", content: message }, { role: "assistant", content: reply }];
+    session.messages = [
+      ...session.messages,
+      { role: "user" as const, content: message },
+      { role: "assistant" as const, content: reply },
+    ];
     session.updatedAt = Date.now();
     const leadCollected = Boolean(session.leadDraft.email && session.leadDraft.description);
     session.leadCollected = leadCollected;
