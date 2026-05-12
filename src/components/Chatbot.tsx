@@ -282,7 +282,7 @@ const Chatbot = () => {
                   <Image src="/images/qbrix-logo-mark.svg" alt="QBrix" width={40} height={40} className="h-10 w-10" />
                   <div>
                     <h3 className="font-semibold">QBrix AI Consultant</h3>
-                    <p className="text-sm text-blue-100">{llmMode ? "RAG + Sales Qualification" : "Configure OPENAI_API_KEY"}</p>
+                    <p className="text-sm text-blue-100">{llmMode ? "AI Assistant" : "Configure OPENAI_API_KEY"}</p>
                   </div>
                 </div>
                 <button type="button" onClick={clearChat} className="p-1 hover:bg-white/20 rounded-full" aria-label="Clear chat history">
