@@ -63,9 +63,9 @@ const TeamPage = () => {
           text: "Contact Us",
           href: "/contact",
         }}
-        illustrationUrl="/images/join_our_team.jpg"
+        illustrationUrl="/images/team-hero.png"
         illustrationObjectFit="cover"
-        illustrationAlt="Collaborative team working together in a modern office"
+        illustrationAlt="A diverse team of developers working together on laptops in a bright, modern office"
       />
 
       {/* Team Grid */}
