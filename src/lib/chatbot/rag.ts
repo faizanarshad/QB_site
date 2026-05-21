@@ -2,6 +2,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { createEmbeddings } from "./openai";
 import { getKnowledgeDocuments } from "./knowledgeBase";
+import { isContactQuery, isTeamQuery } from "./followups";
 import type { RetrievedChunk } from "./types";
 
 type StoredChunk = {
@@ -96,12 +97,23 @@ async function loadIndex(): Promise<RagIndex> {
   }
 }
 
+function pinKnowledgeDoc(
+  results: RetrievedChunk[],
+  docId: string,
+  topK: number
+): RetrievedChunk[] {
+  const doc = getKnowledgeDocuments().find((entry) => entry.id === docId);
+  if (!doc) return results;
+  if (results.some((chunk) => chunk.id === doc.id)) return results.slice(0, topK);
+  return [{ id: doc.id, source: doc.source, text: doc.text, score: 1 }, ...results].slice(0, topK);
+}
+
 export async function retrieveContext(query: string, topK = 4): Promise<RetrievedChunk[]> {
   try {
     const index = await loadIndex();
     const [queryEmbedding] = await createEmbeddings([query]);
     if (!queryEmbedding) return lexicalTopK(query, topK);
-    return index.chunks
+    let results = index.chunks
       .map((chunk) => ({
         id: chunk.id,
         source: chunk.source,
@@ -110,8 +122,22 @@ export async function retrieveContext(query: string, topK = 4): Promise<Retrieve
       }))
       .sort((a, b) => b.score - a.score)
       .slice(0, topK);
+
+    if (isContactQuery(query)) {
+      results = pinKnowledgeDoc(results, "company-contact", topK);
+    } else if (isTeamQuery(query)) {
+      results = pinKnowledgeDoc(results, "team-overview", topK);
+    }
+
+    return results;
   } catch (error) {
     console.error("RAG retrieval fallback to lexical:", error);
-    return lexicalTopK(query, topK);
+    let results = lexicalTopK(query, topK);
+    if (isContactQuery(query)) {
+      results = pinKnowledgeDoc(results, "company-contact", topK);
+    } else if (isTeamQuery(query)) {
+      results = pinKnowledgeDoc(results, "team-overview", topK);
+    }
+    return results;
   }
 }

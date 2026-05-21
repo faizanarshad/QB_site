@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { parseCompanyName, parseTimeline } from "@/lib/chatbot/leadParsing";
 
 type Message = {
   id: string;
@@ -64,7 +65,7 @@ const Chatbot = () => {
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [quickOptions, setQuickOptions] = useState<string[]>(INITIAL_QUICK_OPTIONS);
-  const [llmMode, setLlmMode] = useState(false);
+  const [llmMode, setLlmMode] = useState<boolean | null>(null);
   const [leadSaved, setLeadSaved] = useState(false);
   const sessionIdRef = useRef<string>(newSessionId());
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -139,9 +140,9 @@ const Chatbot = () => {
           : "General";
 
     const name = draft?.name || email.split("@")[0] || "Website Visitor";
-    const company = draft?.company || fullUserText.match(/(?:company is|from|at)\s+([A-Za-z0-9][A-Za-z0-9\s&._-]{1,50})/i)?.[1]?.trim() || "";
+    const company = draft?.company || parseCompanyName(fullUserText) || "";
     const phone = draft?.phone || fullUserText.match(/(?:\+?\d{1,3}[\s-]?)?(?:\(?\d{2,4}\)?[\s-]?)?\d{3,4}[\s-]?\d{3,4}/)?.[0] || "";
-    const timeline = draft?.timeline || fullUserText.match(/\b(?:in|within|around|about)\s+(\d+\s*(?:day|days|week|weeks|month|months)|q[1-4]|this quarter|next quarter)\b/i)?.[1] || "";
+    const timeline = draft?.timeline || parseTimeline(fullUserText) || "";
     try {
       const res = await fetch("/api/save-lead", {
         method: "POST",
@@ -172,7 +173,7 @@ const Chatbot = () => {
   const askAssistant = useCallback(async (message: string, transcript: Message[]) => {
     setIsTyping(true);
     try {
-      if (!llmMode) {
+      if (llmMode === false) {
         addBotMessage(
           "The assistant is off because the server does not see a valid OPENAI_API_KEY.\n\n" +
             "• Local: add OPENAI_API_KEY to `.env.local` (or `.env`), then restart `npm run dev`.\n" +
@@ -217,7 +218,7 @@ const Chatbot = () => {
 
   const send = useCallback((raw: string) => {
     const text = raw.trim();
-    if (!text || isTyping) return;
+    if (!text || isTyping || llmMode === null) return;
     setInputValue("");
 
     const userMsg: Message = {
@@ -230,7 +231,7 @@ const Chatbot = () => {
     const transcript = [...messages, userMsg];
     setMessages(transcript);
     void askAssistant(text, transcript);
-  }, [askAssistant, isTyping, messages]);
+  }, [askAssistant, isTyping, llmMode, messages]);
 
   const clearChat = useCallback(() => {
     setMessages(initialMessages());
@@ -282,7 +283,9 @@ const Chatbot = () => {
                   <Image src="/images/qbrix-logo-mark.svg" alt="QBrix" width={40} height={40} className="h-10 w-10" />
                   <div>
                     <h3 className="font-semibold">QBrix AI Consultant</h3>
-                    <p className="text-sm text-blue-100">{llmMode ? "AI Assistant" : "Configure OPENAI_API_KEY"}</p>
+                    <p className="text-sm text-blue-100">
+                      {llmMode === null ? "Connecting..." : llmMode ? "AI Assistant" : "Configure OPENAI_API_KEY"}
+                    </p>
                   </div>
                 </div>
                 <button type="button" onClick={clearChat} className="p-1 hover:bg-white/20 rounded-full" aria-label="Clear chat history">
@@ -335,12 +338,12 @@ const Chatbot = () => {
                   }}
                   placeholder="What are you trying to build?"
                   className="flex-1 min-w-0 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  disabled={isTyping}
+                  disabled={isTyping || llmMode === null}
                 />
                 <button
                   type="button"
                   onClick={() => send(inputValue)}
-                  disabled={!inputValue.trim() || isTyping}
+                  disabled={!inputValue.trim() || isTyping || llmMode === null}
                   className="w-10 h-10 shrink-0 bg-blue-600 text-white rounded-full flex items-center justify-center disabled:opacity-50"
                   aria-label="Send message"
                 >

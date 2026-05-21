@@ -1,4 +1,5 @@
 import { portfolioProjects } from "@/data/portfolioProjects";
+import { teamMembers } from "@/data/teamMembers";
 
 export type KnowledgeDoc = {
   id: string;
@@ -40,6 +41,18 @@ const staticDocs: KnowledgeDoc[] = [
 ];
 
 export function getKnowledgeDocuments(): KnowledgeDoc[] {
+  const teamOverview: KnowledgeDoc = {
+    id: "team-overview",
+    source: "Team Page",
+    text: `QBrix Solutions team members: ${teamMembers.map((member) => `${member.name} (${member.role})`).join("; ")}.`,
+  };
+
+  const teamDocs: KnowledgeDoc[] = teamMembers.map((member) => ({
+    id: `team-${member.slug}`,
+    source: `Team: ${member.name}`,
+    text: `${member.name}, ${member.role}. ${member.shortBio} Key expertise: ${member.expertise.slice(0, 8).join(", ")}.`,
+  }));
+
   const projectDocs: KnowledgeDoc[] = portfolioProjects.map((project) => ({
     id: `portfolio-${project.slug}`,
     source: `Portfolio: ${project.title}`,
@@ -48,5 +61,5 @@ export function getKnowledgeDocuments(): KnowledgeDoc[] {
       `Solution: ${project.solution}. Results: ${project.results}. Technologies: ${project.technologies.join(", ")}.`,
   }));
 
-  return [...staticDocs, ...projectDocs];
+  return [...staticDocs, teamOverview, ...teamDocs, ...projectDocs];
 }

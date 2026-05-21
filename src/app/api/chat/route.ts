@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { suggestedFollowups } from "@/lib/chatbot/followups";
 import { detectIntent } from "@/lib/chatbot/intent";
+import { parseLeadDetails, QBrix_CONTACT_FACTS } from "@/lib/chatbot/leadParsing";
 import { completeChat, isLlmConfigured } from "@/lib/chatbot/openai";
 import { retrieveContext } from "@/lib/chatbot/rag";
 import { getSessionState, pruneSessions, saveSessionState } from "@/lib/chatbot/sessionStore";
@@ -37,83 +39,6 @@ type ChatBody = {
   session_id?: unknown;
 };
 
-function parseLeadDetails(text: string, session: Awaited<ReturnType<typeof getSessionState>>): void {
-  const lower = text.toLowerCase();
-  if (!session.leadDraft.project_type) {
-    if (lower.includes("chatbot") || lower.includes("nlp")) session.leadDraft.project_type = "NLP / Chatbot";
-    else if (lower.includes("vision") || lower.includes("ocr")) session.leadDraft.project_type = "Computer Vision";
-    else if (lower.includes("automation")) session.leadDraft.project_type = "Automation";
-    else if (lower.includes("analytics") || lower.includes("dashboard")) session.leadDraft.project_type = "Data Analytics";
-    else if (lower.includes("machine learning") || lower.includes("ml model")) session.leadDraft.project_type = "Machine Learning";
-  }
-
-  const industryMap: Record<string, string> = {
-    healthcare: "Healthcare",
-    ecommerce: "E-commerce",
-    "e-commerce": "E-commerce",
-    finance: "Finance",
-    retail: "Retail",
-    logistics: "Logistics",
-    education: "Education",
-    manufacturing: "Manufacturing",
-  };
-  if (!session.leadDraft.industry) {
-    for (const [k, v] of Object.entries(industryMap)) {
-      if (lower.includes(k)) {
-        session.leadDraft.industry = v;
-        break;
-      }
-    }
-  }
-
-  const emailMatch = text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi)?.[0];
-  if (emailMatch) session.leadDraft.email = emailMatch;
-  const phoneMatch = text.match(/(?:\+?\d{1,3}[\s-]?)?(?:\(?\d{2,4}\)?[\s-]?)?\d{3,4}[\s-]?\d{3,4}/)?.[0];
-  if (phoneMatch && phoneMatch.replace(/\D/g, "").length >= 8) {
-    session.leadDraft.phone = phoneMatch.trim();
-  }
-  if (!session.leadDraft.description) session.leadDraft.description = text;
-  if (!session.leadDraft.timeline) {
-    const timelineMatch = text.match(
-      /\b(?:in|within|around|about)\s+(\d+\s*(?:day|days|week|weeks|month|months)|q[1-4]|this quarter|next quarter)\b/i
-    )?.[1];
-    if (timelineMatch) {
-      session.leadDraft.timeline = timelineMatch.trim();
-    }
-  }
-
-  const nameMatch = text.match(/(?:my name is|i am|i'm)\s+([a-z][a-z\s'-]{1,40})/i)?.[1];
-  if (nameMatch && !session.userName) {
-    session.userName = nameMatch.trim().replace(/\s+/g, " ");
-    session.leadDraft.name = session.userName;
-  }
-
-  const companyMatch = text.match(/(?:company is|from|at)\s+([A-Za-z0-9][A-Za-z0-9\s&._-]{1,50})/i)?.[1];
-  if (companyMatch && !session.companyName) {
-    session.companyName = companyMatch.trim().replace(/\s+/g, " ");
-  }
-  if (!session.leadDraft.company && session.companyName) {
-    session.leadDraft.company = session.companyName;
-  }
-
-  const serviceTags: Array<[RegExp, string]> = [
-    [/rag|retrieval/i, "RAG Systems"],
-    [/computer vision|ocr|detection/i, "Computer Vision"],
-    [/automation|workflow|agent/i, "Automation"],
-    [/robotics|robot/i, "Robotics"],
-    [/chatbot|nlp|assistant/i, "NLP / Chatbot"],
-    [/saas|platform/i, "SaaS Development"],
-    [/analytics|dashboard|bi/i, "Data Analytics"],
-  ];
-  const selected = new Set(session.selectedServices ?? []);
-  for (const [rx, label] of serviceTags) {
-    if (rx.test(text)) selected.add(label);
-  }
-  session.selectedServices = Array.from(selected);
-  session.projectInterests = Array.from(selected);
-  session.leadDraft.selected_services = Array.from(selected);
-}
-
 function buildQualificationPrompt(intent: ChatIntent, session: SessionState): string | null {
   if (!(intent === "project" || intent === "pricing" || intent === "lead")) return null;
   const missing: string[] = [];
@@ -128,19 +53,6 @@ function buildQualificationPrompt(intent: ChatIntent, session: SessionState): st
   return `Ask only one concise qualification question in this reply, prioritizing:\n- ${missing.join(
     "\n- "
   )}\nAfter giving helpful advice, include a soft CTA for either email or a consultation call.`;
-}
-
-function suggestedFollowups(intent: ChatIntent): string[] {
-  if (intent === "project" || intent === "lead" || intent === "pricing") {
-    return [
-      "I need an AI chatbot",
-      "Automate manual workflows",
-      "Build a custom ML model",
-      "AI for analytics",
-      "Book a consultation call",
-    ];
-  }
-  return ["I need an AI chatbot", "Automate manual workflows", "Build a custom ML model", "AI for analytics"];
 }
 
 export async function GET() {
@@ -200,6 +112,7 @@ export async function POST(request: NextRequest) {
       content:
         `Intent classified as: ${intent}.\n` +
         `Known user profile:\n${knownProfile || "No profile captured yet."}\n\n` +
+        `Official contact facts (always share when relevant):\n${QBrix_CONTACT_FACTS}\n\n` +
         `Retrieved website context:\n${contextBlock || "No context found."}\n\n` +
         (qualification || "No additional qualification prompt required."),
     },
@@ -224,7 +137,7 @@ export async function POST(request: NextRequest) {
       intent,
       lead_collected: leadCollected,
       lead_draft: session.leadDraft,
-      suggested_followups: suggestedFollowups(intent),
+      suggested_followups: suggestedFollowups(intent, session, message),
       rag_sources: retrieved.map((r) => r.source),
     });
   } catch (error) {
