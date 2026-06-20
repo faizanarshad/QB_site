@@ -23,9 +23,9 @@ export default function Home() {
     <main className="min-h-screen">
       <Header />
       <AnimatedHero 
-        headline="Innovative AI Solutions"
-        subheadline="Transforming Business Through Technology"
-        description="We deliver cutting-edge AI and machine learning solutions that drive growth, efficiency, and competitive advantage for forward-thinking businesses."
+        headline="Production-Grade AI Systems"
+        subheadline="RAG pipelines, LLM integrations, computer vision & healthcare analytics"
+        description="QBrix Solutions is an Upwork Top Rated AI engineering team delivering enterprise-ready AI systems that power business transformation."
         primaryAction={{
           text: "Explore Our Services",
           href: "/services"
