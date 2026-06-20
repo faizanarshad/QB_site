@@ -2,42 +2,34 @@ import { NextRequest, NextResponse } from "next/server";
 import { suggestedFollowups } from "@/lib/chatbot/followups";
 import { detectIntent } from "@/lib/chatbot/intent";
 import { parseLeadDetails, QBrix_CONTACT_FACTS } from "@/lib/chatbot/leadParsing";
-import { completeChat, isLlmConfigured } from "@/lib/chatbot/openai";
+import { isLlmConfigured, streamChat } from "@/lib/chatbot/openai";
 import { retrieveContext } from "@/lib/chatbot/rag";
 import { getSessionState, pruneSessions, saveSessionState } from "@/lib/chatbot/sessionStore";
 import { getChatbotSystemPrompt } from "@/lib/chatbot/systemPrompt";
 import type { ChatIntent, SessionState } from "@/lib/chatbot/types";
 
-/** Env and session state must be evaluated per-request (not statically cached). */
 export const dynamic = "force-dynamic";
 
 const MAX_TEXT = 4000;
-const MAX_MEMORY = 5;
-/** Default: remove sessions whose `updatedAt` is older than this (7 days). */
+const MAX_MEMORY = 20;
 const DEFAULT_SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 const PRUNE_INTERVAL_MS = 1000 * 60 * 15;
 let lastPruneMs = 0;
 
-/** When false, chat rows are never auto-deleted (keep full records). */
 function isChatSessionPruneEnabled(): boolean {
   return process.env.CHAT_SESSION_PRUNE_ENABLED?.trim().toLowerCase() !== "false";
 }
 
-/** Age after which idle sessions are deleted when pruning is enabled (default 7 days). */
 function getSessionPruneTtlMs(): number {
   const raw = process.env.CHAT_SESSION_TTL_HOURS?.trim();
   if (!raw) return DEFAULT_SESSION_TTL_MS;
   const hours = Number(raw);
   if (!Number.isFinite(hours) || hours <= 0) return DEFAULT_SESSION_TTL_MS;
   const ms = hours * 60 * 60 * 1000;
-  const maxMs = 1000 * 60 * 60 * 24 * 365 * 10;
-  return Math.min(ms, maxMs);
+  return Math.min(ms, 1000 * 60 * 60 * 24 * 365 * 10);
 }
 
-type ChatBody = {
-  message?: unknown;
-  session_id?: unknown;
-};
+type ChatBody = { message?: unknown; session_id?: unknown };
 
 function buildQualificationPrompt(intent: ChatIntent, session: SessionState): string | null {
   if (!(intent === "project" || intent === "pricing" || intent === "lead")) return null;
@@ -55,6 +47,12 @@ function buildQualificationPrompt(intent: ChatIntent, session: SessionState): st
   )}\nAfter giving helpful advice, include a soft CTA for either email or a consultation call.`;
 }
 
+const encoder = new TextEncoder();
+
+function sseEvent(data: unknown): Uint8Array {
+  return encoder.encode(`data: ${JSON.stringify(data)}\n\n`);
+}
+
 export async function GET() {
   return NextResponse.json({ llm: isLlmConfigured() });
 }
@@ -63,8 +61,9 @@ export async function POST(request: NextRequest) {
   const now = Date.now();
   if (isChatSessionPruneEnabled() && now - lastPruneMs > PRUNE_INTERVAL_MS) {
     lastPruneMs = now;
-    await pruneSessions(getSessionPruneTtlMs());
+    void pruneSessions(getSessionPruneTtlMs());
   }
+
   if (!isLlmConfigured()) {
     return NextResponse.json({ error: "LLM is not configured" }, { status: 503 });
   }
@@ -85,6 +84,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "message too long" }, { status: 400 });
   }
 
+  // --- Pre-stream setup ---
   const intent = detectIntent(message);
   const session = await getSessionState(sessionId);
   session.updatedAt = Date.now();
@@ -105,6 +105,7 @@ export async function POST(request: NextRequest) {
   ]
     .filter(Boolean)
     .join("\n");
+
   const llmMessages = [
     { role: "system" as const, content: getChatbotSystemPrompt() },
     {
@@ -120,28 +121,57 @@ export async function POST(request: NextRequest) {
     { role: "user" as const, content: message },
   ];
 
-  try {
-    const reply = await completeChat(llmMessages, 0.25);
-    session.messages = [
-      ...session.messages,
-      { role: "user" as const, content: message },
-      { role: "assistant" as const, content: reply },
-    ];
-    session.updatedAt = Date.now();
-    const leadCollected = Boolean(session.leadDraft.email && session.leadDraft.description);
-    session.leadCollected = leadCollected;
-    await saveSessionState(session);
+  // --- Stream response ---
+  const stream = new ReadableStream({
+    async start(controller) {
+      try {
+        const fullReply = await streamChat(
+          llmMessages,
+          (event) => {
+            if (event.type === "token") {
+              controller.enqueue(sseEvent({ type: "token", content: event.content }));
+            }
+          },
+          0.25
+        );
 
-    return NextResponse.json({
-      reply,
-      intent,
-      lead_collected: leadCollected,
-      lead_draft: session.leadDraft,
-      suggested_followups: suggestedFollowups(intent, session, message),
-      rag_sources: retrieved.map((r) => r.source),
-    });
-  } catch (error) {
-    console.error("chat route error:", error);
-    return NextResponse.json({ error: "Assistant unavailable" }, { status: 502 });
-  }
+        // Persist session after streaming completes
+        session.messages = [
+          ...session.messages,
+          { role: "user" as const, content: message },
+          { role: "assistant" as const, content: fullReply },
+        ];
+        session.updatedAt = Date.now();
+        const leadCollected = Boolean(session.leadDraft.email && session.leadDraft.description);
+        session.leadCollected = leadCollected;
+        await saveSessionState(session);
+
+        // Send final metadata
+        controller.enqueue(
+          sseEvent({
+            type: "done",
+            intent,
+            lead_collected: leadCollected,
+            lead_draft: session.leadDraft,
+            suggested_followups: suggestedFollowups(intent, session, message),
+            rag_sources: retrieved.map((r) => r.source),
+          })
+        );
+      } catch (error) {
+        console.error("chat stream error:", error);
+        controller.enqueue(sseEvent({ type: "error", message: "Assistant unavailable" }));
+      } finally {
+        controller.close();
+      }
+    },
+  });
+
+  return new Response(stream, {
+    headers: {
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache, no-transform",
+      Connection: "keep-alive",
+      "X-Accel-Buffering": "no",
+    },
+  });
 }

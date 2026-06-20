@@ -7,6 +7,12 @@ export type ChatMessage = {
   content: string;
 };
 
+/** Superset of ChatMessage — includes system role for OpenAI API calls. */
+export type LlmMessage = {
+  role: "system" | "user" | "assistant";
+  content: string;
+};
+
 export type LeadDraft = {
   name?: string;
   email?: string;
