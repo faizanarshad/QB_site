@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedHero from "@/components/AnimatedHero";
 import { portfolioProjects } from "@/data/portfolioProjects";
+import { SITE_STATS } from "@/lib/siteStats";
 
 const PortfolioPage = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -142,10 +143,10 @@ const PortfolioPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { number: "200+", label: "Projects Completed" },
-              { number: "50+", label: "Happy Clients" },
-              { number: "95%", label: "Success Rate" },
-              { number: "24/7", label: "Support Available" },
+              { number: SITE_STATS.projectsCompleted, label: "Projects Completed" },
+              { number: SITE_STATS.happyClients, label: "Happy Clients" },
+              { number: SITE_STATS.clientSatisfaction, label: "Client Satisfaction" },
+              { number: SITE_STATS.supportAvailable, label: "Support Available" },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}

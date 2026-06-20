@@ -6,18 +6,20 @@ import DeferredChatbot from "../components/DeferredChatbot";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Providers from "../components/Providers";
 import "../lib/analytics"; // Import analytics to initialize performance monitoring
+import { absoluteUrl, getSiteUrl } from "../lib/siteUrl";
+import { DEFAULT_OG_IMAGE } from "../lib/metadata";
 
 const inter = Inter({ subsets: ["latin"] });
 
-/** Resolves relative og:image / twitter:image to this origin (not *.vercel.app). */
-const metadataBase = new URL(
-  (process.env.NEXT_PUBLIC_SITE_URL || "https://www.qbrixsolutions.com").replace(/\/$/, "")
-);
+const siteTitle = "QBrix Solutions - AI, ML, Computer Vision & Robotics Experts";
+const siteDescription =
+  "Leading software house specializing in AI, Machine Learning, Computer Vision, E-commerce, and Robotics & Automation solutions.";
+const ogImageUrl = absoluteUrl(DEFAULT_OG_IMAGE);
 
 export const metadata: Metadata = {
-  metadataBase,
-  title: "QBrix Solutions - AI, ML, Computer Vision & Robotics Experts",
-  description: "Leading software house specializing in AI, Machine Learning, Computer Vision, E-commerce, and Robotics & Automation solutions.",
+  metadataBase: new URL(getSiteUrl()),
+  title: siteTitle,
+  description: siteDescription,
   keywords: ["AI", "Machine Learning", "Computer Vision", "E-commerce", "Robotics", "Automation", "Software Development", "QBrix Solutions"],
   authors: [{ name: "QBrix Solutions" }],
   icons: {
@@ -32,15 +34,18 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   openGraph: {
-    title: "QBrix Solutions - AI, ML, Computer Vision & Robotics Experts",
-    description: "Leading software house specializing in AI, Machine Learning, Computer Vision, E-commerce, and Robotics & Automation solutions.",
-    images: [{ url: "/images/qbrix-logo.png" }],
+    title: siteTitle,
+    description: siteDescription,
+    url: absoluteUrl("/"),
+    siteName: "QBrix Solutions",
+    type: "website",
+    images: [{ url: ogImageUrl }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "QBrix Solutions - AI, ML, Computer Vision & Robotics Experts",
-    description: "Leading software house specializing in AI, Machine Learning, Computer Vision, E-commerce, and Robotics & Automation solutions.",
-    images: ["/images/qbrix-logo.png"],
+    title: siteTitle,
+    description: siteDescription,
+    images: [ogImageUrl],
   },
 };
 

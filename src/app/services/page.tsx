@@ -7,6 +7,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedHero from "@/components/AnimatedHero";
+import { SITE_STATS } from "@/lib/siteStats";
 import { 
   FaRobot, 
   FaEye, 
@@ -409,10 +410,10 @@ const ServicesPage = () => {
   ];
 
   const stats = [
-    { number: "500+", label: "Projects Completed", icon: <FaRocket className="text-2xl" />, color: "from-blue-500 to-purple-500" },
-    { number: "50+", label: "Happy Clients", icon: <FaLightbulb className="text-2xl" />, color: "from-green-500 to-blue-500" },
-    { number: "99%", label: "Client Satisfaction", icon: <FaStar className="text-2xl" />, color: "from-yellow-500 to-orange-500" },
-    { number: "24/7", label: "Support Available", icon: <FaChartLine className="text-2xl" />, color: "from-purple-500 to-pink-500" }
+    { number: SITE_STATS.projectsCompleted, label: "Projects Completed", icon: <FaRocket className="text-2xl" />, color: "from-blue-500 to-purple-500" },
+    { number: SITE_STATS.happyClients, label: "Happy Clients", icon: <FaLightbulb className="text-2xl" />, color: "from-green-500 to-blue-500" },
+    { number: SITE_STATS.clientSatisfaction, label: "Client Satisfaction", icon: <FaStar className="text-2xl" />, color: "from-yellow-500 to-orange-500" },
+    { number: SITE_STATS.supportAvailable, label: "Support Available", icon: <FaChartLine className="text-2xl" />, color: "from-purple-500 to-pink-500" }
   ];
 
   return (

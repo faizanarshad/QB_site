@@ -8,6 +8,7 @@ import {
   getProjectBySlug,
   getAllPortfolioSlugs,
 } from "@/data/portfolioProjects";
+import { buildPageMetadata } from "@/lib/metadata";
 
 type Props = { params: { slug: string } };
 
@@ -18,10 +19,11 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: Props): Metadata {
   const project = getProjectBySlug(params.slug);
   if (!project) return { title: "Project" };
-  return {
+  return buildPageMetadata({
     title: `${project.title} | QBrix Portfolio`,
     description: project.summary,
-  };
+    path: `/portfolio/${params.slug}`,
+  });
 }
 
 function Section({

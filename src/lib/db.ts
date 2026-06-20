@@ -1,5 +1,6 @@
 import { prisma } from './prisma'
 import { AI_ML_INTERN_JOB } from './aiMlInternJob'
+import { SITE_STATS } from './siteStats'
 
 // Database utility functions
 export const db = {
@@ -486,10 +487,10 @@ export async function seedDatabase() {
 
     // Create default website stats
     const websiteStats = [
-      { key: "projects_completed", value: "500+" },
-      { key: "happy_clients", value: "50+" },
-      { key: "client_satisfaction", value: "99%" },
-      { key: "support_available", value: "24/7" }
+      { key: "projects_completed", value: SITE_STATS.projectsCompleted },
+      { key: "happy_clients", value: SITE_STATS.happyClients },
+      { key: "client_satisfaction", value: SITE_STATS.clientSatisfaction },
+      { key: "support_available", value: SITE_STATS.supportAvailable },
     ]
 
     for (const stat of websiteStats) {

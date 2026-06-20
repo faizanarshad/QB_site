@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { SITE_STATS } from "@/lib/siteStats";
 
 const Hero = () => {
   return (
@@ -102,9 +103,9 @@ const Hero = () => {
             className="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-12"
           >
             {[
-              { number: "200+", label: "AI Projects" },
-              { number: "50+", label: "Happy Clients" },
-              { number: "95%", label: "Success Rate" },
+              { number: SITE_STATS.projectsCompleted, label: "Projects Completed" },
+              { number: SITE_STATS.happyClients, label: "Happy Clients" },
+              { number: SITE_STATS.clientSatisfaction, label: "Client Satisfaction" },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
