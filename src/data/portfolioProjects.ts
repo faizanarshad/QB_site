@@ -60,6 +60,34 @@ Access Provisioning: On successful payment, webhook triggers Firebase Authentica
     results: `Deployed across multiple hospital authorities. Achieved 70% reduction in manual reporting (40 to 12 hours weekly). Achieved 33% improvement in payment collection. ROI report generation reduced from two weeks to under one day. System maintains 99.95% API uptime.`,
   },
   {
+    slug: "diabetes-prediction-ai",
+    title: "Diabetes Prediction AI — Complete Suite",
+    subtitle: "Multi-Platform AI Prediction System | 95.2% Accuracy",
+    category: "healthcare",
+    emoji: "🩺",
+    summary:
+      "Ensemble RF + XGBoost + LightGBM with SHAP; Discord bot, web UI, FastAPI, and Kivy mobile app with local SQLite for offline predictions.",
+    problem:
+      "Healthcare administrators need diabetes risk prediction across web, chat, API, and mobile platforms with explainable AI.",
+    solution:
+      "Ensemble model combines Random Forest, XGBoost, and LightGBM using 11 clinical features (age, BMI, HbA1c, cholesterol, etc.). Data validation enforces medical ranges. Discord bot accepts /predict commands, returns predictions with SHAP feature importance charts, and stores history. Web interface accepts manual forms or CSV batch uploads. FastAPI provides REST endpoints with API key authentication. Kivy mobile app stores predictions locally in SQLite for offline use.",
+    fullStackDetails: undefined,
+    stripeDetails: undefined,
+    technologies: [
+      "Python",
+      "scikit-learn 1.3",
+      "XGBoost 1.7",
+      "LightGBM 3.3",
+      "SHAP 0.41",
+      "FastAPI 0.104",
+      "Discord.py 2.3",
+      "Bootstrap 5",
+      "Kivy 2.1",
+      "Docker",
+    ],
+    results: `95.2% accuracy across 11 clinical features. Four interfaces: Discord bot, web dashboard, REST API, mobile app. SHAP explainability, batch CSV processing, offline mobile predictions.`,
+  },
+  {
     slug: "ai-voice-assistant-pro",
     title: "AI Voice Assistant Pro",
     subtitle: "Multimodal Intelligent Agent | Voice • Text • Vision",
@@ -157,32 +185,6 @@ Access Provisioning: On successful payment, webhook triggers Firebase Authentica
       "NumPy",
     ],
     results: `30+ FPS real-time gesture recognition. 95%+ hand landmark accuracy. Supports 7 colors, 5 tools, 5 brush sizes, 20-level undo/redo. Cross-platform on Windows, macOS, Linux.`,
-  },
-  {
-    slug: "diabetes-prediction-ai",
-    title: "Diabetes Prediction AI — Complete Suite",
-    subtitle: "Multi-Platform AI Prediction System | 95.2% Accuracy",
-    category: "healthcare",
-    emoji: "🩺",
-    summary:
-      "Ensemble RF + XGBoost + LightGBM with SHAP; Discord bot, web UI, FastAPI, and Kivy mobile app with local SQLite for offline predictions.",
-    problem:
-      "Healthcare administrators need diabetes risk prediction across web, chat, API, and mobile platforms with explainable AI.",
-    solution:
-      "Ensemble model combines Random Forest, XGBoost, and LightGBM using 11 clinical features (age, BMI, HbA1c, cholesterol, etc.). Data validation enforces medical ranges. Discord bot accepts /predict commands, returns predictions with SHAP feature importance charts, and stores history. Web interface accepts manual forms or CSV batch uploads. FastAPI provides REST endpoints with API key authentication. Kivy mobile app stores predictions locally in SQLite for offline use.",
-    technologies: [
-      "Python",
-      "scikit-learn 1.3",
-      "XGBoost 1.7",
-      "LightGBM 3.3",
-      "SHAP 0.41",
-      "FastAPI 0.104",
-      "Discord.py 2.3",
-      "Bootstrap 5",
-      "Kivy 2.1",
-      "Docker",
-    ],
-    results: `95.2% accuracy across 11 clinical features. Four interfaces: Discord bot, web dashboard, REST API, mobile app. SHAP explainability, batch CSV processing, offline mobile predictions.`,
   },
   {
     slug: "electric-vehicle-analytics-hub-2025",
