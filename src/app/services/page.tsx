@@ -308,6 +308,30 @@ const ServicesPage = () => {
       stats: { productivity: "70%", uptime: "99.9%", efficiency: "80%" }
     },
     {
+      title: "RAG & LLM Integration",
+      subtitle: "Retrieval-Augmented Generation & LLM Ops",
+      description: "Build secure, auditable RAG pipelines and production LLM integrations with PHI-aware ingestion, embeddings, and prompt engineering.",
+      icon: <FaLightbulb className="text-6xl text-yellow-600" />,
+      color: "from-yellow-500 to-orange-500",
+      bgColor: "bg-yellow-50",
+      features: [
+        "Document ingestion & PHI-aware redaction",
+        "Embeddings & vector DBs",
+        "Prompt engineering & LLM orchestration",
+        "Citations & source tracing",
+        "Hybrid retrieval strategies",
+        "LLM cost optimization"
+      ],
+      benefits: [
+        "Sub-second retrieval",
+        "PHI-safe processing",
+        "Reduce LLM token costs by 40%",
+        "Transparent, auditable answers with citations"
+      ],
+      image: "/images/rag_integration.webp",
+      stats: { latency: "<300ms", cost: "40% reduction", accuracy: "contextual" }
+    },
+    {
       title: "Machine Learning",
       subtitle: "Data-Driven Intelligence",
       description: "Harness the power of your data with advanced machine learning models and algorithms.",
@@ -421,9 +445,9 @@ const ServicesPage = () => {
       <Header />
 
       <AnimatedHero
-        headline="Transform Your Business"
-        subheadline="With Our Services"
-        description="From AI-powered automation to cutting-edge robotics, we deliver innovative solutions that drive growth, efficiency, and competitive advantage."
+        headline="AI Development for Healthcare & Data Teams"
+        subheadline="Machine learning, RAG & LLM integration, computer vision & automation"
+        description="QBrix Solutions builds production-grade ML systems, agentic RAG pipelines, LLM integrations, computer vision, and custom automation tailored to healthcare and data-driven organizations."
         primaryAction={{
           text: "Explore Services",
           href: "#services",
