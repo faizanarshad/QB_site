@@ -158,8 +158,9 @@ export async function POST(request: NextRequest) {
           })
         );
       } catch (error) {
-        console.error("chat stream error:", error);
-        controller.enqueue(sseEvent({ type: "error", message: "Assistant unavailable" }));
+        const errMsg = error instanceof Error ? error.message : String(error);
+        console.error("chat stream error:", errMsg);
+        controller.enqueue(sseEvent({ type: "error", message: errMsg }));
       } finally {
         controller.close();
       }

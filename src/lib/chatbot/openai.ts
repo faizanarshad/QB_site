@@ -76,7 +76,7 @@ export async function completeChat(messages: LlmMessage[], temperature = 0.35): 
       },
       signal: controller.signal,
       body: JSON.stringify({
-        model: process.env.OPENAI_MODEL?.trim() || "gpt-4o",
+        model: process.env.OPENAI_MODEL?.trim() || "gpt-4o-mini",
         temperature,
         max_tokens: Number(process.env.OPENAI_CHAT_MAX_TOKENS || 800),
         messages,
@@ -125,7 +125,7 @@ export async function streamChat(
       },
       signal: controller.signal,
       body: JSON.stringify({
-        model: process.env.OPENAI_MODEL?.trim() || "gpt-4o",
+        model: process.env.OPENAI_MODEL?.trim() || "gpt-4o-mini",
         temperature,
         max_tokens: Number(process.env.OPENAI_CHAT_MAX_TOKENS || 800),
         stream: true,

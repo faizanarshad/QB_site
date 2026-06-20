@@ -318,9 +318,17 @@ const Chatbot = () => {
             setIsStreaming(false);
             if (firstToken) {
               firstToken = false;
+              const rawErr = typeof evt.message === "string" ? evt.message : "";
+              const friendly = rawErr.includes("401") || rawErr.includes("Authentication")
+                ? "Invalid API key — check **OPENAI_API_KEY** in Vercel environment variables."
+                : rawErr.includes("429")
+                ? "OpenAI rate limit reached. Please try again in a moment."
+                : rawErr.includes("404") || rawErr.includes("model")
+                ? `Model not found. Set **OPENAI_MODEL=gpt-4o-mini** in Vercel environment variables.`
+                : "Assistant unavailable. Please try again.";
               setMessages((prev) => [
                 ...prev,
-                { id: botMsgId, text: "Assistant unavailable. Please try again.", sender: "bot", timestamp: new Date() },
+                { id: botMsgId, text: friendly, sender: "bot", timestamp: new Date() },
               ]);
               if (!isOpenRef.current) setUnreadCount((n) => n + 1);
             }
@@ -334,7 +342,7 @@ const Chatbot = () => {
       if (firstToken) {
         setMessages((prev) => [
           ...prev,
-          { id: botMsgId, text: "Network error. Please retry.", sender: "bot", timestamp: new Date() },
+          { id: botMsgId, text: "Network error — check your connection and try again.", sender: "bot", timestamp: new Date() },
         ]);
         if (!isOpenRef.current) setUnreadCount((n) => n + 1);
       }
