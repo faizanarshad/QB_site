@@ -6,6 +6,8 @@ export type PortfolioProject = {
   emoji: string;
   /** Optional screenshot shown on the portfolio card and detail page. */
   image?: string;
+  /** "dark" (default) for dark-background screenshots; "light" for white/light-bg images. */
+  imageTheme?: "dark" | "light";
   summary: string;
   problem: string;
   solution: string;
@@ -67,6 +69,8 @@ Access Provisioning: On successful payment, webhook triggers Firebase Authentica
     subtitle: "Multi-Platform AI Prediction System | 95.2% Accuracy",
     category: "healthcare",
     emoji: "🩺",
+    image: "/images/diabetes-prediction.webp",
+    imageTheme: "light",
     summary:
       "Ensemble RF + XGBoost + LightGBM with SHAP; Discord bot, web UI, FastAPI, and Kivy mobile app with local SQLite for offline predictions.",
     problem:

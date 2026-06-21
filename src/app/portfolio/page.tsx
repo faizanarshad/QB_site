@@ -82,7 +82,7 @@ const PortfolioPage = () => {
               >
                 {/* Screenshot preview — shown when the project has an image */}
                 {project.image ? (
-                  <div className="relative w-full h-52 overflow-hidden bg-gray-900 shrink-0">
+                  <div className={`relative w-full h-52 overflow-hidden shrink-0 ${project.imageTheme === "light" ? "bg-gray-50" : "bg-gray-900"}`}>
                     <Image
                       src={project.image}
                       alt={`${project.title} screenshot`}
@@ -91,17 +91,27 @@ const PortfolioPage = () => {
                       className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-700 ease-out"
                       quality={95}
                     />
-                    {/* Subtle gradient at bottom for readability */}
-                    <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-gray-900/60 to-transparent" />
+                    {/* Bottom gradient — adapts to image theme */}
+                    <div className={`absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t ${
+                      project.imageTheme === "light"
+                        ? "from-white/80 to-transparent"
+                        : "from-gray-900/60 to-transparent"
+                    }`} />
                     {/* Emoji badge */}
                     <span
-                      className="absolute bottom-3 left-3 text-xl bg-white/95 rounded-full w-9 h-9 flex items-center justify-center shadow-lg"
+                      className={`absolute bottom-3 left-3 text-xl rounded-full w-9 h-9 flex items-center justify-center shadow-lg ${
+                        project.imageTheme === "light" ? "bg-white border border-gray-200" : "bg-white/90"
+                      }`}
                       aria-hidden
                     >
                       {project.emoji}
                     </span>
                     {/* Category pill */}
-                    <span className="absolute top-3 right-3 text-[10px] font-semibold uppercase tracking-wider bg-black/50 backdrop-blur-sm text-white px-2.5 py-1 rounded-full border border-white/20">
+                    <span className={`absolute top-3 right-3 text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full ${
+                      project.imageTheme === "light"
+                        ? "bg-blue-600/90 text-white"
+                        : "bg-black/50 backdrop-blur-sm text-white border border-white/20"
+                    }`}>
                       {project.category === "data" ? "Data & Analytics" : project.category === "healthcare" ? "Healthcare" : "AI & ML"}
                     </span>
                   </div>
