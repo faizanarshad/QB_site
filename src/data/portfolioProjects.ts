@@ -148,7 +148,7 @@ Access Provisioning: On successful payment, webhook triggers Firebase Authentica
     subtitle: "Indian Domestic Flight Analytics | 300,000+ Records",
     category: "data",
     emoji: "✈️",
-    image: "/images/airlines-dashboard.png",
+    image: "/images/airlines-dashboard.webp",
     summary:
       "Pandas-backed analytics on 300,153 records with Plotly dashboards: pricing, routes, seasonality, and hub performance across four HTML pages.",
     problem:

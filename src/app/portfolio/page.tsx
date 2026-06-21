@@ -82,23 +82,26 @@ const PortfolioPage = () => {
               >
                 {/* Screenshot preview — shown when the project has an image */}
                 {project.image ? (
-                  <div className="relative w-full h-48 overflow-hidden bg-gray-900 shrink-0">
+                  <div className="relative w-full h-52 overflow-hidden bg-gray-900 shrink-0">
                     <Image
                       src={project.image}
                       alt={`${project.title} screenshot`}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      className="object-cover object-top group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+                      quality={95}
                     />
-                    {/* Emoji badge overlaid on the image */}
+                    {/* Subtle gradient at bottom for readability */}
+                    <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-gray-900/60 to-transparent" />
+                    {/* Emoji badge */}
                     <span
-                      className="absolute bottom-3 left-3 text-2xl bg-white/90 rounded-full w-10 h-10 flex items-center justify-center shadow-md"
+                      className="absolute bottom-3 left-3 text-xl bg-white/95 rounded-full w-9 h-9 flex items-center justify-center shadow-lg"
                       aria-hidden
                     >
                       {project.emoji}
                     </span>
                     {/* Category pill */}
-                    <span className="absolute top-3 right-3 text-[10px] font-semibold uppercase tracking-wider bg-black/60 text-white px-2 py-1 rounded-full">
+                    <span className="absolute top-3 right-3 text-[10px] font-semibold uppercase tracking-wider bg-black/50 backdrop-blur-sm text-white px-2.5 py-1 rounded-full border border-white/20">
                       {project.category === "data" ? "Data & Analytics" : project.category === "healthcare" ? "Healthcare" : "AI & ML"}
                     </span>
                   </div>
