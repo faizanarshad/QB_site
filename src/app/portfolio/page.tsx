@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -77,23 +78,49 @@ const PortfolioPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.08 }}
                 whileHover={{ y: -8 }}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col border border-gray-100"
+                className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col border border-gray-100 group"
               >
-                <div className="p-8 flex flex-col flex-1">
-                  <div className="text-6xl mb-4 text-center" aria-hidden>
-                    {project.emoji}
+                {/* Screenshot preview — shown when the project has an image */}
+                {project.image ? (
+                  <div className="relative w-full h-48 overflow-hidden bg-gray-900 shrink-0">
+                    <Image
+                      src={project.image}
+                      alt={`${project.title} screenshot`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    />
+                    {/* Emoji badge overlaid on the image */}
+                    <span
+                      className="absolute bottom-3 left-3 text-2xl bg-white/90 rounded-full w-10 h-10 flex items-center justify-center shadow-md"
+                      aria-hidden
+                    >
+                      {project.emoji}
+                    </span>
+                    {/* Category pill */}
+                    <span className="absolute top-3 right-3 text-[10px] font-semibold uppercase tracking-wider bg-black/60 text-white px-2 py-1 rounded-full">
+                      {project.category === "data" ? "Data & Analytics" : project.category === "healthcare" ? "Healthcare" : "AI & ML"}
+                    </span>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                ) : (
+                  /* Fallback: large emoji for projects without screenshots */
+                  <div className="pt-8 pb-2 text-center">
+                    <span className="text-6xl" aria-hidden>{project.emoji}</span>
+                  </div>
+                )}
+
+                <div className={`flex flex-col flex-1 ${project.image ? "p-6" : "px-8 pb-8"}`}>
+                  <h3 className="text-xl font-bold text-gray-900 mb-1">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-blue-700 font-medium mb-4 line-clamp-2">
+                  <p className="text-sm text-blue-700 font-medium mb-3 line-clamp-2">
                     {project.subtitle}
                   </p>
-                  <p className="text-gray-600 mb-6 text-sm leading-relaxed flex-1">
+                  <p className="text-gray-600 mb-5 text-sm leading-relaxed flex-1">
                     {project.summary}
                   </p>
 
-                  <div className="mb-6">
+                  <div className="mb-5">
                     <h4 className="font-semibold text-gray-900 text-sm mb-2">
                       Stack highlights
                     </h4>

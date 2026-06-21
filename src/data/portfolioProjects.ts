@@ -4,6 +4,8 @@ export type PortfolioProject = {
   subtitle: string;
   category: "healthcare" | "ai" | "data";
   emoji: string;
+  /** Optional screenshot shown on the portfolio card and detail page. */
+  image?: string;
   summary: string;
   problem: string;
   solution: string;
@@ -146,6 +148,7 @@ Access Provisioning: On successful payment, webhook triggers Firebase Authentica
     subtitle: "Indian Domestic Flight Analytics | 300,000+ Records",
     category: "data",
     emoji: "✈️",
+    image: "/images/airlines-dashboard.png",
     summary:
       "Pandas-backed analytics on 300,153 records with Plotly dashboards: pricing, routes, seasonality, and hub performance across four HTML pages.",
     problem:
