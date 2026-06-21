@@ -130,7 +130,7 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({
                 animate="visible"
                 className="inline-block mr-2"
               >
-                {word}
+                {word}{" "}
               </motion.span>
             ))}
           </h1>

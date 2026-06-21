@@ -28,7 +28,7 @@ export function buildPageMetadata({
       url: pageUrl,
       siteName: "QBrix Solutions",
       type: "website",
-      images: [{ url: imageUrl }],
+      images: [{ url: imageUrl, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: "summary_large_image",

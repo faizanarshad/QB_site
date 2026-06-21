@@ -11,10 +11,51 @@ import { DEFAULT_OG_IMAGE } from "../lib/metadata";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const siteTitle = "QBrix Solutions - AI, ML, Computer Vision & Robotics Experts";
+const siteTitle = "QBrix Solutions | Production-Grade AI Systems";
 const siteDescription =
-  "Leading software house specializing in AI, Machine Learning, Computer Vision, E-commerce, and Robotics & Automation solutions.";
+  "QBrix Solutions is an Upwork Top Rated AI engineering team delivering RAG pipelines, LLM integrations, computer vision, and enterprise AI systems for healthcare and data-driven organisations.";
 const ogImageUrl = absoluteUrl(DEFAULT_OG_IMAGE);
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.qbrixsolutions.com/#organization",
+      name: "QBrix Solutions",
+      url: "https://www.qbrixsolutions.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.qbrixsolutions.com/images/qbrix-logo.png",
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+92-339-4101341",
+        email: "support@qbrixsolutions.com",
+        contactType: "customer service",
+        availableLanguage: "English",
+      },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "3rd Floor Gulberg Emporium, Business Square",
+        addressLocality: "Islamabad",
+        addressCountry: "PK",
+      },
+      description:
+        "QBrix Solutions is an AI/ML engineering company specialising in RAG pipelines, LLM integrations, computer vision, and enterprise AI systems.",
+      sameAs: [
+        "https://www.linkedin.com/in/mfaizanarshad/",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.qbrixsolutions.com/#website",
+      url: "https://www.qbrixsolutions.com",
+      name: "QBrix Solutions",
+      publisher: { "@id": "https://www.qbrixsolutions.com/#organization" },
+    },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -39,7 +80,7 @@ export const metadata: Metadata = {
     url: absoluteUrl("/"),
     siteName: "QBrix Solutions",
     type: "website",
-    images: [{ url: ogImageUrl }],
+    images: [{ url: ogImageUrl, width: 1200, height: 630, alt: siteTitle }],
   },
   twitter: {
     card: "summary_large_image",
@@ -61,7 +102,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head />
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+      </head>
       <body className={`${inter.className} antialiased`}>
         <Providers>
           {children}
