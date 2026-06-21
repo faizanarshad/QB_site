@@ -180,23 +180,8 @@ const ServicesPage = () => {
     }
   };
 
-  const floatingAnimation = {
-    y: [0, -10, 0],
-    transition: {
-      duration: 3,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }
-  };
-
-  const pulseAnimation = {
-    scale: [1, 1.05, 1],
-    transition: {
-      duration: 2,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }
-  };
+  // Removed floatingAnimation / pulseAnimation infinite JS loops.
+  // Replaced with CSS animations in className for GPU-composited rendering.
 
   const cardHoverVariants = {
     hover: {
@@ -711,10 +696,7 @@ const ServicesPage = () => {
                         transition={{ delay: 0.9 + index * 0.1, duration: 0.4 }}
                         className="flex items-center space-x-3"
                       >
-                        <motion.div 
-                          animate={pulseAnimation}
-                          className="w-2 h-2 bg-blue-500 rounded-full" 
-                        />
+                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
                         <span className="text-gray-700 text-sm">{benefit}</span>
                       </motion.div>
                     ))}
@@ -729,9 +711,7 @@ const ServicesPage = () => {
                   <span className="flex items-center justify-center gap-2">
                     Get Started
                     <motion.div
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                      className="group-hover:translate-x-1 transition-transform"
+                      className="group-hover:translate-x-1 transition-transform duration-200"
                     >
                       <FaArrowRight />
                     </motion.div>
@@ -787,20 +767,9 @@ const ServicesPage = () => {
       {/* CTA Section */}
       <section id="contact" className="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20" />
-        <motion.div 
-          animate={floatingAnimation}
-          className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" 
-        />
-        <motion.div 
-          animate={floatingAnimation}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" 
-        />
-        <motion.div 
-          animate={pulseAnimation}
-          transition={{ delay: 0.5 }}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white/5 rounded-full blur-2xl" 
-        />
+        <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white/5 rounded-full blur-2xl pointer-events-none" />
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
@@ -846,9 +815,7 @@ const ServicesPage = () => {
                   <span className="flex items-center gap-2">
                     Start Your Project
                     <motion.div
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                      className="group-hover:translate-x-1 transition-transform"
+                      className="group-hover:translate-x-1 transition-transform duration-200"
                     >
                       <FaArrowRight />
                     </motion.div>
