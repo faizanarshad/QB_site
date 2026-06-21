@@ -50,6 +50,7 @@ jspm_packages/
 
 # next.js build output
 .next
+tsconfig.tsbuildinfo
 
 # Nuxt.js build output
 .nuxt
