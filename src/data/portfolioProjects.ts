@@ -201,6 +201,8 @@ Access Provisioning: On successful payment, webhook triggers Firebase Authentica
     subtitle: "Comprehensive EV Market Analysis | 478 Models | 59 Brands",
     category: "data",
     emoji: "🚗",
+    image: "/images/ev-analytics-hub.webp",
+    imageTheme: "light",
     summary:
       "Three dashboards: Streamlit (8 pages), Dash (ML/clustering/3D), Gradio (NL queries and recommendations) over 478 models and 22+ features.",
     problem:
