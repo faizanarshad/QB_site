@@ -127,6 +127,8 @@ Access Provisioning: On successful payment, webhook triggers Firebase Authentica
     subtitle: "Document Intelligence Platform with Medical CSV Support",
     category: "ai",
     emoji: "📚",
+    image: "/images/agentic-rag.webp",
+    imageTheme: "light",
     summary:
       "Upload PDFs or CSVs; PHI redaction on medical CSVs with regex and spaCy; Pinecone vector search; GPT-4o-mini answers with citations.",
     problem:
