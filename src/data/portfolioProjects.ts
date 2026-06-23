@@ -101,6 +101,7 @@ Access Provisioning: On successful payment, webhook triggers Firebase Authentica
     subtitle: "Multimodal Intelligent Agent | Voice • Text • Vision",
     category: "ai",
     emoji: "🎙️",
+    image: "/images/ai-voice-assistant.webp",
     summary:
       "Flask app with LangGraph routing: fast-path for simple queries, GPT-4o / Claude / Ollama for complex tasks, vision for images, Redis caching, and sub–2.5s voice latency.",
     problem:
