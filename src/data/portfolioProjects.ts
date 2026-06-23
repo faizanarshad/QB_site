@@ -25,6 +25,8 @@ export const portfolioProjects: PortfolioProject[] = [
       "Healthcare Business Intelligence & Paid Dashboard Platform | Full-Stack Web Application",
     category: "healthcare",
     emoji: "🏥",
+    image: "/images/health-data-vitals.webp",
+    imageTheme: "light",
     summary:
       "Full-stack BI platform with daily Python ETL, three operational dashboards (Quality, Cost, Service Delivery), and Stripe subscriptions—aggregated data only, no patient clinical information.",
     problem:
