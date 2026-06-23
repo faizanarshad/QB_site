@@ -181,6 +181,8 @@ Access Provisioning: On successful payment, webhook triggers Firebase Authentica
     subtitle: "AI-Powered Hand Gesture Drawing Application",
     category: "ai",
     emoji: "🎨",
+    image: "/images/virtual-painter.webp",
+    imageTheme: "light",
     summary:
       "MediaPipe hand landmarks, gesture-based drawing, AI shape completion (circles/rectangles), voice commands, and flood fill—30+ FPS.",
     problem:
