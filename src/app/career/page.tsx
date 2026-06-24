@@ -252,7 +252,8 @@ const CareerPage = () => {
             document.getElementById("benefits")?.scrollIntoView({ behavior: "smooth" });
           },
         }}
-        illustrationUrl="/images/join_our_team.jpg"
+        illustrationUrl="/images/career-hero.webp"
+        illustrationAlt="Human Resources — Growth, Teamwork, Career, Benefits"
       />
 
       {/* Benefits Section */}
