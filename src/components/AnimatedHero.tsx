@@ -22,6 +22,8 @@ interface AnimatedHeroProps {
   illustrationUrl?: string;
   illustrationObjectFit?: "contain" | "cover";
   illustrationAlt?: string;
+  /** Use a 16:9 landscape container instead of the default square. Good for wide screenshots. */
+  illustrationWide?: boolean;
   showBrand?: boolean;
 }
 
@@ -69,6 +71,7 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({
   illustrationUrl,
   illustrationObjectFit = "contain",
   illustrationAlt = "Hero Illustration",
+  illustrationWide = false,
   showBrand = true,
 }) => {
   const shouldReduceMotion = useReducedMotion();
@@ -209,7 +212,11 @@ const AnimatedHero: React.FC<AnimatedHeroProps> = ({
             transition={{ delay: 0.6, duration: 0.9, ease: "easeOut" }}
             className="flex-1 flex items-center justify-center"
           >
-            <div className="relative w-80 h-80 md:w-[28rem] md:h-[28rem] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20 bg-white/10">
+            <div className={`relative overflow-hidden rounded-3xl shadow-2xl border-4 border-white/20 bg-white/10 ${
+                illustrationWide
+                  ? "w-full md:w-[34rem] h-[12rem] md:h-[19rem]"
+                  : "w-80 h-80 md:w-[28rem] md:h-[28rem]"
+              }`}>
               <Image
                 src={illustrationUrl}
                 alt={illustrationAlt}

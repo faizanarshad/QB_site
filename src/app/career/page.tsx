@@ -254,6 +254,8 @@ const CareerPage = () => {
         }}
         illustrationUrl="/images/career-hero.webp"
         illustrationAlt="Human Resources — Growth, Teamwork, Career, Benefits"
+        illustrationWide
+        illustrationObjectFit="cover"
       />
 
       {/* Benefits Section */}
