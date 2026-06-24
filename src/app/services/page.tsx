@@ -611,14 +611,14 @@ const ServicesPage = () => {
                   {services[activeService].icon}
                 </motion.div>
                 
-                <motion.h3 
+                <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.6 }}
                   className="text-3xl font-bold text-gray-900 mb-4"
                 >
                   {services[activeService].title}
-                </motion.h3>
+                </motion.p>
                 <motion.p 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}

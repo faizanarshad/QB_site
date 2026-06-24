@@ -30,10 +30,11 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <Header />
-      <AnimatedHero 
+      <AnimatedHero
         headline="Production-Grade AI Systems"
         subheadline="RAG pipelines, LLM integrations, computer vision & healthcare analytics"
         description="QBrix Solutions is an Upwork Top Rated AI engineering team delivering enterprise-ready AI systems that power business transformation."
+        showBrand={false}
         primaryAction={{
           text: "Explore Our Services",
           href: "/services"
