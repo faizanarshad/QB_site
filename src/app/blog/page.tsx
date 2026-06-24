@@ -94,7 +94,10 @@ const BlogPage = () => {
             el?.scrollIntoView({ behavior: "smooth" });
           },
         }}
-        illustrationUrl="/images/visual1.webp"
+        illustrationUrl="/images/blog-hero.webp"
+        illustrationAlt="Blog dashboard showing analytics, traffic, engagement and content flow"
+        illustrationWide
+        illustrationObjectFit="cover"
       />
 
       {/* Blog Posts Grid */}
