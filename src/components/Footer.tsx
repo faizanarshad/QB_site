@@ -44,21 +44,6 @@ const Footer = () => {
               Pioneering the future with cutting-edge AI, Machine Learning, Computer Vision, 
               E-commerce, and Robotics & Automation solutions.
             </p>
-            <div className="flex space-x-4">
-              {["Twitter", "LinkedIn", "GitHub"].map((social) => (
-                <motion.a
-                  key={social}
-                  href="#"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors duration-200"
-                >
-                  {social === "Twitter" && "🐦"}
-                  {social === "LinkedIn" && "💼"}
-                  {social === "GitHub" && "📚"}
-                </motion.a>
-              ))}
-            </div>
           </motion.div>
 
           <motion.div
