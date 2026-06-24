@@ -43,7 +43,10 @@ const PortfolioPage = () => {
           text: "Contact Us",
           href: "/contact",
         }}
-        illustrationUrl="/images/data_visualization.webp"
+        illustrationUrl="/images/portfolio-hero.webp"
+        illustrationAlt="AI engineer working across multiple monitors showing dashboards, code, ML pipelines and cloud architecture"
+        illustrationWide
+        illustrationObjectFit="cover"
       />
 
       <section className="py-12 bg-white">
